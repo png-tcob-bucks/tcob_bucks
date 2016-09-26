@@ -1,0 +1,30 @@
+<% if flash[:title] == "Error" %>
+<div class="notice-error"><%= flash[:notice] %></div>
+<% elsif flash[:title] == "Success" %>
+<div class="notice-success"><%= flash[:notice] %></div>
+<% end %>
+
+<center><h1>Log In</h1></center>
+
+<div class="field-group">
+  <%= form_for(:session, url: login_path) do |f| %>
+
+  <div class = "label" >
+    <%= f.label :id, "ID Number"%>
+  </div>
+  <div class = "field">
+    <%= f.text_field :id, class: 'id' %>
+  </div>
+
+  <div class = "label" >
+    <%= f.label :password %>
+  </div>
+  <div class = "field">
+    <%= f.password_field :password, class: 'password', id: 'password', type: 'password' %>
+  </div>
+  <div class = "login" >
+    <%= f.submit "Log in", class: "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>
+</div>

@@ -1,0 +1,22 @@
+<% if @departments.blank? %>
+	<p>There is no department information to show.</p>
+<% else %>
+	<table class = 'table-list'>
+		<tr class = "tr-list-head" >
+			<td class = "td-list">Department</td>
+			<td class = "td-list">Issued</td>
+			<td class = "td-list">Budget</td>
+			<td class = "td-list">% Budget Issued</td>
+			<td class = "td-list">Month Overall</td>
+		</tr>
+		<% @departments.each do |d|  %>
+		<tr class = "tr-list">
+			<td class = "td-list"> <%= d.name %> </td>
+			<td class = "td-list"> <%= d.get_budget_used %> </td>
+			<td class = "td-list"> <%= d.get_budget_overall %> </td>
+			<td class = "td-list"> <p class = <%= p_class_for_budget(d.get_budget_used, d.get_budget_overall)%>><%= d.get_budget_used_percent %>%</p> </td>
+			<td class = "td-list"> <p class = <%= p_class_for_budget(d.get_budget_used, d.get_property_budget_used)%>><%= d.get_propety_budget_total_used_percent %>%</p> </td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

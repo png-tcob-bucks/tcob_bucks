@@ -1,0 +1,28 @@
+<% if @favorites.blank? %>
+	<p>You don't have any favorite items yet! Browse through the store and set some goals!</p>
+<% else %>
+	<table class = 'table-list' id = 'table-prizes-small'>
+		<tr class = "tr-list-head" >
+			<td class = "td-list">ID</td>
+			<td class = "td-list">Name</td>
+			<td class = "td-list">Size</td>
+			<td class = "td-list">Color</td>
+			<td class = "td-list">Stock</td>
+			<td class = "td-list">Progress</td>
+			<td class = "td-list"></td>
+		</tr>
+		<% @favorites.each do |f|  
+			@prize = Prize.find(f.prize_id)
+			@prize_subcat = PrizeSubcat.find_by(prize_id: f.prize_id) %>
+		<tr class = "tr-list">
+			<td class = "td-list"> <%= @prize_subcat.id %> </td>
+			<td class = "td-list"> <%= @prize.name %> </td>
+			<td class = "td-list"> <%= @prize_subcat.size %> </td>
+			<td class = "td-list"> <%= @prize_subcat.color %> </td>
+			<td class = "td-list"> <%= @prize_subcat.stock %> </td>
+			<td class = "td-list"> <p class = "<%= progress_color(@balance, @prize.cost) %>"><%= @balance %> / <%= @prize.cost %> Bucks</p></td>
+			<td class = "td-list"> <a href = "/prizes/<%= @prize.id %>">Go To Prize</a> </td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

@@ -1,0 +1,24 @@
+<p><label for = "prize_name">Item Name</label>:<br>
+<%= text_field 'prize', 'name', id: 'prize_name' %></p>
+
+<p><label for = "prize_cost">Cost</label>:<br>
+<%= text_field 'prize', 'cost', id: 'prize_cost' %></p>
+
+<p><label for = "prize_image">Image Path (/images/image_path.png)</label>:<br>
+<%= text_field 'prize', 'image', id: 'prize_image' %></p>
+
+<p><%= label_tag('must_reserve', "Must be reserved and ordered?") %>
+<%= check_box 'prize', 'must_order', {}, 'true', 'false' %></p>
+
+<p><%= label_tag('featured', "Featured item: ") %>
+<%= check_box 'prize', 'featured', {}, 'true', 'false' %></p>
+
+<p><label for = "prize_image">Description</label>:<br>
+
+<% if @prize.nil? %>
+	<%= text_area_tag 'prize[description]', nil, size: "32x6" %>
+<% else %>
+	<%= text_area_tag 'prize[description]', @prize.description, size: "32x6" %>
+<% end %>
+
+<p class = "form-note">250 characters max</p>	

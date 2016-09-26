@@ -1,0 +1,32 @@
+<% if flash[:title] == "Error" %>
+	<div class="notice-error"><%= flash[:notice] %></div>
+<% elsif flash[:title] == "Success" %>
+	<div class="notice-success"><%= flash[:notice] %></div>
+<% end %>
+
+<h1>Manage Buck Store Prizes</h1>
+
+<% if @current_user.can_manage_inventory %>
+	<ul class = 'button-line'>
+		<a href="new"><li>New Prize</li></a>
+	</ul>
+
+	<div class = "table-search-input" id = "table_search_input_buck">
+	  <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+	    <%= text_field_tag :id, params[:id], placeholder: 'Prize ID' %>
+	    <%= text_field_tag :name, params[:name], placeholder: 'Name' %>
+			<%= select_tag :available, options_for_select([
+				[],
+				['Available', 1],
+				['Discontinued', 0]]) %>
+	    <%= submit_tag 'Search', id: 'search_prize_button' %>
+		<% end %>
+	</div>
+
+<% end %>
+
+<div class = "table-wrapper">
+	<div id = "prizes_table">
+		<%= render 'prizes_manage' %>
+		</div>
+</div>

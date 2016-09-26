@@ -1,0 +1,27 @@
+<% if @employees.blank? %>
+	<p>There is no employee information to show.</p>
+<% else 
+  budget_per_employee = @department.get_budget_per_employee %>
+	<table class = 'table-list'>
+		<tr class = "tr-list-head" >
+			<td class = "td-list">Ticket #</td>
+			<td class = "td-list">Name</td>
+			<td class = "td-list">Position</td>
+			<td class = "td-list">Issued</td>
+			<td class = "td-list">% of Budget</td>
+			<td class = "td-list">% of Dept Budget</td>
+		</tr>
+		<% @employees.each do |e| 
+			budget_used = e.get_personal_budget_used(@month, @year)
+			%>
+			<tr class = "tr-list" onclick=" window.document.location = '<%= employee_path(e) %>'; ">
+			<td class = "td-list"> <%= e.id %> </td>
+			<td class = "td-list"> <%= e.first_name + " " + e.last_name %> </td>
+			<td class = "td-list"> <%= Job.find(e.job_id).title %> </td>
+			<td class = "td-list"> <%= budget_used %> </td>
+			<td class = "td-list"> 			<p class = <%= p_class_for_budget(budget_used, budget_per_employee)%>><%= e.get_personal_budget_used_percent(@month, @year) %>%</p> </td>
+			<td class = "td-list"> 			<p class = <%= p_class_for_budget(budget_used, budget_per_employee)%>><%= e.get_department_budget_used_percent(@month, @year) %>%</p> </td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

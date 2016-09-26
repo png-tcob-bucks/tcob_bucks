@@ -1,0 +1,85 @@
+<p><label for = "prize_name">Name</label>: <%= @prize.name %><br>
+<p><label for = "prize_cost">Cost</label>: <%= @prize.cost %><br>
+
+<p><label for = "prize_stock">Stock</label>:<br>
+<%= text_field 'prize_subcat', 'stock', id: 'prize_subcat_stock', class: 'large-number' %></p>
+
+<% if @prize_subcat.nil? %>
+
+	<p><label for = "prize_subcat[size]">Size</label>:<br>
+	<%= select_tag 'prize_subcat[size]', options_for_select([
+		[],
+		['XS'],
+		['S'], 
+		['M'], 
+		['L'], 
+		['XL'],
+		['XXL'],
+		['XXXL']]) %>
+
+	<p><label for = "prize_subcat[color]">Color</label>:<br>
+	<%= select_tag 'prize_subcat[color]', options_for_select([
+		[],
+		['Black'],
+		['Blue'],
+		['Brown'],
+		['Dark Brown'],
+		['Gold'],
+		['Grey'],
+		['Green'],
+		['Light Brown'],
+		['Lime Green'],
+		['Maroon'],
+		['Navy'],
+		['Orange'],
+		['Pink'],
+		['Purple'],
+		['Red'],
+		['Sky Blue'],
+		['Teal'],
+		['White'],
+		['Yellow']]) %>
+
+	<p><label for = "prize_image">Image Path (/images/image_path.png)</label>:<br>
+	<%= text_field 'prize_subcat', 'image', id: 'prize_subcat_image' %></p>
+
+<% else %>
+
+	<p><label for = "prize_subcat[size]">Size</label>:<br>
+	<%= select_tag 'prize_subcat[size]', options_for_select([
+	[],
+	['XS'],
+	['S'], 
+	['M'], 
+	['L'], 
+	['XL'],
+	['XXL'],
+	['XXXL']], @prize_subcat.size) %>
+
+	<p><label for = "prize_subcat[color]">Color</label>:<br>
+	<%= select_tag 'prize_subcat[color]', options_for_select([
+	[],
+	['Black'],
+	['Blue'],
+	['Brown'],
+	['Dark Brown'],
+	['Gold'],
+	['Grey'],
+	['Green'],
+	['Light Brown'],
+	['Lime Green'],
+	['Maroon'],
+	['Navy'],
+	['Orange'],
+	['Pink'],
+	['Purple'],
+	['Red'],
+	['Sky Blue'],
+	['Teal'],
+	['White'],
+	['Yellow']], @prize_subcat.color) %>
+
+	<p><label for = "prize_image">Image Path (/images/image_path.png)</label>:<br>
+	<%= text_field 'prize_subcat', 'image', id: 'prize_subcat_image' %></p>
+
+<% end %>

@@ -1,0 +1,13 @@
+<% if @featured.blank? %>
+	<p>None</p>
+<% else %>
+<ul>
+	<% @featured.each do |p| %>
+		<%= link_to action: :show, id: p.id do %>
+		<li>
+		<img src="<%= p.get_first_image %>" class = "featured-image">
+		<p><b><%= p.name %></b></p>
+		</li>
+	<% end end %>
+</ul>
+<% end %>

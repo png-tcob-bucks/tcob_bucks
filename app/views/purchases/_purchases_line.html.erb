@@ -1,0 +1,17 @@
+<% if @purchases.blank? %>
+	<p>No purchases just yet!</p>
+<% else %>
+	<% @purchases.each do |p|  
+		@prize = Prize.find(p.prize_id) %>
+		<div class = "purchase-list-container" style="background-image: url('<%= @prize.get_first_image %>')">
+			<div class = "header">
+				<div class = "price">$<%= @prize.cost %></div>
+				<p class = "name"><b><%= @prize.name %></b></p>
+				<div class = "purchase-detail">
+					<p>Status: <%= p.status %> <br>
+					<%= p.created_at %></p>
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>

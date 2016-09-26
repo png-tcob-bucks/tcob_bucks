@@ -1,0 +1,47 @@
+<% if !@buck.nil? %>
+	<h1>Buck #<%= @buck.id %></h1>
+		<% @employee = Employee.find(@buck.employee_id) %>
+		<% @assignedBy = Employee.find(@buck.assignedBy) %>
+
+	<div id = "buck-holder">
+		<table id = "buck-detail-left">
+			<tr>
+				<td class = "buck-detail-cell-title">OWNER: </td>
+				<td class = "buck-detail-cell-content"><%= @employee.first_name + " " + @employee.last_name %></td>
+			</tr>
+			<tr>
+				<td class = "buck-detail-cell-title">FROM: </td>
+				<td class = "buck-detail-cell-content"><%= @assignedBy.first_name + " " + @assignedBy.last_name %></td>
+			</tr>
+			<tr>
+				<td class = "buck-detail-cell-title">DEPARTMENT: </td>
+				<td class = "buck-detail-cell-content"><%= Department.find(@buck.department_id).name %></td>
+			</tr>
+			<tr>
+				<td class = "buck-detail-cell-title">ACHIEVEMENT: </td>
+				<td class = "buck-detail-cell-content"><%= @buck.reason_short %></td>
+			</tr>
+		</table>
+		<table id = "buck-detail-right">
+			<tr>
+				<td class = "buck-detail-cell-title">VALUE: </td>
+				<td class = "buck-detail-cell-content"><%= @buck.value %></td>
+			</tr>
+			<tr>
+				<td class = "buck-detail-cell-title">STATUS: </td>
+				<td class = "buck-detail-cell-content"><%= @buck.status %></td>
+			</tr>
+			<tr>
+				<td class = "buck-detail-cell-title">EXPIRES: </td>
+				<td class = "buck-detail-cell-content"><%= @buck.expires %></td>
+			</tr>
+			<tr>
+				<td class = "buck-detail-cell-title">APPROVED: </td>
+				<td class = "buck-detail-cell-content"><%= @buck.approved_at %></td>
+			</tr>
+		</table>
+			<h2>DETAILED REASON:</h2>
+			<div id = "reason-long"><%= @buck.reason_long %>
+			</div>
+	</div>
+<% end %>

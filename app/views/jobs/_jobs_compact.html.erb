@@ -1,0 +1,8 @@
+<table class = "table-compact">
+<% @jobs_unassigned.each do |j|  %>
+	<tr class = "tr-list">
+			<td class = "td-small"> <%= j.jobcode %> </td>
+			<td class = "td-small"> <%= j.title %> </td>
+	</tr>
+	<% end %>
+</table>

@@ -1,0 +1,72 @@
+ <div id = "navigation">
+  <% 
+  if @user.nil?
+    @user = Employee.find_by(IDnum: session[:id])
+  else
+    @user
+  end 
+  %>
+
+  <ul>
+    <li><a href='/'>Home</a></li>
+    <li><%= link_to 'Your Profile', employee_path(@user) %></li>
+    <li><a href='/prizes'>Bucks Store</a></li>
+    <li><a href='/prizes/orders'>Your Orders</a></li>
+    <li><a href='/favorites'>Your Favorites</a></li>
+    <li><a href='/feedback'>Support & Feedback</a></li>
+    <li><%= link_to 'Logout', logout_path, method: "delete" %></li>
+  </ul>
+
+  <ul>
+    <% if @current_user.can_issue_bucks %>
+    <h1>Manage</h1>
+
+      <li><a href='/bucks/new'>New Buck</a></li>
+      <li><a href='/bucks/issued?show=you'>Bucks Issued</a></li>
+    <% end %>
+    <% if @current_user.can_view_dept %>
+      <li><a href="/employees/team">Your Department</a></li>
+    <% end %>
+    <% if @current_user.can_approve_bucks %>
+      <li><a href="/bucks/pending">Pending Approval
+          <% if @user.get_pending_bucks_count > 0 %>
+            <div class="notification"><%= @user.get_pending_bucks_count %></div>
+          <% end %>
+          </a> 
+      </li>
+    <% end %>
+    <% if @current_user.can_view_all %>
+      <li><a href="/bucks">All Bucks</a></li>
+    <% end %>
+
+  </ul>
+  <% if @current_user.can_manage_inventory %>
+  <ul>
+    <h1>Cashiers</h1>
+      <li><a href="/purchase/start">Begin Purchase</a></li>
+      <li><a href="/purchase/reserved">Reserved Prizes
+        <% if Purchase.where(status: 'Reserved').count > 0 %>
+          <div class="notification"><%= Purchase.where(status: 'Reserved').count %></div>
+        <% end %>
+      </a></li>
+      <li><a href="/prizes/manage">Manage Prizes</a></li>
+    <% end %>
+  </ul>
+
+  <% if @current_user.has_admin_access %>
+    <h1>Admin</h1>
+    <ul>
+      <li><a href="/employees">All Employees</a></li>
+      <li><a href="/admin/orders">Prize Orders
+          <% if Purchase.where(status: 'Ordered').count > 0 %>
+            <div class="notification"><%= Purchase.where(status: 'Ordered').count %></div>
+          <% end %>
+          </a> 
+      </li>
+      <li><a href='/admin/bucks/analyze'>Review Budgets</a></li>
+      <li><a href='/admin/dept_budgets'>Manage Budgets</a></li>
+      <li><a href='/roles'>Manage Permissions</a></li>
+      <li><a href="/admin/logs/bucks">Buck Logs</a></li>
+      <li><a href="/admin/logs/store">Store Logs</a></li>
+    </ul>
+  <% end %>

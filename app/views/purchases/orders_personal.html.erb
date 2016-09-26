@@ -1,0 +1,12 @@
+<% if flash[:title] == "Error" %>
+	<div class="notice-error"><%= flash[:notice] %></div>
+<% elsif flash[:title] == "Success" %>
+	<div class="notice-success"><%= flash[:notice] %></div>
+<% end %>
+
+<h1>Your Pending Orders and Reserved Prizes</h1>
+
+<div class = "table-wrapper">
+		<%= render 'purchases_orders_personal' %>
+</div>
+

@@ -1,0 +1,91 @@
+<p><label for = "prize_stock">Stock</label>:<br>
+<% if @prize.nil? %>
+	<%= text_field 'prize', 'stock', value: 0, class: 'number-large' %></p>
+<% else %>
+	<%= text_field 'prize', 'stock', value: @prize.stock,  class: 'number-large' %></p>
+<% end %>
+
+<% if @prize.nil? %>
+
+	<p><label for = "prize_size">Size</label>:<br>
+	<%= select_tag 'prize[size]', options_for_select([
+	[],
+	['XS'],
+	['S'], 
+	['M'], 
+	['L'], 
+	['XL'], 
+	['XXL'],
+	['XXXL']]) %></p>
+
+
+	<p><label for = "prize_color">Color</label><br>
+	<%= select_tag 'prize[color]', options_for_select([
+	[],
+	['Black'],
+	['Blue'],
+	['Brown'],
+	['Dark Brown'],
+	['Gold'],
+	['Grey'],
+	['Green'],
+	['Light Brown'],
+	['Lime Green'],
+	['Maroon'],
+	['Navy'],
+	['Orange'],
+	['Pink'],
+	['Purple'],
+	['Red'],
+	['Sky Blue'],
+	['Teal'],
+	['White'],
+	['Yellow']]) %></p>
+
+<% else %>
+
+<p><label for = "prize_size">Size</label>:<br>
+	<%= select_tag 'prize[size]', options_for_select([
+	[],
+	['XS'],
+	['S'], 
+	['M'], 
+	['L'], 
+	['XL'], 
+	['XXL'],
+	['XXXL']], selected: @prize.size) %></p>
+
+
+	<p><label for = "prize_color">Color</label><br>
+	<%= select_tag 'prize[color]', options_for_select([
+	[],
+	['Black'],
+	['Blue'],
+	['Brown'],
+	['Dark Brown'],
+	['Gold'],
+	['Grey'],
+	['Green'],
+	['Light Brown'],
+	['Lime Green'],
+	['Maroon'],
+	['Navy'],
+	['Orange'],
+	['Pink'],
+	['Purple'],
+	['Red'],
+	['Sky Blue'],
+	['Teal'],
+	['White'],
+	['Yellow']],  selected: @prize.color) %></p>
+
+<% end %>
+
+<p><label for = "prize_image">Image Path</label>:<br>
+<%= text_field 'prize', 'image', id: 'prize_image' %></p>
+
+<p><%= label_tag('must_reserve', "Must be reserved and ordered?") %>
+	<%= check_box 'prize', 'must_reserve', {}, 'true', 'false' %></p>
+
+<p><%= label_tag('available', "Currently available through the program?") %>
+	<%= check_box 'prize', 'available', {}, 'true', 'false' %></p>

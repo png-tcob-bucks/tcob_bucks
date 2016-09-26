@@ -1,0 +1,33 @@
+<% if @orders.blank? %>
+	<p>None</p>
+<% else %>
+	<table class = 'table-list'>
+		<tr class = "tr-list-head" >
+			<td>Purchase ID</td>
+			<td>Employee #</td>
+			<td>Employee Name</td>
+			<td>Cashier #</td>
+			<td>Cashier Name</td>
+			<td>Transaction</td>
+			<td>Prize</td>
+			<td>Ordered</td>
+			<td>Action</td>
+		</tr>
+		<% @orders.each do |o|  
+			@employee = Employee.find(o.employee_id)
+			@cashier = Employee.find(o.cashier_id)
+		%>
+		<tr class = "tr-list">
+			<td> <%= o.id %> </td>
+			<td> <%= @employee.id %> </td>
+			<td> <%= @employee.first_name + " " + @employee.last_name %> </td>
+			<td> <%= @cashier.id %> </td>
+			<td> <%= @cashier.first_name + " " + @cashier.last_name %> </td>
+			<td> <%= o.status %> </td>
+			<td> <%= Prize.find(o.prize_id).name %> </td>
+			<td> <%= o.created_at %> </td>
+			<td> <a href="orders/pickup/<%= o.id %>"><div class="button-yellow">Pick Up</div></a></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

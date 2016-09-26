@@ -1,0 +1,20 @@
+<div id = "header">
+  <div class = "header-split-2">
+    <div class = "banner-left">
+    </div>
+     <div class = "banner-center">
+     <img src = "/images/banner_logo.png" id = "logo">
+    </div>
+    <div class = "banner-right">
+    </div>
+
+  </div>
+  <div id = "header-bar">
+	  <p>Hello, <%= @current_user.first_name %>!</p>
+	  <div class="p2"><%= @current_user.get_bucks_balance %> Bucks</div>
+	</div>
+</div>
+<div id = "container">
+  <%= render 'layouts/navigation' %>
+</div>
+

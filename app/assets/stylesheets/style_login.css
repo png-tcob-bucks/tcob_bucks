@@ -1,0 +1,118 @@
+body {
+   margin: 0px;
+   background-image: url("/images/banner_back.png");
+   background-size: cover;
+   font-family: Helvetica, Geneva, Arial, sans-serif;
+   font-color: #393939;
+   background-color: #282828;
+}
+
+a:link, a:active, a:visited {
+   color: #6e4589;
+}
+
+div#header_logo_login {
+ width: 100%;
+ height: 100%;
+ vertical-align: middle;
+}
+
+#logo {
+ height: 125px;
+ width: 150px;
+ display: block;
+ margin: auto;
+}
+
+div#login-container {
+	width: 30%;
+	background: #FFFFFF;
+	margin: 16px auto 16px auto;
+	padding: 16px;
+	border-radius: 10px;
+	box-shadow: 0px 2px 10px #000000;
+}
+
+div#login-container h1 {
+	margin: 0px auto 0px auto;
+}
+
+div.field-group {
+	margin: 16px auto 16px auto;
+	width: 90%;
+}
+
+div.field-group .label {
+	margin: 16px auto 16px auto;
+	width: 100%;
+	    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.23);
+	font-size: 25px;
+	color: #393939;
+}
+
+div.field-group .field {
+	margin: 16px auto 16px auto;
+	width: 100%;
+}
+
+div.field-group .login {
+
+}
+
+input {
+	border-radius: 5px;
+  border: 1px solid #cccccc;
+  padding: 8px;
+  font-size: 15px;
+  color: #393939;
+}
+
+input:focus {
+   box-shadow: 0px 0px 3px #341a44;
+  outline: none;
+  border-radius: 5px;
+}
+
+input.id {
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #cccccc;
+  padding: 8px;
+  font-size: 15px;
+  outline: none;
+  color: #393939;
+}
+
+input.password {
+  text-security: disc;
+  -webkit-text-security: disc;
+  -mox-text-security: disc;
+	width: 100%;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  padding: 8px;
+  font-size: 15px;
+  outline: none;
+  color: #393939;
+}
+
+
+div.notice-error {
+  padding: 16px;
+  border: solid 1px #EF9A9A;
+  border-radius: 6px;
+  background-color: #FFCDD2;
+  color: #EF5350;
+  font-size: 14px;
+  margin: 0px 16px 16px 16px;
+}
+
+div.notice-success {
+  padding: 16px;
+  border: solid 1px #A5D6A7;
+  border-radius: 6px;
+  background-color: #C8E6C9;
+  color: #4CAF50;
+  font-size: 14px;
+  margin: 0px 16px 16px 16px;
+}

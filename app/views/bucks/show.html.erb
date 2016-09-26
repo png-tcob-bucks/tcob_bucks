@@ -1,0 +1,7 @@
+<% if flash[:title] == "Error" %>
+	<div class="notice-error"><%= flash[:notice] %></div>
+<% elsif flash[:title] == "Success" %>
+	<div class="notice-success"><%= flash[:notice] %></div>
+<% end %>
+
+<%= render 'buck_detail' %>

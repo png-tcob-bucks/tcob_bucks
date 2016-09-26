@@ -1,0 +1,24 @@
+<% if @employees.blank? %>
+	<p>Search for an employee using the given fields.</p>
+<% else %>
+	<table class = 'table-list'>
+		<tr class = "tr-list-head" >
+			<td class = "td-list">Employee #</td>
+			<td class = "td-list">Employee Name</td>
+			<td class = "td-list">Position</td>
+			<td class = "td-list">Balance</td>
+			<td class = "td-list">Earned This Month</td>
+			<td class = "td-list">Earned This Year</td>
+		</tr>
+		<% @employees.sort_by_earned_month.reverse.each do |e|  %>
+			<tr class = "tr-list" onclick=" window.document.location = '<%= employee_path(e) %>'; ">
+			<td class = "td-list"> <%= e.id %> </td>
+			<td class = "td-list"> <%= e.first_name + " " + e.last_name %> </td>
+			<td class = "td-list"> <%= Job.find(e.job_id).title %> </td>
+			<td class = "td-list"> <%= e.get_bucks_balance %> </td>
+			<td class = "td-list"> <%= e.get_bucks_earned_month %> </td>
+			<td class = "td-list"> <%= e.get_bucks_earned_year %> </td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

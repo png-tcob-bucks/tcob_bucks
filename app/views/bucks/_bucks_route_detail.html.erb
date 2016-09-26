@@ -1,0 +1,40 @@
+<% if @bucks.blank? %>
+	<p>None</p>
+<% else %>
+	<table class = 'table-list'>
+		<tr class = "tr-list-head" >
+			<td class = "td-list"><%= buck_sortable "number" %></td>
+			<td class = "td-list"><%= buck_sortable "employee_id" %></td>
+			<td class = "td-list"><%= buck_sortable "employeeName" %></td>
+			<td class = "td-list"><%= buck_sortable "value" %></td>
+			<td class = "td-list"><%= buck_sortable "assignedBy" %></td>
+			<td class = "td-list"><%= buck_sortable "reason_short" %></td>
+			<td class = "td-list"><%= buck_sortable "status" %></td>
+			<td class = "td-list"><%= buck_sortable "expires" %></td>
+			<td class = "td-list"><%= buck_sortable "approved" %></td>
+			<% if @current_user.has_admin_access %>
+				<td class = "td-list">Admin</td>
+			<% end %>
+		</tr>
+		<% 	 
+			@bucks = @bucks.reverse if params[:direction] == "desc"
+			@bucks.each do |b| 
+			@assignedTo = Employee.find(b.employee_id) 
+			@assignedBy = Employee.find(b.assignedBy) %>
+		<tr class = "tr-list" onclick=" window.document.location = '<%= buck_path(b) %>'; ">
+			<td class = "td-list"> <%= b.number %> </td>
+			<td class = "td-list"> <%= b.employee_id %> </td>
+			<td class = "td-list"> <%= @assignedTo.first_name + " " + @assignedTo.last_name %> </td>
+			<td class = "td-list"> <%= b.value %> </td>
+			<td class = "td-list"> <%= @assignedBy.first_name + " " + @assignedBy.last_name %> </td>
+			<td class = "td-list"> <%= b.reason_short %> </td>
+			<td class = "td-list"> <%= b.status %> </td>
+			<td class = "td-list"> <%= l b.expires.localtime.to_date if b.expires? %> </td>
+			<td class = "td-list"> <%= l b.approved_at.localtime if !b.approved_at.nil? %></td>
+			<% if @current_user.has_admin_access %>
+			<td class = "td-list"> <%= link_to 'Void', { controller: :bucks, action: :delete, id: b}, data: {confirm: "Are you sure?"} %> </td>
+			<% end %>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

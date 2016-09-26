@@ -1,0 +1,41 @@
+<% if @roles.blank? %>
+	<p>There are no roles.</p>
+<% else %>
+	<table class = 'table-compact'>
+		<tr class = "tr-list-head" >
+			<td>Title</td>
+			<td>App Access</td>
+			<td>Issue</td>
+			<td>Earn</td>
+			<td>Approve</td>
+			<td>Redeem</td>
+			<td>Issue Gold</td>
+			<td>Inventory</td>
+			<td>View Dept</td>
+			<td>View All</td>
+			<td>Feedback</td>
+			<td>Admin</td>
+			<td>Change</td>
+		</tr>
+		<% @roles.each do |r|  %>
+			<tr class = "tr-list" onclick=" window.document.location = ''; ">
+				<td> <%= r.title %> </td>
+				<td> <%= 'X' if r.access? %> </td>
+				<td> <%= 'X' if r.issue? %> </td>
+				<td> <%= 'X' if r.recieve? %> </td>
+				<td> <%= 'X' if r.approve? %> </td>
+				<td> <%= 'X' if r.redeem? %> </td>
+				<td> <%= 'X' if r.issue_gold? %> </td>
+				<td> <%= 'X' if r.inventory? %> </td>
+				<td> <%= 'X' if r.view_dept? %> </td>
+				<td> <%= 'X' if r.view_all? %> </td>
+				<td> <%= 'X' if r.feedback? %> </td>
+				<td> <%= 'X' if r.admin? %> </td>
+				<td> 
+				<%= link_to 'Assign', { action: :assign, id: r} %> |
+				<%= link_to 'Edit', { action: :edit, id: r} %> | 
+				<%= link_to 'Delete', { action: :delete, id: r}, data: {confirm: "Are you sure?"} %> </td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>

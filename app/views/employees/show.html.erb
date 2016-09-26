@@ -1,0 +1,92 @@
+<% if flash[:title] == "Error" %>
+<div class="notice-error"><%= flash[:notice] %></div>
+<% elsif flash[:title] == "Success" %>
+<div class="notice-success"><%= flash[:notice] %></div>
+<% end %>
+
+<div id = "profile-head">
+	<div class = "name"><%= @employee.first_name + " " + @employee.last_name%></div>
+	<div class = "buck-total">
+		<%= @employee.get_bucks_balance %> Bucks
+	</div>
+</div>
+
+<div id = "profile-body">
+	<div id = "profile-detail-holder">
+
+		<h1>Information</h1>
+		<table class = "detail-table">
+			<tr>
+				<td class = "detail-title">Employee #: </td>
+				<td class = "detail-content"><%= "#" + @employee.id.to_s %></td>
+			</tr>
+			<tr>
+				<td class = "detail-title">Department: </td>
+				<td class = "detail-content"><%= Department.find(@employee.department_id).name %></td>
+			</tr>
+			<tr>
+				<td class = "detail-title">Position: </td>
+				<td class = "detail-content"><%= Job.find(@employee.job_id).title %></td>
+			</tr>
+			<% if @current_user.has_admin_access %>
+			<tr>
+				<td class = "detail-title">Roles: </td>
+				<td class = "detail-content"><% Permission.where(job_id: @employee.job_id).each do |p| %>
+					<%= Role.find(p.role_id).title %><br>
+      	<% end %></td>
+			</tr>
+			<% end %>
+			<tr><td><br></td></tr>
+
+			<tr>
+				<td class = "detail-title">Attendance: </td>
+				<td class = "detail-content"> <%= Buck.where(employee_id: @employee.id).where(reason_short: 'Attendance').count %> </td>
+			</tr>
+
+			<tr>
+				<td class = "detail-title">Community Involvement: </td>
+				<td class = "detail-content"> <%= Buck.where(employee_id: @employee.id).where(reason_short: 'Community Involvement').count %> </td>
+			</tr>
+
+			<tr>
+				<td class = "detail-title">Customer Service: </td>
+				<td class = "detail-content"> <%= Buck.where(employee_id: @employee.id).where(reason_short: 'Customer Service').count %> </td>
+			</tr>
+
+			<tr>
+				<td class = "detail-title">Shift Coverage: </td>
+				<td class = "detail-content"> <%= Buck.where(employee_id: @employee.id).where(reason_short: 'Shift Coverage').count %> </td>
+			</tr>
+
+			<tr>
+				<td class = "detail-title">Other: </td>
+				<td class = "detail-content"> <%= Buck.where(employee_id: @employee.id).where(reason_short: 'Other').count %> </td>
+			</tr>
+
+		</table>
+	</div>
+
+	<div id = "profile-table-holder">
+		<h1>Bucks Earned In The Last 30 Days</h1>
+		<div class = "table-wrapper">
+			<div class = "y-max-300">
+				<%= render 'bucks/bucks_monthly_mini' %>
+			</div>
+		</div>
+		<h1>Prizes Earned</h1>
+		<div class = "table-wrapper">
+			<div class = "x-max">
+				<%= render 'purchases/purchases_line' %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class = "clear"></div>
+
+<h1>Available to Spend</h1>
+<div class = "table-wrapper">
+	<div id = "bucks_table">
+		<%= render 'bucks/bucks_route_detail' %>
+	</div>
+</div>

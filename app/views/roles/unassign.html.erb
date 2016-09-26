@@ -1,0 +1,17 @@
+<div class = "split_2">
+	<div class = "table-wrapper-compact">
+	<h2>Assigned to <%= @role.title %></h2>
+		<div class = "y-max-500">
+			<table class = "table-compact" id = "tables_toles_added">
+			<% @permitted.each do |j|  %>
+				<tr>
+					<td class = "td-small"> <%= j.jobcode %> </td>
+					<td class = "td-small"> <%= j.title %> </td>
+					<td class = "td-small"> <%= link_to 'Remove', { action: :remove_from_role, role: @role, job: j }, remote: true %> </td>
+				</tr>
+			<% end %>
+			</table>
+		</div>
+	</div>
+</div>
+<a href="/roles"><div class = "button-div">Finish</div></a>

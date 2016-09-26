@@ -1,0 +1,19 @@
+<% if flash[:title] == "Error" %>
+	<div class="notice-error"><%= flash[:notice] %></div>
+<% elsif flash[:title] == "Success" %>
+	<div class="notice-success"><%= flash[:notice] %></div>
+<% end %>
+
+<h2>Support and Feedback</h2>
+
+<p>Enter any feedback or questions you have about the bucks application or the program:</p>
+
+<%= form_tag :action => 'feedback_deliver' do %>
+
+<%= text_area_tag 'feedback_message', nil, size: "48x24", id: 'feedback_message' %>
+
+<br/>
+
+<%= submit_tag 'Submit' %>
+
+<% end -%>

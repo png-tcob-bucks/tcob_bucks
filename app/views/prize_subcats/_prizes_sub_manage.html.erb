@@ -1,0 +1,26 @@
+<% if @prize_subcats.blank? %>
+	<p>No results to show.</p>
+<% else %>
+	<table class = 'table-list' id = 'table-prizes-small'>
+		<tr class = "tr-list-head" >
+			<td class = "td-list">ID</td>
+			<td class = "td-list">Size</td>
+			<td class = "td-list">Color</td>
+			<td class = "td-list">Stock</td>
+			<td class = "td-list">Image</td>
+			<td class = "td-list">Updated</td>
+			<td class = "td-list">Manage</td>
+		</tr>
+		<% @prize_subcats.each do |p|  %>
+		<tr class = "tr-list">
+			<td class = "td-list"> <%= p.id %> </td>
+			<td class = "td-list"> <%= p.size %> </td>
+			<td class = "td-list"> <%= p.color %> </td>
+			<td class = "td-list"> <%= p.stock %> </td>
+			<td class = "td-list"> <%= "X" if !p.image.blank? %> </td>
+			<td class = "td-list"> <%= p.updated_at %> </td>
+			<td class = "td-list"> <%= link_to 'Edit', { action: :edit, id: p.id} %> </td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

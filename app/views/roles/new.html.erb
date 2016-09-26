@@ -1,0 +1,57 @@
+<% if flash[:notice] %>
+  <div class="notice-error">
+  <% flash[:notice].each do | k, m |
+   	flash[:notice][k].each do | e | %>
+   		<%= e %><br>
+   	<% end
+  end %>
+  </div>
+<% end %>
+
+<h1>New Role</h1>
+
+<div class = "table-wrapper">
+	<div class = "form-container">
+		<%= form_tag :action => 'create' do %>
+
+			<p><label for = "title">Title</label>:<br>
+			<%= text_field 'role', 'title' %></p>
+				<p><%= label_tag('access', "Overall Access: ") %>
+					<%= check_box 'role', 'access', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('issue', "Issue Bucks: ") %>
+					<%= check_box 'role', 'issue', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('recieve', "Earn Bucks: ") %>
+					<%= check_box 'role', 'recieve', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('approve', "Approve Bucks: ") %>
+					<%= check_box 'role', 'approve', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('redeem', "Redeem Bucks: ") %>
+					<%= check_box 'role', 'redeem', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('issue_gold', "Issue Gold 100% Bucks: ") %>
+					<%= check_box 'role', 'issue_gold', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('inventory', "Manage Inventory: ") %>
+					<%= check_box 'role', 'inventory', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('view_dept', "View Department: ") %>
+					<%= check_box 'role', 'view_dept', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('view_all', "View All: ") %>
+					<%= check_box 'role', 'view_all', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('feedback', "Feedback Notify: ") %>
+					<%= check_box 'role', 'feedback', {}, 'true', 'false' %><br>
+				</p>
+				<p><%= label_tag('admin', "Administrator: ") %>
+					<%= check_box 'role', 'admin', {}, 'true', 'false' %><br>
+				</p>
+			<br>
+			<%= submit_tag 'Submit' %>
+		<% end -%>
+	</div>
+</div>
+<a href="/roles"><div class = "button-div">Cancel</div></a>

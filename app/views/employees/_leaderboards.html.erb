@@ -1,0 +1,89 @@
+<div class = "leaderboard-category">Attendance</div>
+<table class = 'leaderboards'>
+<tr class = "leaderboard-tr-head" >
+	<td>Rank</td>
+	<td>Name</td>
+	<td>Bucks</td>
+</tr>
+<% rank = 1
+@top_attendance.each do |a| %>
+<tr>
+	<td> <b><%= rank %>.</b> </td>
+	<td> <%= Employee.find(a.IDnum).full_name %> </td>
+	<td> <%= a.bucks_count %> </td>
+</tr>
+<% rank = rank + 1
+end %>
+</table>
+
+<div class = "leaderboard-category">Community Involvement</div>
+<table class = 'leaderboards'>
+<tr class = "leaderboard-tr-head" >
+	<td>Rank</td>
+	<td>Name</td>
+	<td>Bucks</td>
+</tr>
+<% rank = 1
+@top_community.each do |a| %>
+<tr>
+	<td> <b><%= rank %>.</b> </td>
+	<td> <%= Employee.find(a.IDnum).full_name %> </td>
+	<td> <%= a.bucks_count %> </td>
+</tr>
+<% rank = rank + 1
+end %>
+</table>
+
+<div class = "leaderboard-category">Customer Service</div>
+<table class = 'leaderboards'>
+<tr class = "leaderboard-tr-head" >
+	<td>Rank</td>
+	<td>Name</td>
+	<td>Bucks</td>
+</tr>
+<% rank = 1
+@top_service.each do |a| %>
+<tr>
+	<td> <b><%= rank %>.</b> </td>
+	<td> <%= Employee.find(a.IDnum).full_name %> </td>
+	<td> <%= a.bucks_count %> </td>
+</tr>
+<% rank = rank + 1
+end %>
+</table>
+
+<div class = "leaderboard-category">Shift Coverage</div>
+<table class = 'leaderboards'>
+<tr class = "leaderboard-tr-head" >
+	<td>Rank</td>
+	<td>Name</td>
+	<td>Bucks</td>
+</tr>
+<% rank = 1
+@top_shift.each do |a| %>
+<tr>
+	<td> <b><%= rank %>.</b> </td>
+	<td> <%= Employee.find(a.IDnum).full_name %> </td>
+	<td> <%= a.bucks_count %> </td>
+</tr>
+<% rank = rank + 1
+end %>
+</table>
+
+<div class = "leaderboard-category">Other</div>
+<table class = 'leaderboards'>
+<tr class = "leaderboard-tr-head" >
+	<td>Rank</td>
+	<td>Name</td>
+	<td>Bucks</td>
+</tr>
+<% rank = 1
+@top_other.each do |a| %>
+<tr>
+	<td> <b><%= rank %>.</b> </td>
+	<td> <%= Employee.find(a.IDnum).full_name %> </td>
+	<td> <%= a.bucks_count %> </td>
+</tr>
+<% rank = rank + 1
+end %>
+</table>
