@@ -1,23 +1,29 @@
-<% if flash[:title] == "Error" %>
-	<div class="notice-error"><%= flash[:notice] %></div>
-<% elsif flash[:title] == "Success" %>
-	<div class="notice-success"><%= flash[:notice] %></div>
-<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
 
-<h1>Administrator: Manage Roles and Permissions</h1>
+        <h1>Administrator: Manage Roles and Permissions</h1>
 
-<a href="roles/new"><div class = "button-div">Add New Role</div></a>
+        <a href="roles/new"><div class = "button-div">Add New Role</div></a>
 
-<div class = "table-wrapper">
-	<div id = "employees_table">
-		<%= render 'roles_list' %>
-	</div>
-</div>
+        <div class = "table-wrapper">
+          <div id = "employees_table">
+            <%= render 'roles_list' %>
+          </div>
+        </div>
 
-<h1>Job Codes Without Assignments</h1>
+        <h1>Job Codes Without Assignments</h1>
 
-<div class = "table-wrapper">
-	<div id = "employees_table">
-		<%= render 'jobs/jobs_compact' %>
-	</div>
+        <div class = "table-wrapper">
+          <div id = "employees_table">
+            <%= render 'jobs/jobs_compact' %>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>

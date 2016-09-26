@@ -1,19 +1,26 @@
-<% if flash[:title] == "Error" %>
-	<div class="notice-error"><%= flash[:notice] %></div>
-<% elsif flash[:title] == "Success" %>
-	<div class="notice-success"><%= flash[:notice] %></div>
-<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
 
-<h2>Support and Feedback</h2>
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
 
-<p>Enter any feedback or questions you have about the bucks application or the program:</p>
+        <h2>Support and Feedback</h2>
 
-<%= form_tag :action => 'feedback_deliver' do %>
+        <p>Enter any feedback or questions you have about the bucks application or the program:</p>
 
-<%= text_area_tag 'feedback_message', nil, size: "48x24", id: 'feedback_message' %>
+        <%= form_tag :action => 'feedback_deliver' do %>
 
-<br/>
+        <%= text_area_tag 'feedback_message', nil, size: "48x24", id: 'feedback_message' %>
 
-<%= submit_tag 'Submit' %>
+        <br/>
 
-<% end -%>
+        <%= submit_tag 'Submit' %>
+
+        <% end -%>
+    </div>
+  </div>
+</div>

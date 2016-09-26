@@ -1,28 +1,36 @@
+
 <% if @favorites.blank? %>
-	<p>You don't have any favorite items yet! Browse through the store and set some goals!</p>
+    <p>You don't have any favorite items yet! Browse through the store and set some goals!</p>
 <% else %>
-	<table class = 'table-list' id = 'table-prizes-small'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list">ID</td>
-			<td class = "td-list">Name</td>
-			<td class = "td-list">Size</td>
-			<td class = "td-list">Color</td>
-			<td class = "td-list">Stock</td>
-			<td class = "td-list">Progress</td>
-			<td class = "td-list"></td>
-		</tr>
-		<% @favorites.each do |f|  
-			@prize = Prize.find(f.prize_id)
-			@prize_subcat = PrizeSubcat.find_by(prize_id: f.prize_id) %>
-		<tr class = "tr-list">
-			<td class = "td-list"> <%= @prize_subcat.id %> </td>
-			<td class = "td-list"> <%= @prize.name %> </td>
-			<td class = "td-list"> <%= @prize_subcat.size %> </td>
-			<td class = "td-list"> <%= @prize_subcat.color %> </td>
-			<td class = "td-list"> <%= @prize_subcat.stock %> </td>
-			<td class = "td-list"> <p class = "<%= progress_color(@balance, @prize.cost) %>"><%= @balance %> / <%= @prize.cost %> Bucks</p></td>
-			<td class = "td-list"> <a href = "/prizes/<%= @prize.id %>">Go To Prize</a> </td>
-		</tr>
-		<% end %>
-	</table>
+
+    <ul class = "grid-view">
+      <% @favorites.each do |f|
+        @prize = Prize.find(f.prize_id)
+        @prize_subcat = PrizeSubcat.find_by(prize_id: f.prize_id) %>
+          <li>
+            <div class="prize" style="background-image:url(<%= @prize.get_first_image %>);">
+              <div class="prize-tag">
+                <%= @prize.cost %> Bucks
+              </div>
+
+              <div class='prize-info'>
+                <%= link_to @prize.name, controller: :prizes, action: :show, id: f.prize_id %>
+                <br><%= @prize_subcat.stock %> In Stock
+                <br>
+                <%= @prize_subcat.size %>
+                <%= @prize_subcat.color %>
+              </div>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                     aria-valuemin="0" aria-valuemax="100" style="width:<%= item_progress(@prize.cost, @balance) %>%">
+                  <%= progress_color(@balance, @prize.cost) %>
+                  <%= @balance %> / <%= @prize.cost %> Bucks
+                </div>
+              </div>
+            </div>
+
+      <% end %>
+      </li>
+    </ul>
 <% end %>

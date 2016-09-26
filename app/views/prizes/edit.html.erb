@@ -1,22 +1,28 @@
-<% if flash[:notice] %>
-  <div class="notice-error">
-  <% flash[:notice].each do | k, m |
-   	flash[:notice][k].each do | e | %>
-   		<%= e %><br>
-   	<% end end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <% if flash[:notice] %>
+          <div class="notice-error">
+          <% flash[:notice].each do | k, m |
+            flash[:notice][k].each do | e | %>
+              <%= e %><br>
+            <% end end %>
+          </div>
+        <% end %>
+
+        <h1>Edit Prize Listing</h1>
+
+        <div class = "table-wrapper">
+          <div class = "form-container">
+          <%= form_tag action: 'edit' do %>
+
+            <%= render 'prize_form_contents' %>
+
+            <%= submit_tag 'Save Changes' %>
+            <%= button_tag 'Cancel', type: 'cancel', name: 'cancel' %>
+          <% end -%>
+          </div>
+        </div>
+    </div>
   </div>
-<% end %>
-
-<h1>Edit Prize Listing</h1>
-
-<div class = "table-wrapper">
-	<div class = "form-container">
-  <%= form_tag action: 'edit' do %>
-
-    <%= render 'prize_form_contents' %>
-    
-    <%= submit_tag 'Save Changes' %>
-    <%= button_tag 'Cancel', type: 'cancel', name: 'cancel' %>
-  <% end -%>
-	</div>
 </div>

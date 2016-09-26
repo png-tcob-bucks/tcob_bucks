@@ -3,22 +3,22 @@ function updateBuckValue(earned_for) {
 	var buck_value = document.getElementById('buck_value');
     	switch(earned_for.value) {
            case "A+ Service":
-           buck_value.value = 20
+           buck_value.value = 20;
            break;
            case "Attendance":
-           buck_value.value = 3
+           buck_value.value = 3;
            break;
            case "Community Involvement":
-           buck_value.value = 3
+           buck_value.value = 3;
            break;
            case "Customer Service":
-           buck_value.value = 5
+           buck_value.value = 5;
            break;
            case "Shift Coverage":
-           buck_value.value = 2
+           buck_value.value = 2;
            break;
            default:
-           buck_value.value = 0
+           buck_value.value = 0;
            break;
    }
 }
@@ -28,7 +28,7 @@ function toggle_reasons() {
    var t = document.getElementById('reason_long');
    var r = document.getElementById('toggle_reasons');
    if(o.style.display == 'block') {
-      t.style.display = 'block'
+      t.style.display = 'block';
       o.style.display = 'none';
       r.innerHTML = "+ Common Reasons"
     }

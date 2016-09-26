@@ -1,21 +1,28 @@
-<% if flash[:notice] %>
-  <div class="notice-error">
-  <% flash[:notice].each do | k, m |
-   	flash[:notice][k].each do | e | %>
-   		<%= e %><br>
-   	<% end
-  end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <% if flash[:notice] %>
+          <div class="notice-error">
+          <% flash[:notice].each do | k, m |
+            flash[:notice][k].each do | e | %>
+              <%= e %><br>
+            <% end
+          end %>
+          </div>
+        <% end %>
+
+        <h1>New Prize Listing</h1>
+
+        <div class = "form-container">
+          <%= form_tag :action => 'create' do %>
+
+            <%= render 'prize_form_contents' %>
+
+            <%= submit_tag 'Submit' %>
+          <% end -%>
+        </div>
+    </div>
   </div>
-<% end %>
-
-<h1>New Prize Listing</h1>
-
-<div class = "form-container">
-	<%= form_tag :action => 'create' do %>
-
-		<%= render 'prize_form_contents' %>
-		
-		<%= submit_tag 'Submit' %>
-	<% end -%>
 </div>
+
 

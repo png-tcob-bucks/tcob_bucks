@@ -1,18 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>TCOB Bucks</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>  <!-- Latest compiled and minified CSS for Bootstrap -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href="/assets/stylesheets//navbar-fixed-side.css" rel="stylesheet" />
+  <!-- jQuery library for Bootstrap -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <!-- Latest compiled JavaScript -->
+
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Andada" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Damion" />
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'default', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <meta http-equiv = "Content-Type" content = "text/html; charset = iso-8859-1" />
-  <meta http-equiv = "Content-Language" content = "en-us" />
-</head>
 
-<%= render 'layouts/layout_header' %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<div id = "content">
-	<%= yield %>
-</div>
+  <div class="header hidden-xs">
+    <img width="100%" src="/images/banner.jpg">
+  </div>
+  <div class="row" >
+    <div class="col-sm-12" id = "header-bar">
+      <p>Hello, <%= @current_user.first_name %>!</p>
+      <div class="p2"><%= @current_user.get_bucks_balance %> Bucks</div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 ">
+        <div id="navigation"><%= render 'layouts/navigation' %></div>
+      </div>
+      <div class="col-sm-10">
+        <div class="panel-body"><%= yield %></div>
+      </div>
+    </div>
+  </div>
+
 
 </html>

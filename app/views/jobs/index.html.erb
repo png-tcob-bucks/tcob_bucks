@@ -1,30 +1,36 @@
-<% if flash[:title] == "Error" %>
-	<div class="notice-error"><%= flash[:notice] %></div>
-<% elsif flash[:title] == "Success" %>
-	<div class="notice-success"><%= flash[:notice] %></div>
-<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
 
-<h1>All Jobs</h1>
+        <h1>All Jobs</h1>
 
-<a href="jobs/import"><div class = "button-div">Import</div></a>
+        <a href="jobs/import"><div class = "button-div">Import</div></a>
 
-<div class = "table-wrapper">
-	<div id = "employees_table">
-		<% if @jobs.blank? %>
-			<p>There is no job information to show.</p>
-		<% else %>
-			<table class = 'table-list'>
-				<tr class = "tr-list-head" >
-					<td class = "td-list">Name</td>
-					<td class = "td-list">Role</td>
-				</tr>
-				<% @jobs.each do |j|  %>
-					<tr class = "tr-list">
-					<td class = "td-list"> <%= j.jobcode %> </td>
-					<td class = "td-list"> <%= j.title %> </td>
-				</tr>
-				<% end %>
-			</table>
-		<% end %>
-	</div>
+        <div class = "table-wrapper">
+          <div id = "employees_table">
+            <% if @jobs.blank? %>
+              <p>There is no job information to show.</p>
+            <% else %>
+              <table class = 'table-list'>
+                <tr class = "tr-list-head" >
+                  <td class = "td-list">Name</td>
+                  <td class = "td-list">Role</td>
+                </tr>
+                <% @jobs.each do |j|  %>
+                  <tr class = "tr-list">
+                  <td class = "td-list"> <%= j.jobcode %> </td>
+                  <td class = "td-list"> <%= j.title %> </td>
+                </tr>
+                <% end %>
+              </table>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>

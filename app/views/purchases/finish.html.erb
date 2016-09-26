@@ -1,112 +1,118 @@
-<% if flash[:title] == "Error" %>
-	<div class="notice-error"><%= flash[:notice] %></div>
-<% elsif flash[:title] == "Success" %>
-	<div class="notice-success"><%= flash[:notice] %></div>
-<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
 
-<h1>Select Prize and Confirm Purchase</h1>
+        <h1>Select Prize and Confirm Purchase</h1>
 
-<div class = "sub-container">
-	<div class = "form-container">
+        <div class = "sub-container">
+          <div class = "form-container">
 
-		<h2>Employee</h2>
+            <h2>Employee (select below)</h2>
 
-		<%= form_tag :action => 'complete' do %>
+            <%= form_tag :action => 'complete' do %>
 
-		<p><label for = "purchase_id">ID Number</label>:
-		<%= text_field 'employee', 'id', :readonly => true %></p>
+            <p><label for = "purchase_id">ID Number</label>:
+            <%= text_field 'employee', 'id', :readonly => true %></p>
 
-		<p><label for = "purchase_first_name">First Name</label>:
-		<%= text_field 'employee', 'first_name', :readonly => true %></p>
+            <p><label for = "purchase_first_name">First Name</label>:
+            <%= text_field 'employee', 'first_name', :readonly => true %></p>
 
-		<p><label for = "purchase_last_name">Last Name</label>:
-		<%= text_field 'employee', 'last_name', :readonly => true %></p>
-		
-	</div>
+            <p><label for = "purchase_last_name">Last Name</label>:
+            <%= text_field 'employee', 'last_name', :readonly => true %></p>
 
-	<div class = "form-container">
+          </div>
 
-		<h2>Prize Information</h2>
+          <div class = "form-container">
 
-			<%= hidden_field 'prize', 'id' %>
-			<%= hidden_field 'prize', 'subcat_id' %>
+            <h2>Prize Information</h2>
 
-			<p><label for = "purchase_prize_name">Prize</label>:
-			<%= text_field 'prize', 'name', :readonly => true %></p>
+              <%= hidden_field 'prize', 'id' %>
+              <%= hidden_field 'prize', 'subcat_id' %>
 
-			<p><label for = "purchase_prize_cost">Cost</label>:
-			<%= text_field 'prize', 'cost', :readonly => true  %>
+              <p><label for = "purchase_prize_name">Prize</label>:
+              <%= text_field 'prize', 'name', :readonly => true %></p>
 
-			<div id = "order_notice" class = "notice-warning-hidden">Item will need ordering.</div>
+              <p><label for = "purchase_prize_cost">Cost</label>:
+              <%= text_field 'prize', 'cost', :readonly => true  %>
 
-			<div id = 'purchase_prize_types'>
-			<p><label for = "purchase_prize_size">Size</label>:
-			<%= text_field 'prize', 'size', :readonly => true  %></p>
+              <div id = "order_notice" class = "notice-warning-hidden">Item will need ordering.</div>
 
-			<p><label for = "purchase_prize_color">Color</label>:
-			<%= text_field 'prize', 'color', :readonly => true  %></p>
+              <div id = 'purchase_prize_types'>
+              <p><label for = "purchase_prize_size">Size</label>:
+              <%= text_field 'prize', 'size', :readonly => true  %></p>
 
-			</div>
+              <p><label for = "purchase_prize_color">Color</label>:
+              <%= text_field 'prize', 'color', :readonly => true  %></p>
 
-	</div>
+              </div>
 
-	<div class = "form-container">
+          </div>
 
-		<h2 for = "buck_reason_long"><%= @employee.first_name %>'s Balance</h2>
+          <div class = "form-container">
 
-		<div id = "balance-holder">
-			<%= @employee.get_bucks_balance %>
-		</div>
+            <h2 for = "buck_reason_long"><%= @employee.first_name %>'s Balance</h2>
 
-	</div>
+            <div id = "balance-holder">
+              <%= @employee.get_bucks_balance %>
+            </div>
 
-	<div class = "form-container">
-		<%= submit_tag 'Confirm', :id => 'purchase_confirm_button', :class => "large-disabled", :disabled => true %>
-	</div>
+          </div>
 
-	<% end -%>
+          <div class = "form-container">
+            <%= submit_tag 'Confirm', :id => 'purchase_confirm_button', :class => "large-disabled", :disabled => true %>
+          </div>
 
-</div>
+          <% end -%>
 
-<div class = "table-search-input" id = "table_search_input_prize">
-	<%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
-			<%= text_field_tag :name, params[:name], placeholder: 'Item Name' %>
-	    <%= select_tag :color, options_for_select([
-				['Black'],
-				['Blue'],
-				['Brown'],
-				['Dark Brown'],
-				['Gold'],
-				['Grey'],
-				['Green'],
-				['Light Brown'],
-				['Lime Green'],
-				['Maroon'],
-				['Navy'],
-				['Orange'],
-				['Pink'],
-				['Purple'],
-				['Red'],
-				['Sky Blue'],
-				['Teal'],
-				['White'],
-				['Yellow']], params[:color]), include_blank: 'Color' %>
-			<%= select_tag :size, options_for_select([
-				['XS'],
-				['S'], 
-				['M'], 
-				['L'], 
-				['XL'], 
-				['XXL'],
-				['XXXL']], params[:size]), include_blank: 'Size' %>
-	    <%= submit_tag 'Search', id: 'search_prize_button' %>
-		<% end %>
-</div>
+        </div>
 
-<div class = "table-wrapper">
-	<div id = "prizes_table">
+        <div class = "table-search-input" id = "table_search_input_prize">
+          <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+              <%= text_field_tag :name, params[:name], placeholder: 'Item Name' %>
+              <%= select_tag :color, options_for_select([
+                ['Black'],
+                ['Blue'],
+                ['Brown'],
+                ['Dark Brown'],
+                ['Gold'],
+                ['Grey'],
+                ['Green'],
+                ['Light Brown'],
+                ['Lime Green'],
+                ['Maroon'],
+                ['Navy'],
+                ['Orange'],
+                ['Pink'],
+                ['Purple'],
+                ['Red'],
+                ['Sky Blue'],
+                ['Teal'],
+                ['White'],
+                ['Yellow']], params[:color]), include_blank: 'Color' %>
+              <%= select_tag :size, options_for_select([
+                ['XS'],
+                ['S'],
+                ['M'],
+                ['L'],
+                ['XL'],
+                ['XXL'],
+                ['XXXL']], params[:size]), include_blank: 'Size' %>
+              <%= submit_tag 'Search', id: 'search_prize_button' %>
+            <% end %>
+        </div>
 
-		<%= render 'prizes/prizes_small' %>
+        <div class = "table-wrapper">
+          <div id = "prizes_table">
 
-	</div>
+            <%= render 'prizes/prizes_small' %>
+
+          </div>
+        </div>
+    </div>
+  </div>
 </div>

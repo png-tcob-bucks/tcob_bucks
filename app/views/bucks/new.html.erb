@@ -1,110 +1,117 @@
-<%= javascript_include_tag "bucks_new.js" %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
 
-<h2>Issue Buck</h2>
-<% if flash[:notice] %>
-  <div class="notice-error">
-  <% flash[:notice].each do | k, m |
-   	flash[:notice][k].each do | e | %>
-   		<%= e %><br>
-   	<% end
-  end %>
+        <%= javascript_include_tag "bucks_new.js" %>
+
+        <h2>Issue Buck</h2>
+        <% if flash[:notice] %>
+          <div class="notice-error">
+          <% flash[:notice].each do | k, m |
+            flash[:notice][k].each do | e | %>
+              <%= e %><br>
+            <% end
+          end %>
+          </div>
+        <% end %>
+
+        <div class = "table-search-input" id = "table_search_input_employee">
+          <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
+            <%= text_field_tag :search_id, params[:search_id], placeholder: 'ID' %>
+            <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: 'First Name' %>
+            <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: 'Last Name' %>
+            <%= submit_tag 'Search', id: 'search_employee_button' %>
+          <% end %>
+        </div>
+
+        <div class = "sub-container">
+          <div class = "form-container">
+
+            <h2>Employee (select below)</h2>
+
+            <%= form_tag :action => 'create' do %>
+
+            <p><label for = "buck_employee_id">ID Number</label>:
+            <%= text_field 'buck', 'employee_id', :readonly => true %></p>
+
+            <p><label for = "buck_first_name">First Name</label>:
+            <%= text_field 'employee', 'first_name', :readonly => true %></p>
+
+            <p><label for = "buck_last_name">Last Name</label>:
+            <%= text_field 'employee', 'last_name', :readonly => true %></p>
+
+          </div>
+
+          <div class = "form-container">
+
+            <h2>Buck Information</h2>
+
+              <p><label for = "buck_id">Ticket Number</label>:
+              <%= text_field 'buck', 'number' %></p>
+
+              <% if @current_user.can_issue_gold_bucks %>
+                <p><label for = "buck_reason_short">Earned for</label>:
+                <%= select_tag 'buck[reason_short]', options_for_select([
+                [],
+                ['A+ Service'],
+                ['Attendance'],
+                ['Community Involvement'],
+                ['Customer Service'],
+                ['Shift Coverage'],
+                ['Other']]), :onchange => 'updateBuckValue(this)' %></p>
+              <% else %>
+                <p><label for = "buck_reason_short">Earned for</label>:
+                <%= select_tag 'buck[reason_short]', options_for_select([
+                [],
+                ['Attendance'],
+                ['Community Involvement'],
+                ['Customer Service'],
+                ['Shift Coverage'],
+                ['Other']]), :onchange => 'updateBuckValue(this)' %></p>
+              <% end %>
+
+              <p><label for = "buck_value">Buck Value</label>:
+              <%= text_field 'buck', 'value', :readonly => true  %>
+
+              </p>
+
+          </div>
+
+          <div class = "form-container">
+
+            <h2 for = "buck_reason_long">Reason Earned:  <a class = "list-expand" onclick="toggle_reasons();" id = "toggle_reasons">+Common Reasons</a></h2>
+
+            <%= text_area_tag 'buck[reason_long]', nil, size: "32x6", id: 'reason_long', onkeyup: "updateLength()" %>
+
+            <div class = "form-list" id = 'reason_long_options'>
+              <ul class = "form-list">
+                <li onclick="updateReasonValue(this);">Preventing or identifying a VEP on property</li>
+                <li onclick="updateReasonValue(this);">Notifying proper personnel or taking care of a safety issue</li>
+                <li onclick="updateReasonValue(this);">Detecting theft on property</li>
+                <li onclick="updateReasonValue(this);">Identifying a minor on property</li>
+                <li onclick="updateReasonValue(this);">Identifying a fake ID being used</li>
+                <li onclick="updateReasonValue(this);">Detecting counterfeit money</li>
+              </ul>
+            </div>
+
+            <p class = "form-note" id = "text_length">0/250 characters max</p>
+
+          </div>
+
+          <div class = "form-container">
+            <%= submit_tag 'Submit', :class => 'large' %>
+          </div>
+
+          <% end -%>
+        </div>
+
+        <div class = "table-wrapper">
+          <div id = "employees_table">
+
+            <%= render 'employees/employees_small' %>
+
+          </div>
+        </div>
+    </div>
   </div>
-<% end %>
-
-<div class = "table-search-input" id = "table_search_input_employee">
-  <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
-    <%= text_field_tag :search_id, params[:search_id], placeholder: 'ID' %>
-    <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: 'First Name' %>
-    <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: 'Last Name' %>
-    <%= submit_tag 'Search', id: 'search_employee_button' %>
-	<% end %>
-</div>
-
-<div class = "sub-container">
-	<div class = "form-container">
-
-		<h2>Employee (select below)</h2>
-
-		<%= form_tag :action => 'create' do %>
-
-		<p><label for = "buck_employee_id">ID Number</label>:
-		<%= text_field 'buck', 'employee_id', :readonly => true %></p>
-
-		<p><label for = "buck_first_name">First Name</label>:
-		<%= text_field 'employee', 'first_name', :readonly => true %></p>
-
-		<p><label for = "buck_last_name">Last Name</label>:
-		<%= text_field 'employee', 'last_name', :readonly => true %></p>
-		
-	</div>
-
-	<div class = "form-container">
-
-		<h2>Buck Information</h2>
-
-			<p><label for = "buck_id">Ticket Number</label>:
-			<%= text_field 'buck', 'number' %></p>
-
-			<% if @current_user.can_issue_gold_bucks %>
-				<p><label for = "buck_reason_short">Earned for</label>:
-				<%= select_tag 'buck[reason_short]', options_for_select([
-				[],
-				['A+ Service'],
-				['Attendance'], 
-				['Community Involvement'], 
-				['Customer Service'], 
-				['Shift Coverage'], 
-				['Other']]), :onchange => 'updateBuckValue(this)' %></p>
-			<% else %>
-				<p><label for = "buck_reason_short">Earned for</label>:
-				<%= select_tag 'buck[reason_short]', options_for_select([
-				[],
-				['Attendance'], 
-				['Community Involvement'], 
-				['Customer Service'], 
-				['Shift Coverage'], 
-				['Other']]), :onchange => 'updateBuckValue(this)' %></p>
-			<% end %>
-
-			<p><label for = "buck_value">Buck Value</label>:
-			<%= text_field 'buck', 'value', :readonly => true  %>
-
-			</p>
-
-	</div>
-
-	<div class = "form-container">
-
-		<h2 for = "buck_reason_long">Reason Earned:  <a class = "list-expand" onclick="toggle_reasons();" id = "toggle_reasons">+Common Reasons</a></h2>
-
-		<%= text_area_tag 'buck[reason_long]', nil, size: "32x6", id: 'reason_long', onkeyup: "updateLength()" %>
-
-		<div class = "form-list" id = 'reason_long_options'>
-			<ul class = "form-list">
-				<li onclick="updateReasonValue(this);">Preventing or identifying a VEP on property</li>
-				<li onclick="updateReasonValue(this);">Notifying proper personnel or taking care of a safety issue</li>
-				<li onclick="updateReasonValue(this);">Detecting theft on property</li>
-				<li onclick="updateReasonValue(this);">Identifying a minor on property</li>
-				<li onclick="updateReasonValue(this);">Identifying a fake ID being used</li>
-				<li onclick="updateReasonValue(this);">Detecting counterfeit money</li>
-			</ul>
-		</div>
-
-		<p class = "form-note" id = "text_length">0/250 characters max</p>	
-
-	</div>
-
-	<div class = "form-container">
-		<%= submit_tag 'Submit', :class => 'large' %>
-	</div>
-
-	<% end -%>
-</div>
-
-<div class = "table-wrapper">
-	<div id = "employees_table">
-
-		<%= render 'employees/employees_small' %>
-
-	</div>
 </div>

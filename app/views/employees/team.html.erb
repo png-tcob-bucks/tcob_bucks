@@ -1,16 +1,24 @@
-<h1>Your Department</h1>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
 
-<div class = "table-search-input" id = "table_search_input_employee">
-  <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
-    <%= text_field_tag :search_id, params[:search_id], placeholder: 'ID' %>
-    <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: 'First Name' %>
-    <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: 'Last Name' %>
-    <%= submit_tag 'Search', id: 'search_employee_button' %>
-	<% end %>
-</div>
+      <h1>Your Department</h1>
 
-<div class = "table-wrapper">
-	<div id = "employees_table">
-		<%= render 'employees_route_detail' %>
-	</div>
+      <div class = "table-search-input" id = "table_search_input_employee">
+        <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
+          <%= text_field_tag :search_id, params[:search_id], placeholder: 'ID' %>
+          <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: 'First Name' %>
+          <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: 'Last Name' %>
+          <%= submit_tag 'Search', id: 'search_employee_button' %>
+        <% end %>
+      </div>
+
+      <div class = "table-wrapper">
+        <div id = "employees_table">
+          <%= render 'employees_route_detail' %>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>

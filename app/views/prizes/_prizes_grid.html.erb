@@ -4,36 +4,36 @@
 	<ul class = "grid-view">
 	<% @prizes.each do |p| %>
 		<li>
-			<div class="prize-list-container">
-				<div class = "price-tag">
-					<%= p.cost %> Bucks
-				</div>
-				<div class = "prize-content">
-					<img src = "<%= p.get_first_image %>" class = "prize-photo">
-				</div>
-				<div class = "prize-content-details">
-					<p class = "item-name"><b><%= link_to p.name, action: :show, id: p.id %></b></p>
-					<% @prize_subcat = PrizeSubcat.where(prize_id: p.id) %>
+      <div class="prize" style="background-image:url(<%= p.get_first_image %>);">
+          <div class="prize-tag">
+            <%= p.cost %> Bucks
+          </div>
 
-					<% if p.must_order %>
-						<p><b>Prize must be ordered</b></p>
-					<% else %>
-						<p>In stock: <%= p.get_total_stock %></p>
-					<% end %>
-					
-					<% @prize_subcat.group(:size).each do |s| 
-							if s.size != '' %>
-							<div class = "size"><%= s.size %></div>
-						<% end end %><br>
+        <div class='prize-info'>
+          <%= link_to p.name, action: :show, id: p.id %>
+          <% @prize_subcat = PrizeSubcat.where(prize_id: p.id) %>
 
-					<% @prize_subcat.group(:color).each do |c| 
-							if c.color != '' %>
-							<div class = "color" style="background-color:<%= get_color_code(c.color) %>""></div>
-					<% end end %>
+          <% if p.must_order %>
+              <br>Prize must be ordered
+          <% else %>
+              <br><%= p.get_total_stock %> In Stock
+          <% end %>
 
-				</div>
-			</div>
+          <br>
+          <% @prize_subcat.group(:color).each do |c|
+            if c.color != '' %>
+                  <div class = "color" style="background-color:<%= get_color_code(c.color) %>""></div>
+              <% end end %>
+
+         <!-- <div class="prize-info&#45;&#45;favorites">
+            <span class="glyphicon glyphicon-heart"></span>
+          </div>-->
+        </div>
+
+      </div>
 		</li>
 	<% end %>
 	</ul>
 <% end %>
+
+

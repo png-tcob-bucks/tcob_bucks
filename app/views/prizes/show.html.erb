@@ -1,59 +1,65 @@
-<div class = "prize-detail-container">
-	<div class = "table-wrapper">
-		<div class = "prize-detail-cell-picture">
-			<img src = "<%= @prize.get_first_image %>" class = "prize-detail-picture">
-		</div>
-	</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+      <a href="/prizes/"> < Back to Store</a><br><br>
+      <div class = "prize-detail-container">
+          <div class = "table-wrapper">
+            <div class = "prize-detail-cell-picture">
+              <img src = "<%= @prize.get_first_image %>" class = "prize-detail-picture">
+            </div>
+          </div>
 
-	<div class = "table-wrapper">
-		<div class = "prize-detail-cell-details">
-			<h1><%= @prize.name %>  (<%= @prize.cost %> Bucks)</h1>
+          <div class = "table-wrapper">
+            <div class = "prize-detail-cell-details">
+              <h1><%= @prize.name %>  (<%= @prize.cost %> Bucks)</h1>
 
-			<%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
-			<% if @prize.must_order %>
-				<p><b>Prize must be ordered</b></p>
-			<% else %>
-				<p>Total number in stock <%= @prize.get_total_stock %></p>
-			<% end %>
-			<p><label for = "size">Size:</label>
-			<%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();" %></p>
+              <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+              <% if @prize.must_order %>
+                <p><b>Prize must be ordered</b></p>
+              <% else %>
+                <p>Total number in stock <%= @prize.get_total_stock %></p>
+              <% end %>
+              <p><label for = "size">Size:</label>
+              <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();" %></p>
 
-			<p><label for = "color">Color:</label>
-			<%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();", id: 'select_color' %></p>
+              <p><label for = "color">Color:</label>
+              <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();", id: 'select_color' %></p>
 
-			<% if !@chosen.nil? %>
+              <% if !@chosen.nil? %>
 
-				<p id = 'prize_stock' class = "text-green"><%= @chosen.stock %> In Stock</p>
+                <p id = 'prize_stock' class = "text-green"><%= @chosen.stock %> In Stock</p>
 
-			<% else %>
+              <% else %>
 
-				<p id = 'prize_stock' class = "text-red">Out Of Stock</p>
+                <p id = 'prize_stock' class = "text-red">Out Of Stock</p>
 
-			<% end %>
+              <% end %>
 
-			<p><%= @prize.description %></p>
+              <p><%= @prize.description %></p>
 
-			<% end %>
+              <% end %>
 
-			<%= form_tag controller: :purchases, action: :complete do %>
-			<%= hidden_field :prize, :id, value: @prize.id %>
-			<%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
-			<%= hidden_field :employee, :id, value: @current_user.id %>
+              <%= form_tag controller: :purchases, action: :complete do %>
+              <%= hidden_field :prize, :id, value: @prize.id %>
+              <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
+              <%= hidden_field :employee, :id, value: @current_user.id %>
 
 
-			<ul class = 'button-line'>
-				<%= submit_tag 'Purchase' if !@chosen.nil? %>
-				<%= link_to controller: :favorites, action: :create, id: @prize.id do %><li>Add to Favorites</li><% end %>
-				<a href="/prizes/"><li>Back to Store</li></a>
-			</ul>
-			<% end %>
-			
-		</div>
-		<div class = "clear"></div>
-	</div>
+              <ul class = 'button-line'>
+                <%= submit_tag 'Purchase' if !@chosen.nil? %>
+                <%= link_to controller: :favorites, action: :create, id: @prize.id do %><li>Add to Favorites</li><% end %>
+              </ul>
+              <% end %>
 
-</div>
-<h3>Other Items</h2>
-<div class = "featured-wrapper">
-	<%= render 'prizes/prizes_featured' %>
+            </div>
+            <div class = "clear"></div>
+          </div>
+
+        </div>
+        <h3>Other Items</h3>
+        <div class = "featured-detail-wrapper">
+          <%= render 'prizes/prizes_featured' %>
+        </div>
+    </div>
+  </div>
 </div>

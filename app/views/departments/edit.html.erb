@@ -1,27 +1,33 @@
-<% if flash[:title] == "Error" %>
-	<div class="notice-error"><%= flash[:notice] %></div>
-<% elsif flash[:title] == "Success" %>
-	<div class="notice-success"><%= flash[:notice] %></div>
-<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+      <% if flash[:title] == "Error" %>
+        <div class="notice-error"><%= flash[:notice] %></div>
+      <% elsif flash[:title] == "Success" %>
+        <div class="notice-success"><%= flash[:notice] %></div>
+      <% end %>
 
-<h1>Administrator: Manage Department Monthly Budget</h1>
+      <h1>Administrator: Manage Department Monthly Budget</h1>
 
-<div class = "table-wrapper">
-<%= form_tag :action => 'update' do %>
-	<table class = 'table-list'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list">Department</td>
-			<td class = "td-list">Budget</td>
-		</tr>
-		<% @departments.each do |d|  %>
-		<tr class = "tr-list">
-		<%= hidden_field_tag 'department_ids[]', d.id %>
-			<td class = "td-list"> <%= d.name %> </td>
-			<td class = "td-list"> <%= text_field_tag 'department_values[]', d.budget, class: 'text-condensed' %></td>
-		</tr>
-		<% end %>
-	</table>
+      <div class = "table-wrapper">
+      <%= form_tag :action => 'update' do %>
+        <table class = 'table-list'>
+          <tr class = "tr-list-head" >
+            <td class = "td-list">Department</td>
+            <td class = "td-list">Budget</td>
+          </tr>
+          <% @departments.each do |d|  %>
+          <tr class = "tr-list">
+          <%= hidden_field_tag 'department_ids[]', d.id %>
+            <td class = "td-list"> <%= d.name %> </td>
+            <td class = "td-list"> <%= text_field_tag 'department_values[]', d.budget, class: 'text-condensed' %></td>
+          </tr>
+          <% end %>
+        </table>
 
-<%= submit_tag 'Submit' %>
-<% end -%>
+      <%= submit_tag 'Submit' %>
+      <% end -%>
+      </div>
+    </div>
+  </div>
 </div>

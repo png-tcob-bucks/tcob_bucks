@@ -1,5 +1,4 @@
- <div id = "navigation">
-  <% 
+  <%
   if @user.nil?
     @user = Employee.find_by(IDnum: session[:id])
   else
