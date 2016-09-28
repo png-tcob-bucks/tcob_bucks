@@ -46,9 +46,6 @@
 
             <h2>Buck Information</h2>
 
-              <p><label for = "buck_id">Ticket Number</label>:
-              <%= text_field 'buck', 'number' %></p>
-
               <% if @current_user.can_issue_gold_bucks %>
                 <p><label for = "buck_reason_short">Earned for</label>:
                 <%= select_tag 'buck[reason_short]', options_for_select([

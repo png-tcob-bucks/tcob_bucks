@@ -1,6 +1,11 @@
 module BucksHelper
 	include SessionsHelper
 
+	def assign_buck_number
+		@highest_buck = Buck.order(number: :desc).first
+		return @highest_buck.number + 1
+	end
+
 	def getBuckValue(reason)
 		if reason.eql?("A+ Service")
 			return 20

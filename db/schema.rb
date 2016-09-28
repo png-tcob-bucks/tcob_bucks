@@ -51,8 +51,10 @@ ActiveRecord::Schema.define(version: 20160928002448) do
   add_index "bucks", ["number"], name: "index_bucks_on_number", using: :btree
 
   create_table "departments", force: :cascade do |t|
-    t.string  "name",   limit: 255
-    t.integer "budget", limit: 4,   default: 0
+    t.string  "name",     limit: 255
+    t.integer "budget",   limit: 4,   default: 0
+    t.string  "approve1", limit: 255
+    t.string  "approve2", limit: 255
   end
 
   create_table "employees", force: :cascade do |t|

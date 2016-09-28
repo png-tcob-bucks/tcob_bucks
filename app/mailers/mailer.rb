@@ -7,11 +7,14 @@ class Mailer < ApplicationMailer
 		@buck = buck
 		@employee = Employee.find_by(IDnum: buck.employee_id)
 		@url = 'http://bucks.hollywoodcasinotoledo.org/bucks/pending/' + buck.number.to_s
-		@directors = Employee.where(department_id: @employee.department_id).where(status: 'Active')
-		@directors = @directors.select { |d| d.can_approve_bucks }
-		@directors.map! { |d| d.email }
+		@approver1 = Department.find(@employee.department_id).approve1
+		@approver2 = Department.find(@employee.department_id).approve2
 
-		mail(to: @directors, subject: 'Buck Requiring Approval')
+		@approvers = Array.new
+		Employee.where(job_id: @approver1).each { |e| @approvers.push(e.email)  }
+		Employee.where(job_id: @approver2).each { |e| @approvers.push(e.email)  }
+
+		mail(to: @approvers, subject: 'Buck Requiring Approval')
 	end
 
 	def mail_feedback(message)

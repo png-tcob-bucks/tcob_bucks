@@ -15,17 +15,25 @@
           <tr class = "tr-list-head" >
             <td class = "td-list">Department</td>
             <td class = "td-list">Budget</td>
+            <td class = "td-list">Approver 1</td>
+            <td class = "td-list"></td>
+            <td class = "td-list">Approver 2</td>
+            <td class = "td-list"></td>
           </tr>
           <% @departments.each do |d|  %>
           <tr class = "tr-list">
           <%= hidden_field_tag 'department_ids[]', d.id %>
             <td class = "td-list"> <%= d.name %> </td>
             <td class = "td-list"> <%= text_field_tag 'department_values[]', d.budget, class: 'text-condensed' %></td>
+            <td class = "td-list"> <%= Job.find(d.approve1).title if !d.approve1.nil? %> </td>
+            <td class = "td-list"> <%= link_to 'Change', { action: :approvers, number: 1, dept: d.id } %> </td>
+            <td class = "td-list"> <%= Job.find(d.approve2).title if !d.approve2.nil? %> </td>
+            <td class = "td-list"> <%= link_to 'Change', { action: :approvers, number: 2, dept: d.id } %> </td>
           </tr>
           <% end %>
         </table>
 
-      <%= submit_tag 'Submit' %>
+      <%= submit_tag 'Update Budgets' %>
       <% end -%>
       </div>
     </div>

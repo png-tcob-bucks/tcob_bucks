@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <div class = "split_2">
+        <h2><%= @dept.name %>: Select Job Code for Approver #<%= @number %></h2>
+          <div class = "table-wrapper-compact">
+            <div class = "y-max-500">
+              <table class = "table-compact" id = "tables_roles_added">
+                <%= render 'jobs/jobs_approve' %>
+              </table>
+              </div>
+          </div>
+        </div>
+        <a href="/admin/depts"><div class = "button-div">Back To Departments</div></a>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,27 @@ class DepartmentsController < ApplicationController
 	include SessionsHelper
 
 	before_filter :authenticate_user_logged_in
+	
+	def approvers
+		@dept = Department.find(params[:dept])
+		@jobs = Job.all.order(:title)
+		@number = params[:number]
+	end
+
+	def approver_add
+		@dept = Department.find(params[:dept])
+		if params[:number] == '1'
+			@dept.update_attribute(:approve1, params[:jobcode])
+		else
+			@dept.update_attribute(:approve2, params[:jobcode])
+		end
+
+		@job = Job.find_by(jobcode: params[:jobcode])
+
+		flash[:title] = 'Success'
+		flash[:notice] = @job.title + ' has been successfully assigned as an approver #' + params[:number] + ' for ' + @dept.name
+		redirect_to action: :edit
+	end
 
 	def create
 		@department = Employee.new(employee_params)

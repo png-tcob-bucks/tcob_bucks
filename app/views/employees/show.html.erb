@@ -7,7 +7,11 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="panel panel-default panel-body profile-info">
-      <%= image_tag get_profile_picture(@employee.IDnum), class: "profile-image" %>
+      <% if !get_profile_picture(@employee.IDnum).nil? %>
+        <%= image_tag get_profile_picture(@employee.IDnum), class: "profile-image" %>
+      <% else %>
+        <img src='/images/profilePlaceholder.png' class='profile-image'/>
+      <% end %>
       <h1><%= @employee.first_name + " " + @employee.last_name%></h1>
       <h3><%= "#" + @employee.id.to_s %>
           <br><%= Department.find(@employee.department_id).name %>

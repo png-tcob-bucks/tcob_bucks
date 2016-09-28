@@ -44,6 +44,7 @@ class BucksController < ApplicationController
 		@buck.assignedBy = Employee.find(session[:id]).id
 		@employee = Employee.find(@buck.employee_id)
 		@buck.department_id = @employee.department_id
+		@buck.number = assign_buck_number
 
 		if @buck.needs_approval(@current_user, @employee)
 			@buck.status = "Pending"
@@ -233,7 +234,7 @@ class BucksController < ApplicationController
 
 	private 
 	def bucks_params
-		params.require(:buck).permit(:number, :value, :reason_short, :reason_long, :prize_id, :decision, :employee_id)
+		params.require(:buck).permit(:value, :reason_short, :reason_long, :prize_id, :decision, :employee_id)
 	end
 
 	def makePurchase(prize, employee, item)
