@@ -13,9 +13,6 @@ updateConfirmButton = (cost, balance) ->
 $(document).ready ->
   setTableRowsClickablePrizes()
   return
-$(document).ajaxStop ->
-  setTableRowsClickablePrizes()
-  return
 
 setTableRowsClickablePrizes = undefined
 

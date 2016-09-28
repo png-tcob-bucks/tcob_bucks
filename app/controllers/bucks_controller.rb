@@ -55,7 +55,9 @@ class BucksController < ApplicationController
 
 		if @employee.can_recieve_bucks
 			if @buck.save
-				Mailer.pending_buck_approval(@current_user, @buck).deliver_now
+				if @buck.reason_short == 'Other'
+					Mailer.pending_buck_approval(@current_user, @buck).deliver_now
+				end
 				redirect_to :action => 'show', id: @buck.id
 				flash[:title] = 'Success'
 				flash[:notice] = 'Buck has been submitted!'
@@ -84,9 +86,10 @@ class BucksController < ApplicationController
 	end
 
 	def delete
-		Buck.find(params[:id]).update_attributes(status: 'Void')
+		@buck = Buck.find(params[:id])
+		@buck.update_attributes(status: 'Void')
 		flash[:title] = 'Success'
-		flash[:notice] = 'Buck ' + params[:id] + ' has been successfully deleted!'
+		flash[:notice] = 'Buck ' + params[:id] + ' has been successfully voided!'
 
 		buck_log_params = { :buck_id => @buck.id, 
 			:event => 'Deleted', 

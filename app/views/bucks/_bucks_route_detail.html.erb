@@ -37,7 +37,7 @@
               <td> <%= l b.expires.localtime.to_date if b.expires? %> </td>
               <td> <%= l b.approved_at.localtime if !b.approved_at.nil? %></td>
               <% if @current_user.has_admin_access %>
-              <td> <%= link_to 'Void', { controller: :bucks, action: :delete, id: b}, data: {confirm: "Are you sure?"} %> </td>
+              <td> <%= link_to 'Void', { controller: :bucks, action: :delete, id: b} %> </td>
               <% end %>
             </tr>
             <% end %>

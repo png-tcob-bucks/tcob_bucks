@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
         render 'new'
       else
         log_in employee
-        redirect_to employee
+        redirect_to controller: :employees, action: :home
       end
     else
       flash.now[:title] = "Error"

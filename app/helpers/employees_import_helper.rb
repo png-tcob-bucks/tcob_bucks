@@ -39,6 +39,9 @@ module EmployeesImportHelper
 					:status => e[COLUMN_STATUS]
 				}
 				Employee.new(employee_params).save
+			else
+				@employee = Employee.find_by(IDnum: e[COLUMN_EMPLOYEE_NUMBER])
+				Employee.update(@employee.id, status: e[COLUMN_STATUS])
 			end
 		end
 	end
