@@ -82,6 +82,16 @@ class Employee < ActiveRecord::Base
     end
   end
 
+  def self.search_all(id, first, last)
+    if id || first || last
+      where('IDnum LIKE ? 
+        AND first_name LIKE ? 
+        AND last_name LIKE ?', "%#{id}%", "%#{first}%", "%#{last}%")
+    else
+      Employee.all.limit(20)
+    end
+  end
+
   def self.search_preshow(id, first, last)
     if id || first || last
       where(status: "Active").

@@ -41,26 +41,26 @@
           <div class="panel-heading">Bucks Earned</div>
           <div class="panel panel-body">
             <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Attendance').count %></h1>
+              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Attendance', status:['Active','Partial','Redeemed']).count %></h1>
               <p>Attendance <br> Bucks</p>
             </div>
             <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Community Involvement').count %>
+              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Community Involvement', status:['Active','Partial','Redeemed']).count %>
               </h1>
               <p>Community Involvement Bucks</p>
             </div>
             <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Customer Service').count %>
+              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Customer Service', status:['Active','Partial','Redeemed']).count %>
               </h1>
               <p>Customer Service Bucks</p>
             </div>
             <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Shift Coverage').count %>
+              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Shift Coverage', status:['Active','Partial','Redeemed']).count %>
               </h1>
               <p>Shift Coverage Bucks</p>
             </div>
             <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Other').count %>
+              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Other', status:['Active','Partial','Redeemed']).count %>
               </h1>
               <p>Other <br>Bucks</p>
             </div>

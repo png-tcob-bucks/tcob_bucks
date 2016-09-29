@@ -11,8 +11,8 @@ class Mailer < ApplicationMailer
 		@approver2 = Department.find(@employee.department_id).approve2
 
 		@approvers = Array.new
-		Employee.where(job_id: @approver1).each { |e| @approvers.push(e.email)  }
-		Employee.where(job_id: @approver2).each { |e| @approvers.push(e.email)  }
+		Employee.where(status: 'Active').where(job_id: @approver1).each { |e| @approvers.push(e.email) }
+		Employee.where(status: 'Active').where(job_id: @approver2).each { |e| @approvers.push(e.email) }
 
 		mail(to: @approvers, subject: 'Buck Requiring Approval')
 	end

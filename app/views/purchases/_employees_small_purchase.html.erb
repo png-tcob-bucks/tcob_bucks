@@ -7,17 +7,23 @@
 			<td class = "td-list">First Name</td>
 			<td class = "td-list">Last Name</td>
 			<td class = "td-list">Department</td>
+			<td class = "td-list">Status</td>
 		</tr>
 	</table>
 	<div class = "content">
 		<table class = "table-list" id = "table-employeeslist">
 			<% @employees.each do |e| 
 			@dept = Department.find(e.department_id) %>
-			<tr class = "tr-list" onclick = "window.document.location = 'finish/<%= e.id %>'">
+			<% if e.status == 'Active' %>
+				<tr class = "tr-green" onclick = "window.document.location = 'finish/<%= e.id %>'">
+			<% else %>
+				<tr class = "tr-red" >
+			<% end %>
 				<td class = "td-list"> <%= e.id %> </td>
 				<td class = "td-list"> <%= e.first_name %> </td>
 				<td class = "td-list"> <%= e.last_name %> </td>
 				<td class = "td-list"> <%= @dept.name %> </td>
+				<td class = "td-list"> <%= e.status %> </td>
 			</tr>
 			<% end %>
 		</table>

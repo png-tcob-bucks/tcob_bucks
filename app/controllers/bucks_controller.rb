@@ -40,47 +40,61 @@ class BucksController < ApplicationController
 	end
 
 	def create
-		@buck = Buck.new(bucks_params)
-		@buck.assignedBy = Employee.find(session[:id]).id
-		@employee = Employee.find(@buck.employee_id)
-		@buck.department_id = @employee.department_id
-		@buck.number = assign_buck_number
 
-		if @buck.needs_approval(@current_user, @employee)
-			@buck.status = "Pending"
-		else
-			@buck.status = "Active"
-			@buck.expires = Time.now.advance(:years => +1)
-			@buck.approved_at = Time.now
+		@buck = Buck.new(bucks_params)
+		valid_buck = true
+
+		if params[:buck][:employee_id] == ''
+			@buck.errors.add(:employee_id, "Must enter a valid Employee ID")
+			valid_buck = false
 		end
 
-		if @employee.can_recieve_bucks
-			if @buck.save
-				if @buck.reason_short == 'Other'
-					Mailer.pending_buck_approval(@current_user, @buck).deliver_now
-				end
-				redirect_to :action => 'show', id: @buck.id
-				flash[:title] = 'Success'
-				flash[:notice] = 'Buck has been submitted!'
+		if @buck.reason_short == ''
+			@buck.errors.add(:reason_short, "Must provide a reason for issuing buck")
+			valid_buck = false
+		end
 
-				buck_log_params = { :buck_id => @buck.id, 
-					:event => 'Issued', 
-					:performed_id => @current_user.id,
-					:recieved_id => @employee.id,
-					:value_before => @buck.value,
-					:value_after => @buck.value,
-					:status_before => @buck.status,
-					:status_after => @buck.status }
-				BuckLog.new(buck_log_params).save
+		if (@buck.reason_short == 'Customer Service' || @buck.reason_short == 'Other') && @buck.reason_long == ''
+			@buck.errors.add(:reason_long, "Must provide a reason for issuing buck if issuing for Customer Service or Other")
+			valid_buck = false
+		end
 
+		if valid_buck
+			@buck.assignedBy = Employee.find(session[:id]).id
+			@employee = Employee.find(@buck.employee_id)
+			@buck.department_id = @employee.department_id
+			@buck.number = assign_buck_number
+			if @buck.needs_approval(@current_user, @employee)
+				@buck.status = "Pending"
 			else
-				flash[:title] = 'Error'
-				flash[:notice] = @buck.errors.messages
-				redirect_to :action => 'new'
+				@buck.status = "Active"
+				@buck.expires = Time.now.advance(:years => +1)
+				@buck.approved_at = Time.now
 			end
+			
+			@buck.save
+
+			if @buck.reason_short == 'Other'
+				Mailer.pending_buck_approval(@current_user, @buck).deliver_now
+			end
+
+			buck_log_params = { :buck_id => @buck.id, 
+				:event => 'Issued', 
+				:performed_id => @current_user.id,
+				:recieved_id => @employee.id,
+				:value_before => @buck.value,
+				:value_after => @buck.value,
+				:status_before => @buck.status,
+				:status_after => @buck.status }
+			BuckLog.new(buck_log_params).save
+
+			redirect_to :action => 'show', id: @buck.id
+			flash[:title] = 'Success'
+			flash[:notice] = 'Buck has been submitted!'
+
+			
 		else
 			flash[:title] = 'Error'
-			@buck.errors.add(:employee_id, "Employee is ineligible to earn bucks")
 			flash[:notice] = @buck.errors.messages
 			redirect_to :action => 'new'
 		end

@@ -6,6 +6,10 @@ module BucksHelper
 		return @highest_buck.number + 1
 	end
 
+	def can_employee_afford_prize(employee, prize)
+		get_bucks_balance(employee) > prize.cost
+	end
+
 	def getBuckValue(reason)
 		if reason.eql?("A+ Service")
 			return 20
@@ -20,10 +24,6 @@ module BucksHelper
 		else
 			return 10
 		end
-	end
-
-	def can_employee_afford_prize(employee, prize)
-		get_bucks_balance(employee) > prize.cost
 	end
 
 	def p_class_for_budget(used, budget)

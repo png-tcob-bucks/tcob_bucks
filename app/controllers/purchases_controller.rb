@@ -199,7 +199,7 @@ class PurchasesController < ApplicationController
 	end
 
 	def start
-		@employees = Employee.search(params[:search_id], params[:search_first_name], params[:search_last_name]).where(status: 'Active')
+		@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
 	end
 
 end

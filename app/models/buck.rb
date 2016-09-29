@@ -2,18 +2,6 @@ class Buck < ActiveRecord::Base
 	belongs_to :employee
 	self.primary_key = 'number'
 
-	validates_presence_of :number, :message => 'Ticket Number: Cannot be blank'
-	validates_uniqueness_of :number, :message => 'Ticket Number: That ticket has already been registered'
-	validates_length_of :number,  :minumum => 6, :maximum => 6, :message => 'Ticket Number: Must have a length of 6'
-	validates_numericality_of :number, :greater_than => 99999, :message => 'Ticket Number: Must only consist of a number greater than 100000'
-	
-	validates_presence_of :employee_id, :message => 'Employee: Cannot be blank'
-
-	validates_presence_of :reason_short, :message =>  'Earned For: Cannot be blank'
-
-	validates_length_of :reason_long, :maximum => 250, :message => 'Reason: Cannot exceed 255 characters'
-
-
 	def self.search(number, recipient, issuer)
     if number || recipient || issuer
       where('number LIKE ? 
@@ -61,7 +49,7 @@ class Buck < ActiveRecord::Base
   end
 
   def needs_approval(current_user, employee)
-    return (current_user.department_id != employee.department_id) || self.reason_short == "Other"
+    return self.reason_short == "Other"
   end
 
   def self.sort_by_name
