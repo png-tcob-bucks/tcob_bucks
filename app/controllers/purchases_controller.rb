@@ -15,15 +15,18 @@ class PurchasesController < ApplicationController
 				if params[:online]
 						quantity.times do
 							purchase = request_order(@prize, @prize_subcat, @employee)
+							perform_bucks_purchase_transaction(@prize, @employee, purchase)
 						end
 						Mailer.order_notify(@prize, @prize_subcat, @employee, quantity).deliver_now
 						flash[:title] = 'Success'
-						flash[:notice] = 'Request has been submitted. You will recieve an email or notification when your request has been approved'
+						flash[:notice] = 'Item is reserved! Once the order has been processed, 
+						you can find the prize in your wardrobe bag or pick it up from wardrobe during open hours. If it is a large item, you will be able to pick it up at security.'
 						redirect_to employee_path(@employee)
 				else
-					if @current_user.can_manage_inventory
+					if @current_user.can_manage_inventory && !@prize.must_order
 						quantity.times do
 							purchase = makePurchase(@prize, @prize_subcat, @employee)
+							perform_bucks_purchase_transaction(@prize, @employee, purchase)
 						end
 						flash[:title] = 'Success'
 						flash[:notice] = 'Purchase confirmed'
@@ -31,14 +34,13 @@ class PurchasesController < ApplicationController
 					else
 						quantity.times do
 							purchase = reserve(@prize, @prize_subcat)
+							perform_bucks_purchase_transaction(@prize, @employee, purchase)
 						end
 						flash[:title] = 'Success'
-						flash[:notice] = 'Item is reserved. Once the order has been processed, 
-						you can find the prize in your wardrobe bag. If it is a large item, you will be able to pick it up at security.'
+						flash[:notice] = 'Item is reserved, but must be ordered by HR.'
 						redirect_to controller: :prizes, action: :index
 					end
 				end
-				perform_bucks_purchase_transaction(@prize, @employee, purchase)
 			else
 				flash[:title] = 'Error'
 				flash[:notice] = 'Out of stock.'
