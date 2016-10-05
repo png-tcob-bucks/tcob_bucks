@@ -21,7 +21,7 @@
 				<td class = "td-list"> $<%= p.cost %> </td>
 				<td class = "td-list"> <%= p.size %> </td>
 				<td class = "td-list"> <%= p.color %> </td>
-				<td class = "td-list"> <%= 'Yes' if p.must_order %> </td>
+				<td class = "td-list"> <%= image_tag 'check16dp.png' if p.must_order %> </td>
 			</tr>
 		<% end %>
 	</table>

@@ -24,7 +24,10 @@ Rails.application.routes.draw do
   post 'bucks/new'                    => 'bucks#search'
   get 'bucks/delete/:id'              => 'bucks#delete'
 
-  get 'purchase/start'                => 'purchases#start'
+  get 'purchase/start_manage'         => 'purchases#start_manage'
+  get 'purchase/start_purchase'       => 'purchases#start_purchase'
+  get 'purchase/manage'               => 'purchases#manage'
+  get 'purchase/refund'               => 'purchases#refund'
   get 'purchase/finish/:id'           => 'purchases#finish'
   post 'purchase/finish/:id'          => 'purchases#complete'
   get 'purchase/reserved'             => 'purchases#reserved'

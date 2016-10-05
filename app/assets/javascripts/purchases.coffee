@@ -5,6 +5,7 @@
 updateConfirmButton = (cost, balance) ->
   if cost > balance
     $('#purchase_confirm_button').attr 'class', 'large-stop'
+    $('#purchase_confirm_button').attr("disabled", true)
   else
     $('#purchase_confirm_button').attr 'class', 'large-go'
     $('#purchase_confirm_button').attr("disabled", false)
@@ -51,7 +52,7 @@ setTableRowsClickablePrizes = ->
         f5.value = cells[5].innerHTML
         f6.value = cells[6].innerHTML
         
-        updateConfirmButton(cells[4].innerHTML, parseInt(balance.innerHTML))
+        updateConfirmButton((cells[4].innerHTML).replace('$',''), parseInt(balance.innerHTML))
 
         if cells[7].innerText is 'Yes'
           $('#order_notice').css('display','inherit')

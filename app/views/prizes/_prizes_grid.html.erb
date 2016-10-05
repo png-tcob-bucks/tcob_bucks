@@ -3,7 +3,7 @@
 <% else %>
 	<ul class = "grid-view">
 	<% @prizes.each do |p| %>
-		<li>
+        <li>
       <div class="prize" style="background-image:url(<%= p.get_first_image %>);">
           <div class="prize-tag">
             <%= p.cost %> Bucks

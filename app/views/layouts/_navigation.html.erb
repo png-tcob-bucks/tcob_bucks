@@ -42,26 +42,27 @@
   <% if @current_user.can_manage_inventory %>
   <ul>
     <h1>Cashiers</h1>
-      <li><a href="/purchase/start">Begin Purchase</a></li>
+      <li><a href="/purchase/start_purchase">Begin Purchase</a></li>
+      <li><a href="/purchase/start_manage">Manage Purchases</a></li>
       <li><a href="/purchase/reserved">Reserved Prizes
         <% if Purchase.where(status: 'Reserved').count > 0 %>
           <div class="notification"><%= Purchase.where(status: 'Reserved').count %></div>
         <% end %>
       </a></li>
       <li><a href="/prizes/manage">Manage Prizes</a></li>
-    <% end %>
-  </ul>
-
-  <% if @current_user.has_admin_access %>
-    <h1>Admin</h1>
-    <ul>
-      <li><a href="/employees">All Employees</a></li>
       <li><a href="/admin/orders">Prize Orders
           <% if Purchase.where(status: 'Ordered').count > 0 %>
             <div class="notification"><%= Purchase.where(status: 'Ordered').count %></div>
           <% end %>
           </a> 
       </li>
+      <li><a href="/employees">All Employees</a></li>
+    <% end %>
+  </ul>
+
+  <% if @current_user.has_admin_access %>
+    <h1>Admin</h1>
+    <ul>
       <li><a href='/admin/bucks/analyze'>Review Budgets</a></li>
       <li><a href='/admin/depts'>Manage Depts</a></li>
       <li><a href='/roles'>Manage Permissions</a></li>

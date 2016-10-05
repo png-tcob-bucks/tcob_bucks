@@ -38,7 +38,7 @@ class PrizeSubcatsController < ApplicationController
 
 	def manage
 		@prize = Prize.find(params[:id])
-		@prize_subcats = PrizeSubcat.search(@prize.id, params[:size], params[:color])
+		@prize_subcats = PrizeSubcat.search(@prize.id, params[:size], params[:color], params[:brand])
 	end
 
 	def prize
@@ -82,7 +82,7 @@ class PrizeSubcatsController < ApplicationController
 
 	private
 		def prize_subcat_params
-			params.require(:prize_subcat).permit(:id, :prize_id, :stock, :size, :color, :image, :description)
+			params.require(:prize_subcat).permit(:id, :prize_id, :stock, :size, :color, :image, :description, :brand)
 		end
 
 end

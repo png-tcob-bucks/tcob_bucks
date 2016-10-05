@@ -1,0 +1,22 @@
+Cost: <%= cost %> <br>
+Bucks Before<br>
+<% @bucksb.each do |b|
+	%>
+		<%= b.number %><br>
+		<%= b.status %><br>
+		<%= b.value %><br>
+		------------------------<br>
+
+	<% end %>
+
+<br><br><br>
+Bucks After
+
+<% @bucksa.each do |b|
+	%>
+		<%= b.number %><br>
+		<%= b.status %><br>
+		<%= b.value %><br>
+		------------------------<br>
+
+	<% end %>

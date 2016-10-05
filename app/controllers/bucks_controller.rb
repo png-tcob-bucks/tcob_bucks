@@ -102,12 +102,12 @@ class BucksController < ApplicationController
 
 	def delete
 		@buck = Buck.find(params[:id])
-		@buck.update_attributes(status: 'Void')
+		
 		flash[:title] = 'Success'
 		flash[:notice] = 'Buck ' + params[:id] + ' has been successfully voided!'
 
 		buck_log_params = { :buck_id => @buck.id, 
-			:event => 'Deleted', 
+			:event => 'Voided', 
 			:performed_id => @current_user.id,
 			:recieved_id => @current_user.id,
 			:value_before => @buck.value,
@@ -115,6 +115,8 @@ class BucksController < ApplicationController
 			:status_before => @buck.status,
 			:status_after => 'Void' }
 		BuckLog.new(buck_log_params).save
+
+		@buck.update_attributes(status: 'Void')
 		redirect_to :action => 'index'
 	end
 

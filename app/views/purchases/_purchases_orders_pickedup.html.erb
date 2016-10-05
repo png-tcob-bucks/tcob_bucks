@@ -10,12 +10,16 @@
 			<td>Cashier Name</td>
 			<td>Transaction</td>
 			<td>Prize</td>
+			<td>Brand</td>
+			<td>Size</td>
+			<td>Color</td>
 			<td>Ordered</td>
 			<td>Action</td>
 		</tr>
 		<% @orders_picked_up.each do |o|  
 			@employee = Employee.find(o.employee_id)
 			@cashier = Employee.find(o.cashier_id)
+			@prize_subcat = PrizeSubcat.find(o.prize_subcat_id)
 		%>
 		<tr class = "tr-list">
 			<td> <%= o.id %> </td>
@@ -25,6 +29,9 @@
 			<td> <%= @cashier.first_name + " " + @cashier.last_name %> </td>
 			<td> <%= o.status %> </td>
 			<td> <%= Prize.find(o.prize_id).name %> </td>
+			<td> <%= @prize_subcat.brand %> </td>
+			<td> <%= @prize_subcat.size %> </td>
+			<td> <%= @prize_subcat.color %> </td>
 			<td> <%= o.created_at %> </td>
 			<td> <a href="orders/confirm/<%= o.id %>"><div class="button-green">Confirm</div></a> <a href="orders/drop/<%= o.id %>"><div class="button-red">Drop</div></a></td>
 		</tr>

@@ -4,14 +4,14 @@ module BucksImportHelper
 
 	COLUMN_BUCK_NUMBER = 0
 	COLUMN_BUCK_EMPLOYEE_ID = 2
-	COLUMN_BUCK_DATE = 5
-	COLUMN_BUCK_ISSUER_ID = 4
+	COLUMN_BUCK_DATE = 3
+	COLUMN_BUCK_ISSUER_ID = 5
 	COLUMN_BUCK_REASON_SHORT = 6
 	COLUMN_BUCK_VALUE = 7
 	COLUMN_BUCK_REASON_LONG = 8
 
 	def import_bucks
-		@bucks_array = CSV.read("#{Rails.root}/public/SecretShopsJulAug.csv")
+		@bucks_array = CSV.read("#{Rails.root}/public/SeptemberBucks1.csv")
 
 		@bucks_array.each do |e|
 			if !Buck.exists?(number: e[COLUMN_BUCK_NUMBER]) && Employee.exists?(IDnum: e[COLUMN_BUCK_EMPLOYEE_ID])

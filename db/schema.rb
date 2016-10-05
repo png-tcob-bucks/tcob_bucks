@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928002448) do
+ActiveRecord::Schema.define(version: 20160930010922) do
 
   create_table "buck_logs", force: :cascade do |t|
     t.integer  "buck_id",       limit: 4,   null: false
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20160928002448) do
     t.text     "image",        limit: 65535
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.string   "brand",        limit: 255
   end
 
   add_index "prize_subcats", ["prize_id"], name: "index_prize_subcats_on_prize_id", using: :btree
@@ -141,6 +142,7 @@ ActiveRecord::Schema.define(version: 20160928002448) do
     t.datetime "updated_at",                                  null: false
     t.integer  "pickedup_by",     limit: 4
     t.integer  "prize_subcat_id", limit: 4
+    t.boolean  "returned",                    default: false
   end
 
   add_index "purchases", ["prize_id"], name: "index_purchases_on_prize_id", using: :btree

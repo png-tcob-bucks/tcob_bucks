@@ -11,8 +11,9 @@ class PurchasesController < ApplicationController
 		 
 		if @employee.get_bucks_balance >= @prize.cost
 			if @prize_subcat.stock > 0 || @prize.must_order
-				if @prize.must_order
+				if params[:online]
 						purchase = request_order(@prize, @prize_subcat, @employee)
+						Mailer.order_notify(@prize, @prize_subcat, @employee).deliver_now
 						flash[:title] = 'Success'
 						flash[:notice] = 'Request has been submitted. You will recieve an email or notification when your request has been approved'
 						redirect_to employee_path(@employee)
@@ -69,6 +70,11 @@ class PurchasesController < ApplicationController
 	def finish
 		@employee = Employee.find(params[:id])
 		@prizes = Prize.select("prizes.*, prize_subcats.*").where(available: true).joins(:prize_subcats).subsearch(params[:name], params[:size], params[:color])
+	end
+
+	def manage
+		@employee = Employee.find(params[:employee])
+		@purchases = Purchase.where(employee_id: params[:employee])
 	end
 
 	def makePurchase(prize, prize_subcat, employee)
@@ -141,6 +147,45 @@ class PurchasesController < ApplicationController
 		redirect_to action: 'orders'
 	end
 
+	def refund
+		@purchase = Purchase.find(params[:purchase_id])
+		@refund = Prize.find(params[:prize_id]).cost
+		@bucks_used = BuckLog.where(purchase_id: params[:purchase_id])
+
+		@bucks_used.each do |b|
+			buck = Buck.find(b.buck_id)
+			buck.update_attribute(:value, b.value_before)
+			buck.update_attribute(:status, "Active")
+
+			BuckLog.new(:buck_id => buck.id, 
+				:event => 'Refunded', 
+				:performed_id => @current_user.id,
+				:recieved_id => buck.employee_id,
+				:value_before => b.value_after,
+				:value_after => b.value_before,
+				:status_before => b.status_before,
+				:status_after => "Active",
+				:purchase_id => @purchase.id).save
+		end
+
+		prize_subcat = PrizeSubcat.find(params[:prize_subcat])
+		prize_subcat.stock = prize_subcat.stock + 1
+
+		StoreLog.new(:employee_id => @purchase.employee_id, 
+				:cashier_id => @current_user.id, 
+				:purchase_id => @purchase.id,
+				:prize_id => params[:prize_id],
+				:prize_subcat_id => params[:prize_subcat],
+				:trans => "Returned").save
+
+
+		@purchase.update_attribute(:returned, true)
+		@purchase.update_attribute(:status, "Returned")
+		flash[:title] = 'Success'
+		flash[:notice] = 'Employee has been refunded.'
+		redirect_to action: :start_manage
+	end
+
 	def request_order(prize, prize_subcat, employee)
 		
 		purchase = Purchase.new(:prize_id => prize.id,
@@ -198,7 +243,11 @@ class PurchasesController < ApplicationController
 		end
 	end
 
-	def start
+	def start_purchase
+		@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
+	end
+
+	def start_manage
 		@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
 	end
 

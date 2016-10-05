@@ -13,6 +13,7 @@
 			<td>Inventory</td>
 			<td>View Dept</td>
 			<td>View All</td>
+			<td>FeedBack</td>
 			<td>Admin</td>
 			<td>Change</td>
 		</tr>
@@ -28,6 +29,7 @@
 				<td> <%= 'X' if r.inventory? %> </td>
 				<td> <%= 'X' if r.view_dept? %> </td>
 				<td> <%= 'X' if r.view_all? %> </td>
+				<td> <%= 'X' if r.feedback? %> </td>
 				<td> <%= 'X' if r.admin? %> </td>
 				<td> 
 				<%= link_to 'Assign', { action: :assign, id: r} %> |

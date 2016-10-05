@@ -59,7 +59,7 @@ class EmployeesController < ApplicationController
 
 	def show
 		@employee = Employee.find(params[:id])
-		@purchases = Purchase.where(employee_id: @employee.id)
+		@purchases = Purchase.where(employee_id: @employee.id).where(returned: false)
 		if @current_user.can_view_employee(@employee) || @employee.id == @current_user.id
 			@bucks = Buck.where(employee_id: @employee.id).where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
 			@bucks_month = @bucks.select { |b| b.this_month? }

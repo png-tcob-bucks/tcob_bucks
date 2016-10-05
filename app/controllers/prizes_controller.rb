@@ -83,8 +83,9 @@ class PrizesController < ApplicationController
 		if !@prize_subcats.blank?		
 			@prize_subcats = PrizeSubcat.where(prize_id: @prize.id)
 			@sizes = @prize_subcats.group(:size).map { |p| p.size }
-			@colors =@prize_subcats.group(:color).map { |p| p.color }
-			@chosen = PrizeSubcat.search(@prize.id, params[:size], params[:color]).first
+			@colors = @prize_subcats.group(:color).map { |p| p.color }
+			@brands = @prize_subcats.group(:brand).map { |p| p.brand }
+			@chosen = PrizeSubcat.search(@prize.id, params[:size], params[:color], params[:brand]).first
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'Item is currently out of stock or discontinued.'

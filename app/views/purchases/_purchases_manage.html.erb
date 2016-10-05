@@ -1,0 +1,39 @@
+<% if @purchases.blank? %>
+	<p>None</p>
+<% else %>
+	<table class = 'table-list'>
+		<tr class = "tr-list-head" >
+			<td>Purchase ID</td>
+			<td>Employee #</td>
+			<td>Employee Name</td>
+			<td>Prize</td>
+			<td>Name</td>
+			<td>Item #</td>
+			<td>Size</td>
+			<td>Color</td>
+			<td>Status</td>
+			<td>Ordered</td>
+			<td>Action</td>
+		</tr>
+		<% @purchases.each do |p|  
+			@employee = Employee.find(p.employee_id)
+			@prize = Prize.find(p.prize_id)
+			@prize_subcat = PrizeSubcat.find(p.prize_subcat_id)
+		%>
+		<tr class = "tr-list">
+			<td> <%= p.id %> </td>
+			<td> <%= @employee.id %> </td>
+			<td> <%= @employee.first_name + " " + @employee.last_name %> </td>
+			<td> <%= @prize.id %> </td>
+			<td> <%= @prize.name %> </td>
+			<td> <%= @prize_subcat.id %> </td>
+			<td> <%= @prize_subcat.size %> </td>
+			<td> <%= @prize_subcat.color %> </td>
+			<td> <%= p.status %> </td>
+			<td> <%= p.created_at %> </td>
+			<td> <%= link_to 'Refund', { controller: :purchases, action: :refund, purchase_id: p.id,
+				prize_id: p.prize_id, prize_subcat: p.prize_subcat_id } if !p.returned %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

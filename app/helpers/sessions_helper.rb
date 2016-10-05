@@ -1,5 +1,9 @@
 module SessionsHelper
 
+  def is_store_open
+    return Time.now.getlocal("-04:00").hour.between?(9, 17) 
+  end
+
 	def log_in(employee)
     session[:id] = employee.id
   end

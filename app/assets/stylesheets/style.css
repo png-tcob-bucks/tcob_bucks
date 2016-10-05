@@ -626,6 +626,8 @@ div.prize-detail-container {
     margin-top: 262px;
 }
 
+.progress{     margin-top: 262px; }   .progress-bar-success{     color: #9b9b9b;     background-color: #6a4186; } 
+
 
 
 
@@ -641,7 +643,7 @@ body {
     font-color: #393939;
     background-color: #fbfbfb;
     background-image: none; !important
-background-size: cover
+    background-size: cover
     color: #393939;
     width: 100%;
     height: 100%;
@@ -865,7 +867,7 @@ div#profile-table-holder {
     font-size: 12px;
     background-blend-mode: screen;
     background-position: center;
-    display: table;
+    display: inline-table;
     border: 1px solid #cccccc;
 }
 
@@ -946,7 +948,8 @@ div.table-wrapper-compact {
 }
 
 div.table-wrapper-nav {
-    margin: 32px 0px 8px 32px;
+    margin: 32px 0px 6px 32px;
+
 }
 
 div.table-wrapper-nav ul {
@@ -1391,10 +1394,14 @@ select:focus {
     display: table-cell;
     padding: 5px;
     color: #FFFFFF;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 .button-green:hover{
     opacity: 0.9;
+}
+
+.button-green:hover a{
+    text-decoration: none;
 }
 
 .button-yellow {
