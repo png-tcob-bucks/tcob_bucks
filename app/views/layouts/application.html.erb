@@ -4,13 +4,8 @@
   <title>TCOB Bucks</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>  <!-- Latest compiled and minified CSS for Bootstrap -->
-  <%= javascript_include_tag 'default', 'data-turbolinks-track' => true %> 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <link href="/assets/stylesheets//navbar-fixed-side.css" rel="stylesheet" />
-  <!-- jQuery library for Bootstrap -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-  This conflicted with current AJAX jQuery calls I have on the site. Do you need it? -->
-
+  <link href="/assets/stylesheets/navbar-fixed-side.css" rel="stylesheet" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
   <!-- Latest compiled JavaScript -->
@@ -19,6 +14,8 @@
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Andada" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Damion" />
 
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'default', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>

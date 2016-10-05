@@ -19,10 +19,11 @@ class Mailer < ApplicationMailer
 		mail(to: @recipients, subject: 'Bucks Feedback')
 	end
 
-	def order_notify(prize, prize_subcat, user)
+	def order_notify(prize, prize_subcat, user, quantity)
 		@user = user
 		@prize = prize
 		@prize_subcat = prize_subcat
+		@quantity = quantity
 
 		mail(to: ['HWT.Wardrobe@pngaming.com', 'paul.rowden@pngaming.com', 'amber.ulrich@pngaming.com', 'jzermen@bgsu.edu'], subject: 'New Prize Order')
 	end

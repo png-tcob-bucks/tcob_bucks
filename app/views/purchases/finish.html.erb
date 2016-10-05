@@ -16,13 +16,13 @@
 
             <%= form_tag :action => 'complete' do %>
 
-            <p><label for = "purchase_id">ID Number</label>:
+            <p><label for = "purchase_id">ID Number:</label>
             <%= text_field 'employee', 'id', :readonly => true %></p>
 
-            <p><label for = "purchase_first_name">First Name</label>:
+            <p><label for = "purchase_first_name">First Name:</label>
             <%= text_field 'employee', 'first_name', :readonly => true %></p>
 
-            <p><label for = "purchase_last_name">Last Name</label>:
+            <p><label for = "purchase_last_name">Last Name:</label>
             <%= text_field 'employee', 'last_name', :readonly => true %></p>
 
           </div>
@@ -34,20 +34,30 @@
               <%= hidden_field 'prize', 'id' %>
               <%= hidden_field 'prize', 'subcat_id' %>
 
-              <p><label for = "purchase_prize_name">Prize</label>:
+              <p><label for = "purchase_prize_name">Prize:</label>
               <%= text_field 'prize', 'name', :readonly => true %></p>
 
-              <p><label for = "purchase_prize_cost">Cost</label>:
+              <p><label for = "purchase_prize_cost">Cost:</label>
               <%= text_field 'prize', 'cost', :readonly => true  %>
 
-              <div id = "order_notice" class = "notice-warning-hidden">Item will need ordering.</div>
+              <p><label for = "purchase_prize_quantity">Quantity:</label>
+              <%= text_field 'prize', 'quantity', value: 1 %></p>
+
+          </div>
+
+          <div class = "form-container">
+
+              <h2> </h2>
 
               <div id = 'purchase_prize_types'>
-              <p><label for = "purchase_prize_size">Size</label>:
+              <p><label for = "purchase_prize_size">Size:</label>
               <%= text_field 'prize', 'size', :readonly => true  %></p>
 
-              <p><label for = "purchase_prize_color">Color</label>:
+              <p><label for = "purchase_prize_color">Color:</label>
               <%= text_field 'prize', 'color', :readonly => true  %></p>
+
+              <p><label for = "purchase_prize_brand">Brand:</label>
+              <%= text_field 'prize', 'brand', :readonly => true %></p>
 
               </div>
 
@@ -60,6 +70,8 @@
             <div id = "balance-holder">
               <%= @employee.get_bucks_balance %>
             </div>
+
+            <div id = "order_notice" class = "notice-warning-hidden">Item will need ordering.</div>
 
           </div>
 

@@ -8,23 +8,30 @@ class PurchasesController < ApplicationController
 		@employee = Employee.find(params[:employee][:id])
 		@prize = Prize.find(params[:prize][:id])
 		@prize_subcat = PrizeSubcat.find(params[:prize][:subcat_id])
+		quantity = params[:prize][:quantity]
 		 
-		if @employee.get_bucks_balance >= @prize.cost
+		if (@employee.get_bucks_balance >= (@prize.cost * quantity)) && quantity > 0
 			if @prize_subcat.stock > 0 || @prize.must_order
 				if params[:online]
-						purchase = request_order(@prize, @prize_subcat, @employee)
-						Mailer.order_notify(@prize, @prize_subcat, @employee).deliver_now
+						quantity.times do
+							purchase = request_order(@prize, @prize_subcat, @employee)
+						end
+						Mailer.order_notify(@prize, @prize_subcat, @employee, quantity).deliver_now
 						flash[:title] = 'Success'
 						flash[:notice] = 'Request has been submitted. You will recieve an email or notification when your request has been approved'
 						redirect_to employee_path(@employee)
 				else
 					if @current_user.can_manage_inventory
-						purchase = makePurchase(@prize, @prize_subcat, @employee)
+						quantity.times do
+							purchase = makePurchase(@prize, @prize_subcat, @employee)
+						end
 						flash[:title] = 'Success'
 						flash[:notice] = 'Purchase confirmed'
 						redirect_to employee_path(@employee)
 					else
-						purchase = reserve(@prize, @prize_subcat)
+						quantity.times do
+							purchase = reserve(@prize, @prize_subcat)
+						end
 						flash[:title] = 'Success'
 						flash[:notice] = 'Item is reserved. Once the order has been processed, 
 						you can find the prize in your wardrobe bag. If it is a large item, you will be able to pick it up at security.'
@@ -39,7 +46,7 @@ class PurchasesController < ApplicationController
 			end
 		else
 			flash[:title] = 'Error'
-			flash[:notice] = 'Not enough bucks to purchase'
+			flash[:notice] = 'Not enough bucks to purchase for that quantity'
 			redirect_to controller: :prizes, action: :index
 		end
 	end

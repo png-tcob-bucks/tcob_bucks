@@ -15,6 +15,10 @@ header, main, footer {
     }
 }
 
+label {
+    width: 6em;
+}
+
 div#header-box {
     background-color: rgba(96, 56, 123, 0.52);
     width: 50%;
@@ -47,6 +51,7 @@ div#header-box p {
 
 div#header-bar {
     width: 100%;
+    height: 38px;
     display: table;
     background-color: #6c4388;
     border: 1px solid #8e5bb1;
@@ -67,13 +72,13 @@ div#header-bar .p2 {
     color: #eeeeee;
     margin: 4px 32px 4px 0px;
     float: right;
-    padding: 8px 16px 8px 16px;
-    height: 48px;
+    padding: 0px 16px 10px 16px;
+    height: 32px;
     /* float: left; */
     display: table-cell;
     vertical-align: middle;
     background-color: rgb(78, 49, 99);
-    font-size: 24px;
+    font-size: 22px;
     border: 1px solid #000000;
     box-shadow: 0px 0px 2px #b48ece;
     border-radius: 5px;
@@ -135,7 +140,7 @@ div#navigation .notification {
 
 .profile-image {
     border-radius: 50%;
-    width: 70%;
+    width: 45%;
     display: block;
     margin: 0 auto;
 }
@@ -146,8 +151,8 @@ div#navigation .notification {
 
 .profile-Bucks-box{
     background-color: #5b3475;
-    width: 100%;
-    padding: 10px;
+    width: 50%;
+    height: 50px;
     border: 1px solid #6a4186;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
@@ -161,6 +166,7 @@ div#navigation .notification {
     font-size: 24px;
     text-shadow: 0px 1px 2px #000000;
     margin-bottom: -4px;
+    margin-top: -1px;
 
 }
 
@@ -168,6 +174,7 @@ div#navigation .notification {
     color: #EEEEEE;
     font-size: 20px;
     text-shadow: 0px 1px 2px #000000;
+    padding-bottom: 40px;
 }
 
 .profile-earned-bucks{
@@ -178,11 +185,15 @@ div#navigation .notification {
 }
 
 .profile-earned-bucks h1{
-    font-size: 22px;
+    font-size: 20px;
+    margin-top: -8px;
+
 }
 
 .profile-earned-bucks p{
     font-size: 14px;
+    margin-top: -12px;
+    margin-bottom: -4px;
 }
 
 
@@ -203,33 +214,38 @@ h3{
     text-align: center;
 }
 
+.carousel-control.left .leader, .carousel-control.right .leader {
+    background-image: none;
+    margin-top: 135px;
+}
+
 .carousel-control.left, .carousel-control.right {
     background-image: none;
 }
 
-.carousel-control {
+.carousel-control .leader {
     top:50%;
     width:auto;
     height:1em;
     background:transparent;
 }
-.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right  {
+.carousel-control .leader .glyphicon-chevron-left, .carousel-control .leader .glyphicon-chevron-right  {
     position:static;
     display:block;
     width:auto;
     margin-top: 135px;
 }
-.carousel-control .glyphicon-chevron-left:before {
+
+
+.carousel-control .leader .glyphicon-chevron-left:before {
     margin-left:0;
 }
 
 .carousel img {
-    height: 400px;
-    max-height: 400px;
+    height: 250px;
+    max-height: 250px;
     top: 0;
-    left: 0;
-    width: auto;
-}
+    left: 0;  }
 
 
 .table{
@@ -254,15 +270,10 @@ h3{
     font-size: 14px;
 }
 
-.home-image{
-    width: 100%;
-    max-height: 200px;
-}
-
 .buck-container {
     background: url('/images/banner_back.png');
     background-size: 1200px 500px;
-    width: 100%;
+    width: 1050px;
     height: 500px;
     font-family: Andada;
     font-weight: bold;
@@ -476,6 +487,18 @@ ul.grid-view li {
 }
 
 .prize {
+     width: 215px;
+     height: 265px;
+     background-size: 220px 260px;
+     background-repeat: no-repeat;
+     padding: 5px;
+     float:left;
+     position:relative;
+     margin-bottom: 20px;
+ }
+
+
+.prize-over {
     width: 215px;
     height: 265px;
     background-size: 220px 260px;
@@ -485,7 +508,6 @@ ul.grid-view li {
     position:relative;
     margin-bottom: 20px;
 }
-
 .prize-tag {
     float: right;
     background-color: #6a4186;
@@ -585,7 +607,9 @@ div.prize-detail-container {
 
 }
 .featured-home{
+    /*
     width: 150%;
+    */
 
 }
 
@@ -626,10 +650,15 @@ div.prize-detail-container {
     margin-top: 262px;
 }
 
-.progress{     margin-top: 262px; }   .progress-bar-success{     color: #9b9b9b;     background-color: #6a4186; } 
+
+   .progress-bar-success{ 
+    color: #9b9b9b; 
+    background-color: #6a4186; } 
 
 
-
+.purchase-list-container {
+    display: inline-table
+}
 
 
 
@@ -643,7 +672,7 @@ body {
     font-color: #393939;
     background-color: #fbfbfb;
     background-image: none; !important
-    background-size: cover
+background-size: cover
     color: #393939;
     width: 100%;
     height: 100%;
@@ -867,7 +896,7 @@ div#profile-table-holder {
     font-size: 12px;
     background-blend-mode: screen;
     background-position: center;
-    display: inline-table;
+    display: table;
     border: 1px solid #cccccc;
 }
 
