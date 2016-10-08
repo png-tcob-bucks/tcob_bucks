@@ -655,13 +655,6 @@ div.prize-detail-container {
     color: #9b9b9b; 
     background-color: #6a4186; } 
 
-
-.purchase-list-container {
-    display: inline-table
-}
-
-
-
 * {
     box-sizing: border-box;
 }
@@ -896,7 +889,7 @@ div#profile-table-holder {
     font-size: 12px;
     background-blend-mode: screen;
     background-position: center;
-    display: table;
+    display: inline-table;
     border: 1px solid #cccccc;
 }
 

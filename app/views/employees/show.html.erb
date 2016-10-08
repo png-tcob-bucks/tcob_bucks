@@ -9,7 +9,7 @@
     <div class="panel panel-default panel-body profile-info">
       <%= image_tag get_profile_picture(@employee.IDnum), class: "profile-image" %>
       <h1><%= @employee.first_name + " " + @employee.last_name%></h1>
-      <h3><%= "#" + @employee.id.to_s %>
+      <%= "#" + @employee.id.to_s %>
           <br><%= Department.find(@employee.department_id).name %>
           <br><%= Job.find(@employee.job_id).title %>
           <% if @current_user.has_admin_access %>
@@ -34,6 +34,7 @@
       <div class="panel-default">
           <div class="panel-heading">Bucks Earned</div>
           <div class="panel panel-body">
+            <center>
             <div class="profile-earned-bucks">
               <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Attendance').count %></h1>
               <p>Attendance <br> Bucks</p>
@@ -58,12 +59,15 @@
               </h1>
               <p>Other <br>Bucks</p>
             </div>
+            </center>
           </div>
       </div>
       <div class="panel-default">
         <div class="panel-heading">Prizes Earned</div>
-        <div class="panel panel-body">
-          <%= render 'purchases/purchases_line' %>
+        <div class="panel panel-body purchase-list-wrapper">
+          <div class="purchase-list">
+            <%= render 'purchases/purchases_line' %>
+          </div>
         </div>
       </div>
     </div>

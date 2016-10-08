@@ -35,47 +35,9 @@
       <br><p>Number Of Bucks To Be Rewarded: <%= @buck.value %></p>
     </div>
       <div class="buck-container--type-area">
-        <div class="buck-container--check-box">
-          <% if @buck.reason_short == 'Attendance'%>
-              <input type="checkbox" name="type" value="Attendance" checked disabled> ATTENDANCE
-          <% else %>
-              <input type="checkbox" name="type" value="Attendance" disabled> ATTENDANCE
-          <% end %>
-          <p>3 Bucks</p>
-        </div>
-        <div class="buck-container--check-box">
-          <% if @buck.reason_short == 'Shift Coverage'%>
-              <input type="checkbox" name="type" value="Shift Coverage" checked disabled> SHIFT COVERAGE
-          <% else %>
-              <input type="checkbox" name="type" value="Shift Coverage" disabled> SHIFT COVERAGE
-          <% end %>
-          <p>2 Bucks</p>
-        </div>
-        <div class="buck-container--check-box">
-          <% if @buck.reason_short == 'Other'%>
-              <input type="checkbox" name="type" value="Other" style="padding-left: 20px" checked disabled> OTHER
-          <% else %>
-              <input type="checkbox" name="type" value="Other" style="padding-left: 20px" disabled> OTHER
-          <% end %>
-          <p>1-10 Bucks </p>
-        </div>
-        <br>
-        <div class="buck-container--check-box">
-          <% if @buck.reason_short == 'Customer Service'%>
-              <input type="checkbox" name="type" value="Customer Service" checked disabled> CUSTOMER SERVICE
-          <% else %>
-              <input type="checkbox" name="type" value="Customer Service" disabled> CUSTOMER SERVICE
-          <% end %>
-          <p>5 Bucks</p>
-        </div>
-        <div class="buck-container--check-box">
-          <% if @buck.reason_short == 'Community Involvement'%>
-              <input type="checkbox" name="type" value="Attendance" checked disabled> COMMUNITY INVOLVEMENT
-          <% else %>
-              <input type="checkbox" name="type" value="Attendance" disabled> COMMUNITY INVOLVEMENT
-          <% end %>
-          <p>3 Bucks</p>
-        </div>
+        <br><center>BUCK AWARDED FOR:
+        <br><text class="buck-container-cursive"><%= @buck.reason_short %></text></center>
+
         <br>
         <div class="buck-container--director">
           DIRECTOR SIGN OFF FOR "OTHER"

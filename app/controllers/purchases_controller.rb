@@ -8,9 +8,11 @@ class PurchasesController < ApplicationController
 		@employee = Employee.find(params[:employee][:id])
 		@prize = Prize.find(params[:prize][:id])
 		@prize_subcat = PrizeSubcat.find(params[:prize][:subcat_id])
-		quantity = params[:prize][:quantity]
+		quantity = params[:prize][:quantity].to_i
+		cost = @prize.cost
+		cost = cost.to_s.delete('$').to_i
 		 
-		if (@employee.get_bucks_balance >= (@prize.cost * quantity)) && quantity > 0
+		if (@employee.get_bucks_balance >= ( cost * quantity )) && quantity > 0
 			if @prize_subcat.stock > 0 || @prize.must_order
 				if params[:online]
 						quantity.times do

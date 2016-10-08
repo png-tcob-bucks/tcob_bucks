@@ -3,11 +3,16 @@
 <% else %>
 	<ul class = "grid-view">
 	<% @prizes.each do |p| %>
-        <li>
-      <div class="prize" style="background-image:url(<%= p.get_first_image %>);">
-          <div class="prize-tag">
-            <%= p.cost %> Bucks
-          </div>
+		<li>
+    <div class="prize">
+      <div class="prize-tag">
+        <%= p.cost %> Bucks
+      </div>
+      <div class="prize-container">
+        <%= link_to action: :show, id: p.id do%>
+        <img src="<%= p.get_first_image %>" class="prize-photo">
+        <% end %>
+      </div>
 
         <div class='prize-info'>
           <%= link_to p.name, action: :show, id: p.id %>

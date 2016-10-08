@@ -2,33 +2,42 @@
 <% if @favorites.blank? %>
     <p>You don't have any favorite items yet! Browse through the store and set some goals!</p>
 <% else %>
-
     <ul class = "grid-view">
       <% @favorites.each do |f|
         @prize = Prize.find(f.prize_id)
         @prize_subcat = PrizeSubcat.find_by(prize_id: f.prize_id) %>
           <li>
-            <div class="prize" style="background-image:url(<%= @prize.get_first_image %>);">
+            <div class="prize">
               <div class="prize-tag">
                 <%= @prize.cost %> Bucks
+              </div>
+              <div class="prize-container">
+                <%= link_to controller: :prizes, action: :show, id: f.prize_id do%>
+                    <img src="<%= @prize.get_first_image %>" class="prize-photo">
+                <% end %>
               </div>
 
               <div class='prize-info'>
                 <%= link_to @prize.name, controller: :prizes, action: :show, id: f.prize_id %>
                 <br><%= @prize_subcat.stock %> In Stock
-                <br>
-                <%= @prize_subcat.size %>
+
+                <br><%= @prize_subcat.size %>
                 <%= @prize_subcat.color %>
               </div>
 
-              <div class="progress"> 
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"  aria-valuemin="0" aria-valuemax="100" style="width:<%= item_progress(@prize.cost, @balance) %>"> 
-                  <%= @balance %> / <%= @prize.cost %> Bucks 
-                </div> 
-              </div> </div>
 
 
-            <% end %>
-      </li>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="40"
+                     aria-valuemin="0" aria-valuemax="100" style="width: <%= item_progress(@prize.cost, @balance)%>px">
+                </div>
+                <div class="progress-amount">
+                  <p><%= @balance %> / <%= @prize.cost %> Bucks</p>
+                </div>
+              </div>
+            </div>
+
+          </li>
+      <% end %>
     </ul>
 <% end %>
