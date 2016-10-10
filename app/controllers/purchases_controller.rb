@@ -165,29 +165,47 @@ class PurchasesController < ApplicationController
 
 		@bucks_used.each do |b|
 			buck = Buck.find(b.buck_id)
-			buck.update_attribute(:value, b.value_before)
-			buck.update_attribute(:status, "Active")
+			if @refund - getBuckValue(buck.reason_short) >= 0
+				BuckLog.new(:buck_id => buck.id, 
+					:event => 'Refunded', 
+					:performed_id => @current_user.id,
+					:recieved_id => buck.employee_id,
+					:value_before => buck.value,
+					:value_after => getBuckValue(buck.reason_short),
+					:status_before => buck.status,
+					:status_after => "Active",
+					:purchase_id => @purchase.id).save
 
-			BuckLog.new(:buck_id => buck.id, 
-				:event => 'Refunded', 
-				:performed_id => @current_user.id,
-				:recieved_id => buck.employee_id,
-				:value_before => b.value_after,
-				:value_after => b.value_before,
-				:status_before => b.status_before,
-				:status_after => "Active",
-				:purchase_id => @purchase.id).save
+				buck.update_attribute(:value, getBuckValue(buck.reason_short))
+				buck.update_attribute(:status, "Active")
+			else
+				BuckLog.new(:buck_id => buck.id, 
+					:event => 'Refunded', 
+					:performed_id => @current_user.id,
+					:recieved_id => buck.employee_id,
+					:value_before => buck.value,
+					:value_after => buck.value + (@refund - getBuckValue(buck.reason_short)),
+					:status_before => buck.status,
+					:status_after => "Partial",
+					:purchase_id => @purchase.id).save
+
+				buck.update_attribute(:value, buck.value + (@refund - getBuckValue(buck.reason_short)))
+				buck.update_attribute(:status, "Partial")
+			end
+
+			@refund = @refund - getBuckValue(buck.reason_short)
+			
 		end
 
 		prize_subcat = PrizeSubcat.find(params[:prize_subcat])
 		prize_subcat.stock = prize_subcat.stock + 1
 
 		StoreLog.new(:employee_id => @purchase.employee_id, 
-				:cashier_id => @current_user.id, 
-				:purchase_id => @purchase.id,
-				:prize_id => params[:prize_id],
-				:prize_subcat_id => params[:prize_subcat],
-				:trans => "Returned").save
+			:cashier_id => @current_user.id, 
+			:purchase_id => @purchase.id,
+			:prize_id => params[:prize_id],
+			:prize_subcat_id => params[:prize_subcat],
+			:trans => "Returned").save
 
 
 		@purchase.update_attribute(:returned, true)
