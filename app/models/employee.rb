@@ -172,6 +172,10 @@ class Employee < ActiveRecord::Base
     return self.department_id == employee.department_id
   end
 
+  def is_in_department(department)
+    return self.department_id == department.id
+  end
+
   def can_view_employee(employee)
     return (self.can_view_dept && self.is_same_department(employee)) || self.can_view_all
   end

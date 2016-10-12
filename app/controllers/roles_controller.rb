@@ -44,8 +44,15 @@ class RolesController < ApplicationController
 	end
 
 	def index
-		@roles = Role.all.order(:title)
-		@jobs_unassigned = Job.joins('LEFT JOIN permissions ON permissions.job_id = jobs.jobcode WHERE permissions.job_id IS NULL').order(:title)
+		if @current_user.has_admin_access
+			@roles = Role.all.order(:title)
+			@jobs_unassigned = Job.joins('LEFT JOIN permissions ON permissions.job_id = jobs.jobcode WHERE permissions.job_id IS NULL').order(:title)
+
+		else 
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to view roles.'
+			redirect_to controller: :employees, action: 'show', id: @current_user.id
+		end
 	end
 
 	def new

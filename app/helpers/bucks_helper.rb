@@ -14,7 +14,7 @@ module BucksHelper
 		if reason.eql?("A+ Service")
 			return 20
 		elsif reason.eql?("Attendance")
-			return 2
+			return 3
 		elsif reason.eql?("Shift Coverage")
 			return 2
 		elsif reason.eql?("Customer Service")

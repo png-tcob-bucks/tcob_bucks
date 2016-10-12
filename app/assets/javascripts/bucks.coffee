@@ -9,10 +9,6 @@ $(document).ajaxStop ->
   setTableRowsClickableEmployees()
   return
 
-$(document).on('page:change') ->
-  setTableRowsClickableEmployees()
-  return
-
 setTableRowsClickableEmployees = undefined
 
 setTableRowsClickableEmployees = ->
