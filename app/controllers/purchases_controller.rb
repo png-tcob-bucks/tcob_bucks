@@ -35,7 +35,7 @@ class PurchasesController < ApplicationController
 						redirect_to employee_path(@employee)
 					else
 						quantity.times do
-							purchase = reserve(@prize, @prize_subcat)
+							purchase = reserve(@prize, @prize_subcat, @employee)
 							perform_bucks_purchase_transaction(@prize, @employee, purchase)
 						end
 						flash[:title] = 'Success'
@@ -184,12 +184,12 @@ class PurchasesController < ApplicationController
 					:performed_id => @current_user.id,
 					:recieved_id => buck.employee_id,
 					:value_before => buck.value,
-					:value_after => buck.value + (@refund - getBuckValue(buck.reason_short)),
+					:value_after => buck.value + @refund,
 					:status_before => buck.status,
 					:status_after => "Partial",
 					:purchase_id => @purchase.id).save
 
-				buck.update_attribute(:value, buck.value + (@refund - getBuckValue(buck.reason_short)))
+				buck.update_attribute(:value, buck.value + @refund)
 				buck.update_attribute(:status, "Partial")
 			end
 
@@ -234,13 +234,13 @@ class PurchasesController < ApplicationController
 		return purchase
 	end
 
-	def reserve(prize, prize_subcat)
+	def reserve(prize, prize_subcat, employee)
 		if prize_subcat.stock > 0
 			stock_before = prize_subcat.stock
 			prize_subcat.update_attribute(:stock, prize_subcat.stock - 1)
 			purchase = Purchase.new(:prize_id => prize.id,
 					:prize_subcat_id => prize_subcat.id,
-					:employee_id => @current_user.id,
+					:employee_id => employee.id,
 					:cashier_id => @current_user.id,
 					:status => "Reserved")
 			purchase.save

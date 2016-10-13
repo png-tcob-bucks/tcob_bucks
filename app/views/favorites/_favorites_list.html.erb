@@ -23,6 +23,8 @@
 
                 <br><%= @prize_subcat.size %>
                 <%= @prize_subcat.color %>
+                <br>
+                <%= link_to "Unfavorite", {controller: :favorites, action: :delete, prize_id: @prize.id, source: 'index' } %>
               </div>
 
 

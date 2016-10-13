@@ -2,6 +2,11 @@
   <div class="col-sm-12">
     <div class="panel panel-default panel-body">
       <a href="/prizes/"> < Back to Store</a><br><br>
+      <% if flash[:title] == "Error" %>
+        <div class="notice-error"><%= flash[:notice] %></div>
+      <% elsif flash[:title] == "Success" %>
+        <div class="notice-success"><%= flash[:notice] %></div>
+      <% end %>
       <div class = "prize-detail-container">
           <div class = "table-wrapper">
             <div class = "prize-detail-cell-picture">
@@ -46,15 +51,27 @@
               <% end %>
 
               <%= form_tag controller: :purchases, action: :complete do %>
-              <%= hidden_field :prize, :id, value: @prize.id %>
-              <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
-              <%= hidden_field :employee, :id, value: @current_user.id %>
-              <%= hidden_field :online, value: true %>
+
+                <p><label for = "quantity">Quantity:</label>
+                <%= text_field 'prize', 'quantity', value: 1 %></p>
+                
+                <%= hidden_field :prize, :id, value: @prize.id %>
+                <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
+                <%= hidden_field :employee, :id, value: @current_user.id %>
+                <%= hidden_field :online, value: true %>
 
 
               <ul class = 'button-line'>
                 <%= submit_tag 'Purchase' if !@chosen.nil? %>
-                <%= link_to controller: :favorites, action: :create, id: @prize.id do %><li>Add to Favorites</li><% end %>
+                <% if Favorite.find_by(employee_id: @current_user, prize_id: params[:id]).blank? %>
+                  <%= link_to controller: :favorites, action: :create, prize_id: @prize.id do %>
+                    <li>Add to Favorites</li>
+                  <% end 
+                else %>
+                  <%= link_to controller: :favorites, action: :delete, prize_id: @prize.id, source: 'shop' do %>
+                    <li>Remove from Favorites</li>
+                  <% end 
+                end %>
               </ul>
               <% end %>
 
