@@ -21,7 +21,7 @@
       <div class = "table-wrapper">
         <% if !@department.nil? && !@month.nil? && !@year.nil? %>
           <h1>Budget Report: <%= @department.name %> (<%= @month %>, <%= @year %>)</h1>
-          <% @month = Date::MONTHNAMES.index(@month) %>
+          <% @month_num = Date::MONTHNAMES.index(@month) %>
           <%= render 'analyze_budget_report' %>
         <% end %>
       </div>

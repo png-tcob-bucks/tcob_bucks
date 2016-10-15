@@ -29,6 +29,23 @@ class Buck < ActiveRecord::Base
     end
   end
 
+  def self.search_employee(employeeID, month, year)
+    month = Date::MONTHNAMES.index(month) 
+    if !month.blank? && !year.blank?
+      where('assignedBy = ? ', "#{employeeID}")
+      .where('extract(year  from approved_at) = ?
+        AND extract(month from approved_at) = ?', "#{year}", "#{month}")
+      # .where('extract(month from approved_at) = ?', Time.now.strftime("%m"))
+    elsif !month.blank? 
+      where('assignedBy = ? ', "#{employeeID}")
+      .where('extract(month from approved_at) = ?', "#{month}")
+      # .where('extract(month from approved_at) = ?', Time.now.strftime("%m"))
+    elsif !year.blank?
+      where('assignedBy = ? ', "#{employeeID}")
+      .where('extract(year  from approved_at) = ?', "#{year}")
+    end
+  end
+
   def this_month?
 		this_month = Time.now.strftime("%m")
 		this_year = Time.now.strftime("%Y")

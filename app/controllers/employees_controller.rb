@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
 	include ApplicationHelper
 	include EmployeesHelper
+	include BucksHelper
 	include SessionsHelper
 	include PermissionsHelper
 	include EmployeesImportHelper
@@ -9,6 +10,25 @@ class EmployeesController < ApplicationController
 
 	def achievements
 		
+	end
+
+	def analyze
+	if @current_user.has_admin_access
+			@employee = Employee.find(params[:id])
+			@months = Buck.group("month(bucks.approved_at)").where(assignedBy: @employee.IDnum).map { |b| b.approved_at.strftime("%B") if !b.approved_at.nil? } 
+			@years = Buck.group("year(bucks.approved_at)").where(assignedBy: @employee.IDnum).map { |b| b.approved_at.strftime("%Y") if !b.approved_at.nil? }
+			@bucks = Buck.search_employee(@employee.IDnum, params[:month], params[:year])
+			@department = Department.find(@employee.department_id)
+			@department_budget = @department.get_budget_overall
+			@budget_per_employee = @department.get_budget_per_employee
+			@month = params[:month] if !params[:month].blank?
+			@year = params[:year] if !params[:year].blank?
+
+		else 
+			flash.now[:title] = 'Error'
+			flash.now[:notice] = 'You do not have permission to view analytics of employees.'
+			render 'show'
+		end
 	end
 
 	def create

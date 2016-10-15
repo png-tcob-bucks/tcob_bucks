@@ -12,15 +12,15 @@
 			<td class = "td-list">% of Dept Budget</td>
 		</tr>
 		<% @employees.each do |e| 
-			budget_used = e.get_personal_budget_used(@month, @year)
+			budget_used = e.get_personal_budget_used(@month_num, @year)
 			%>
-			<tr class = "tr-list" onclick=" window.document.location = '<%= employee_path(e) %>'; ">
+			<tr class = "tr-list" onclick=" window.document.location = '/employees/analyze/<%= e.IDnum %>?utf8=✓&month=<%= @month %>&year=<%= @year %>&commit=Show'; ">
 			<td class = "td-list"> <%= e.id %> </td>
 			<td class = "td-list"> <%= e.first_name + " " + e.last_name %> </td>
 			<td class = "td-list"> <%= Job.find(e.job_id).title %> </td>
 			<td class = "td-list"> <%= budget_used %> </td>
-			<td class = "td-list"> 			<p class = <%= p_class_for_budget(budget_used, budget_per_employee)%>><%= e.get_personal_budget_used_percent(@month, @year) %>%</p> </td>
-			<td class = "td-list"> 			<p class = <%= p_class_for_budget(budget_used, budget_per_employee)%>><%= e.get_department_budget_used_percent(@month, @year) %>%</p> </td>
+			<td class = "td-list"> 			<p class = <%= p_class_for_budget(budget_used, budget_per_employee)%>><%= e.get_personal_budget_used_percent(@month_num, @year) %>%</p> </td>
+			<td class = "td-list"> 			<p class = <%= p_class_for_budget(budget_used, budget_per_employee)%>><%= e.get_department_budget_used_percent(@month_num, @year) %>%</p> </td>
 		</tr>
 		<% end %>
 	</table>

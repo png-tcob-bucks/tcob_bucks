@@ -1,4 +1,4 @@
-<% budget_used = @current_user.get_personal_budget_used(@month, @year) %>
+<% budget_used = @current_user.get_personal_budget_used(@month_num, @year) %>
 <table>
 	<tr>
 		<td class = "detail-title">Department Budget: </td>
@@ -6,8 +6,8 @@
 	</tr>
 	<tr>
 		<td class = "detail-title">Department Budget Used: </td>
-		<td class = "detail-content"> <%= @department.get_budget_used(@month, @year) %> / <%= @department_budget %> 
-		<p class = <%= p_class_for_budget(budget_used, @department_budget)%>> (<%= @department.get_budget_used_percent(@month, @year) %>%)</p></td>
+		<td class = "detail-content"> <%= @department.get_budget_used(@month_num, @year) %> / <%= @department_budget %> 
+		<p class = <%= p_class_for_budget(budget_used, @department_budget)%>> (<%= @department.get_budget_used_percent(@month_num, @year) %>%)</p></td>
 	</tr>
 	<tr>
 		<td class = "detail-title">A+ Service: </td>

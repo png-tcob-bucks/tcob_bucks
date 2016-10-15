@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'employees/import'              => 'employees#import'
   get 'employees/:id'                 => 'employees#show', as: :employee
   get 'employees/:id/achievements'    => 'employees#achievements'
+  get 'employees/analyze/:id'         => 'employees#analyze'
 
   get 'bucks'                         => 'bucks#index'
   get 'bucks/new'                     => 'bucks#new'
