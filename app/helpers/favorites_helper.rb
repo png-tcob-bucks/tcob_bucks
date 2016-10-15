@@ -11,7 +11,7 @@ module FavoritesHelper
 	end
 
 	def item_progress(user_bucks, cost)
-		return (cost / user_bucks) * 100
+		return (cost.to_f / user_bucks.to_f) * 100
 	end
 
 end

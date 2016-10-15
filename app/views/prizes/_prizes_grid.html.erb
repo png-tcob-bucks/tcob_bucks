@@ -4,7 +4,7 @@
 	<ul class = "grid-view">
 	<% @prizes.each do |p| %>
 		<li>
-    <div class="prize">
+    <div class="prize-store">
       <div class="prize-tag">
         <%= p.cost %> Bucks
       </div>
@@ -30,9 +30,9 @@
                   <div class = "color" style="background-color:<%= get_color_code(c.color) %>""></div>
               <% end end %>
 
-         <!-- <div class="prize-info&#45;&#45;favorites">
-            <span class="glyphicon glyphicon-heart"></span>
-          </div>-->
+         <div class="prize-info--favorites">
+        <%= link_to controller: :favorites, action: :create, id: p.id do %><span class="glyphicon glyphicon-heart"></span><% end %>
+          </div>
         </div>
 
       </div>

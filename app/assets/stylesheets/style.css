@@ -206,6 +206,13 @@ h3{
     font-size: 14px;
 }
 
+.profile-earned-bucks{
+    text-align: center;
+    width: 15%;
+    float: left;
+    margin-right: 5px;
+}
+
 .panel-default > .panel-heading {
     background-color: #6c4388;
     border: 1px solid #8e5bb1;

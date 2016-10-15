@@ -27,13 +27,15 @@
               </textarea>
       </div>
 
-      <br><div class="buck-container--other-info">
+      <br><br><br><br><br><div class="buck-container--other-info">
       OTHER: CAN BE NO MORE THAN 10 BUCKS
       <br><textarea disabled class="buck-container--info-textarea-other ">
                          <%= @buck.reason_long %>
                       </textarea>
       <br><p>Number Of Bucks To Be Rewarded: <%= @buck.value %></p>
     </div>
+      <br>
+     <div class="bucks-container--other-right">
       <div class="buck-container--type-area">
         <br><center>BUCK AWARDED FOR:
         <br><text class="buck-container-cursive"><%= @buck.reason_short %></text></center>
@@ -45,7 +47,7 @@
               </textarea>
         </div>
       </div>
-
+     </div>
     </div>
 
 <% end %>
