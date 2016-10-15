@@ -144,7 +144,7 @@ class Employee < ActiveRecord::Base
   end
 
   def can_approve_bucks
-    return true if Job.find(self.job_id).roles.exists?(approve: true)
+    return Department.exists?(approve1: self.job_id) || Department.exists?(approve2: self.job_id) || self.has_admin_access
   end
 
   def can_redeem_bucks
@@ -196,8 +196,12 @@ class Employee < ActiveRecord::Base
     return BuckLog.where(recieved_id: self.id).where('extract(year from created_at) = ?', Time.now.strftime("%Y")).where(status_after: ['Active']).sum(:value_after)
   end
 
-  def get_pending_bucks_count
-    return Buck.where(department_id: self.department_id).where(status: ['Pending']).count
+  def get_pending_bucks
+    jobcode = self.job_id
+    approve_for = Department.where('approve1 = \'' + jobcode + '\' OR approve2 = \'' + jobcode + '\'')
+    bucks = Array.new
+    approve_for.each { |d| Buck.where(department_id: d.id).where(status: 'Pending').each { |b| bucks.push(b) }}
+    return bucks
   end
 
   def get_personal_budget_used(month, year)

@@ -1,6 +1,7 @@
 class BucksController < ApplicationController
 	include ApplicationHelper
 	include BucksHelper
+	include EmployeesHelper
 	include SessionsHelper
 	include BucksImportHelper
 
@@ -173,7 +174,7 @@ class BucksController < ApplicationController
 
 	def pending
 		if @current_user.can_approve_bucks
-			@bucks = Buck.where(department_id: @current_user.department_id).where(status: ['Pending']).order(sort_buck_column + " " + sort_buck_direction)
+			@bucks = @current_user.get_pending_bucks
 		else
 			flash.now[:title] = 'Error'
 			flash.now[:notice] = 'You do not have permission to approve bucks.'

@@ -28,8 +28,8 @@
     <% end %>
     <% if @current_user.can_approve_bucks %>
       <li><a href="/bucks/pending">Pending Approval
-          <% if @user.get_pending_bucks_count > 0 %>
-            <div class="notification"><%= @user.get_pending_bucks_count %></div>
+          <% if @current_user.get_pending_bucks.count > 0 %>
+            <div class="notification"><%= @current_user.get_pending_bucks.count %></div>
           <% end %>
           </a> 
       </li>
