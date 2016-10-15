@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   get 'admin/depts'                   => 'departments#edit'
   post 'admin/depts'                  => 'departments#update'
   get 'admin/depts/approver'          => 'departments#approvers'
-  get 'admin/depts/approver_add'         => 'departments#approver_add'
+  get 'admin/depts/approver_add'      => 'departments#approver_add'
   get 'admin/logs/bucks'              => 'bucks#logs'
   get 'admin/logs/store'              => 'prizes#logs'
   get 'admin/bucks/analyze'           => 'bucks#analyze'
@@ -71,6 +71,8 @@ Rails.application.routes.draw do
   get 'admin/orders/confirm/:id'      => 'purchases#confirm'
   get 'admin/hard_reset'              => 'override#verify'
   get 'admin/hard_reset/:key'         => 'override#process'
+
+  get 'mail/optout/:id'               => 'mailer#opt_out'
 
   get 'roles'                         => 'roles#index'
   get 'roles/new'                     => 'roles#new'

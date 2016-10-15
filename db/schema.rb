@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930010922) do
+ActiveRecord::Schema.define(version: 20161015024705) do
 
   create_table "buck_logs", force: :cascade do |t|
     t.integer  "buck_id",       limit: 4,   null: false
@@ -58,18 +58,19 @@ ActiveRecord::Schema.define(version: 20160930010922) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.integer  "IDnum",           limit: 4,               null: false
+    t.integer  "IDnum",           limit: 4,                  null: false
     t.string   "first_name",      limit: 255
     t.string   "last_name",       limit: 255
-    t.integer  "department_id",   limit: 4,               null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.integer  "department_id",   limit: 4,                  null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "password_digest", limit: 255
-    t.string   "job_id",          limit: 255,             null: false
+    t.string   "job_id",          limit: 255,                null: false
     t.string   "email",           limit: 255
     t.string   "status",          limit: 255
     t.integer  "balance",         limit: 4,   default: 0
     t.integer  "earned_m",        limit: 4,   default: 0
+    t.boolean  "notify",                      default: true
   end
 
   add_index "employees", ["IDnum"], name: "index_employees_on_IDnum", using: :btree

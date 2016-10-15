@@ -77,6 +77,8 @@ class BucksController < ApplicationController
 
 			if @buck.reason_short == 'Other'
 				Mailer.pending_buck_approval(@current_user, @buck).deliver_now
+			else
+				Mailer.notify_employee(@buck, @current_user).deliver_now
 			end
 
 			buck_log_params = { :buck_id => @buck.id, 
@@ -89,10 +91,10 @@ class BucksController < ApplicationController
 				:status_after => @buck.status }
 			BuckLog.new(buck_log_params).save
 
-			redirect_to :action => 'show', id: @buck.id
+			
 			flash[:title] = 'Success'
 			flash[:notice] = 'Buck has been submitted!'
-
+			redirect_to :action => 'show', id: @buck.id
 			
 		else
 			flash[:title] = 'Error'
@@ -225,6 +227,9 @@ class BucksController < ApplicationController
 					:status_before => 'Pending',
 					:status_after => 'Active' }
 				BuckLog.new(approved_buck_log_params).save
+
+				Mailer.notify_issuer(@buck, Employee.find(@buck.assignedBy), Employee.find(@buck.employee_id), "Approved", "Approved").deliver_now
+
 				redirect_to @buck
 			elsif params[:decision] == 'Deny'
 				@buck.update_attribute(:status, 'Denied')
@@ -236,6 +241,9 @@ class BucksController < ApplicationController
 				flash[:title] = 'Success'
 				flash[:notice] = 'Buck has been denied'
 				BuckLog.new(buck_log_params).save
+
+				Mailer.notify_issuer(@buck, Employee.find(@buck.assignedBy), Employee.find(@buck.employee_id), "Denied", params[:buck][:denial_reason]).deliver_now
+
 				redirect_to @buck
 			else
 				flash.now[:title] = 'Error'
