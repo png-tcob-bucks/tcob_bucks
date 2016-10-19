@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+      <div class = "shop_banner">
+        <img src="/images/bucks_shop_logo.png" class = "shop-banner-logo">
+      </div>
+
+
+
+      <div class = "featured-wrapper">
+        <h1>Spotlight Prizes</h1>
+        <%= render 'prizes_featured' %>
+
+      </div>
+
+      <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+      <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+      <% end %>
+
+      <h1>Available Prizes</h1>
+      <div class = "table-wrapper">
+        <%= render 'prizes_grid' %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<% if @prizes.blank? %>
+	<p>None</p>
+<% else %>
+	<ul class = "grid-view">
+	<% @prizes.each do |p| %>
+		<li>
+    <div class="prize-store">
+      <div class="prize-tag">
+        <%= p.cost %> Bucks
+      </div>
+      <div class="prize-container">
+        <%= link_to action: :show, id: p.id do%>
+        <img src="<%= p.get_first_image %>" class="prize-photo">
+        <% end %>
+      </div>
+
+        <div class='prize-info'>
+          <%= link_to p.name, action: :show, id: p.id %>
+          <% @prize_subcat = PrizeSubcat.where(prize_id: p.id) %>
+
+          <% if p.must_order %>
+              <br>Prize must be ordered
+          <% else %>
+              <br><%= p.get_total_stock %> In Stock
+          <% end %>
+
+          <br>
+          <% @prize_subcat.group(:color).each do |c|
+            if c.color != '' %>
+                  <div class = "color" style="background-color:<%= get_color_code(c.color) %>""></div>
+              <% end end %>
+
+         <div class="prize-info--favorites">
+        <%= link_to controller: :favorites, action: :create, id: p.id do %><span class="glyphicon glyphicon-heart"></span><% end %>
+          </div>
+        </div>
+
+      </div>
+		</li>
+	<% end %>
+	</ul>
+<% end %>
+
+

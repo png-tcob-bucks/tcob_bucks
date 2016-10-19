@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+      <% if flash[:title] == "Error" %>
+        <div class="notice-error"><%= flash[:notice] %></div>
+      <% elsif flash[:title] == "Success" %>
+        <div class="notice-success"><%= flash[:notice] %></div>
+      <% end %>
+
+      <h1>Bucks Requiring Your Approval</h1>
+
+      <div class = "table-wrapper">
+        <div id = "bucks_table">
+          <%= render 'bucks_pending' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

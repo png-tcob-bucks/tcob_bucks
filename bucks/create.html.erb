@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+
+        <div id = "form-container">
+          <%= form_tag :action => 'create' do %>
+
+            <p><label for = "ticket_number">Ticket Number</label>:
+
+            <%= text_field 'tickets', 'number' %></p>
+
+            <p><label for = "ticket_emp_id">Employee ID</label>:
+
+            <%= text_field 'tickets', 'emp_id' %></p>
+
+            <%= submit_tag "Submit Ticket" %>
+
+          <% end -%>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
+
+        <%= render 'buck_detail' %>
+
+        <div class = "inline-form-container">
+          <%= form_tag :action => 'update' do %>
+
+            <label for = "buck-value">Approving Value</label>:
+            <%= text_field 'buck', 'value', value: @buck.value %>
+              <%= hidden_field_tag :id, @buck.id %>
+              <%= hidden_field_tag :decision, 'Approve' %>
+              <%= submit_tag 'Approve' %>
+          <% end -%>
+
+          <%= form_tag :action => 'update' do %>
+            <%= hidden_field_tag :id, @buck.id %>
+            <%= hidden_field_tag :decision, 'Deny' %>
+            <%= submit_tag 'Deny' %>
+          <% end -%>
+
+        </div>
+     </div>
+  </div>
+</div>

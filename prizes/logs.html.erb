@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
+
+        <h1>Store Logs</h1>
+
+        <div class = "table-search-input" id = "table_search_input_buck">
+          <%= form_tag (''), :method => 'get', :id => 'store_search' do %>
+            <%= text_field_tag :customer_id, params[:customer_id], placeholder: 'Customer ID' %>
+            <%= text_field_tag :cashier_id, params[:cashier_id], placeholder: 'Cashier ID' %>
+            <%= text_field_tag :purchase_id, params[:purchase_id], placeholder: 'Purchase #' %>
+            <%= submit_tag 'Search', id: 'store_search' %>
+          <% end %>
+        </div>
+
+        <% if @store_logs.blank? %>
+          <p>There is no store log information to show. Use the fields given to search for a logged transaction.</p>
+        <% else %>
+          <table class = 'table-compact'>
+            <tr class = "tr-list-head" >
+              <td>Employee</td>
+              <td>Employee Name</td>
+              <td>Cashier</td>
+              <td>Cashier Name</td>
+              <td>Transaction</td>
+              <td>Prize</td>
+              <td>Purchase #</td>
+              <td>Stock Before</td>
+              <td>Stock After</td>
+              <td>Time</td>
+            </tr>
+            <% @store_logs.each do |l|
+              @employee = Employee.find(l.employee_id)
+              @cashier = Employee.find(l.cashier_id)
+              @prize = Prize.find(l.prize_id)
+            %>
+            <tr class = "tr-list">
+              <td> <%= @employee.id %> </td>
+              <td> <%= @employee.first_name + " " + @employee.last_name %> </td>
+              <td> <%= @cashier.id %> </td>
+              <td> <%= @cashier.first_name + " " + @cashier.last_name %> </td>
+              <td> <%= l.trans %> </td>
+              <td> <%= @prize.name %> </td>
+              <td> <%= l.purchase_id %> </td>
+              <td> <%= l.stock_before %> </td>
+              <td> <%= l.stock_after %> </td>
+              <td> <%= l.created_at %> </td>
+            </tr>
+            <% end %>
+          </table>
+        <% end %>
+    </div>
+  </div>
+</div>

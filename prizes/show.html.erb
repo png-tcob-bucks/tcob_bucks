@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+      <a href="/prizes/"> < Back to Store</a><br><br>
+      <div class="row">
+        <div class="col-sm-4">
+            <div class = "prize-detail-cell-picture" style="background-image: url('<%= @prize.get_first_image %>')"></div>
+        </div>
+
+        <div class = "col-sm-8">
+          <div class = "prize-detail-cell-details">
+            <h1><%= @prize.name %></h1>
+            <h2><%= @prize.cost %> Bucks</h2>
+
+            <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+                <p><label for = "color">Color:</label>
+                  <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();", id: 'select_color' %></p>
+                <p><label for = "size">Size:</label>
+                  <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();" %></p>
+
+                <% if @prize.must_order %>
+                <p><b>Prize must be ordered</b></p>
+              <% else %>
+              <% end %>
+
+
+
+
+            <br><h3>Description</h3>
+            <hr>
+            <p><%= @prize.description %></p>
+
+            <%= form_tag controller: :purchases, action: :complete do %>
+              <%= hidden_field :prize, :id, value: @prize.id %>
+              <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
+              <%= hidden_field :employee, :id, value: @current_user.id %>
+
+             <% if !@chosen.nil? %>
+               <p id = 'prize_stock' class = "text-green right-float stock-num"><%= @chosen.stock %> In Stock</p>
+             <% else %>
+                <p id = 'prize_stock' class = "text-red right-float stock-num">Out Of Stock</p>
+             <% end %>
+            <% end %>
+
+              <br>
+              <ul class = 'button-line right-float'>
+                <li><%= link_to controller: :favorites, action: :create, id: @prize.id do %>Add to Favorites</li><% end %>
+                <%= submit_tag 'Purchase' if !@chosen.nil? %>
+              </ul>
+              <% end %>
+
+            </div>
+            <div class = "clear"></div>
+          </div>
+
+        </div>
+      <hr><h3>Recommended Items</h3>
+        <div class = "featured-detail-wrapper">
+          <%= render 'prizes/prizes_featured' %>
+        </div>
+    </div>
+  </div>
+</div>

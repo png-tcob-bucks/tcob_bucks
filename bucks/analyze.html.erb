@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+
+      <% if flash[:title] == "Error" %>
+        <div class="notice-error"><%= flash[:notice] %></div>
+      <% elsif flash[:title] == "Success" %>
+        <div class="notice-success"><%= flash[:notice] %></div>
+      <% end %>
+
+      <h1>Review Department Budgets</h1>
+      <div class = "table-search-input">
+        <%= form_tag (''), :method => 'get', :id => 'department_filter' do %>
+          <%= select_tag :department, options_from_collection_for_select(@departments, "id", "name"), include_blank: "Department" %>
+          <%= select_tag :month, options_for_select(@months), include_blank: "Month" %>
+          <%= select_tag :year, options_for_select(@years), include_blank: "Year" %>
+          <%= submit_tag 'Show', id: 'department_filter_button' %>
+        <% end %>
+      </div>
+
+      <div class = "table-wrapper">
+        <% if !@department.nil? && !@month.nil? && !@year.nil? %>
+          <h1>Budget Report: <%= @department.name %> (<%= @month %>, <%= @year %>)</h1>
+          <% @month = Date::MONTHNAMES.index(@month) %>
+          <%= render 'analyze_budget_report' %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

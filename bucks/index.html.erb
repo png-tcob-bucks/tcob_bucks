@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
+
+        <h1>All Bucks</h1>
+
+        <div class = "table-search-input" id = "table_search_input_buck">
+          <%= form_tag (''), :method => 'get', :id => 'buck_search', :params => params do %>
+            <%= text_field_tag :search_number, params[:search_number], value: params[:search_number], placeholder: 'Ticket #' %>
+            <%= text_field_tag :search_recipient_id, params[:search_recipient_id], value: params[:search_recipient_id], placeholder: 'Recipient ID' %>
+            <%= text_field_tag :search_issuer_id, params[:search_issuer_id], value: params[:search_issuer_id], placeholder: 'Issuer ID' %>
+            <%= submit_tag 'Search', id: 'buck_search_button' %>
+          <% end %>
+        </div>
+
+        <div class = "table-wrapper">
+          <div id = "bucks_table">
+            <%= render 'bucks_route_detail' %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+        <% if flash[:title] == "Error" %>
+          <div class="notice-error"><%= flash[:notice] %></div>
+        <% elsif flash[:title] == "Success" %>
+          <div class="notice-success"><%= flash[:notice] %></div>
+        <% end %>
+
+        <h1>Bucks Issued</h1>
+
+        <div class = "table-wrapper-nav">
+          <ul>
+              <a href="?show=you"><li class = "<% if @show == 'you' %>selected<% end %>">You</li></a>
+              <a href="?show=department"><li class = "<% if @show == 'department' %>selected<% end %>">Department</li></a>
+          </ul>
+        </div>
+
+        <div id="tabbed-content-wrapper">
+          <% if @show == 'you' %>
+            <%= render 'issued_by_me' %>
+          <% elsif @show == 'department'%>
+            <%= render 'issued_by_department' %>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</div>

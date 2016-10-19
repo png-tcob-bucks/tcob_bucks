@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default panel-body">
+      <% if flash[:title] == "Error" %>
+        <div class="notice-error"><%= flash[:notice] %></div>
+      <% elsif flash[:title] == "Success" %>
+        <div class="notice-success"><%= flash[:notice] %></div>
+      <% end %>
+
+      <h1>Bucks Logs</h1>
+
+      <div class = "table-search-input" id = "table_search_input_buck">
+        <%= form_tag (''), :method => 'get', :id => 'buck_search' do %>
+          <%= text_field_tag :buck_id, params[:buck_id], placeholder: 'Ticket #' %>
+          <%= text_field_tag :performed_id, params[:performed_id], placeholder: 'Performed ID' %>
+          <%= text_field_tag :recieved_id, params[:recieved_id], placeholder: 'Received ID' %>
+          <%= submit_tag 'Search', id: 'buck_search_button' %>
+        <% end %>
+      </div>
+
+      <% if @buck_logs.blank? %>
+        <p>There is no buck log information to show. Use the fields given to search for a logged transaction.</p>
+      <% else %>
+        <table class = 'table-compact'>
+          <tr class = "tr-list-head" >
+            <td>Buck ID</td>
+            <td>Event</td>
+            <td>Performed</td>
+            <td></td>
+            <td>Recieved</td>
+            <td></td>
+            <td>Status Before</td>
+            <td>Status After</td>
+            <td>Value Before</td>
+            <td>Value After</td>
+            <td>Purchase #</td>
+            <td>Purchased</td>
+            <td>Time</td>
+          </tr>
+          <% @buck_logs.each do |l|
+            @performed_id = Employee.find(l.performed_id)
+            @recieved_id = Employee.find(l.recieved_id)
+            if !l.purchase_id.nil?
+              @prize = Prize.find(Purchase.find(l.purchase_id).prize_id)
+            end
+            %>
+          <tr class = "tr-list">
+            <td> <%= l.buck_id %> </td>
+            <td> <%= l.event %> </td>
+            <td> <%= @performed_id.id %> </td>
+            <td> <%= @performed_id.first_name + " " + @performed_id.last_name %> </td>
+            <td> <%= @recieved_id.id %> </td>
+            <td> <%= @recieved_id.first_name + " " + @recieved_id.last_name %> </td>
+            <td> <%= l.status_before %> </td>
+            <td> <%= l.status_after %> </td>
+            <td> <%= l.value_before %> </td>
+            <td> <%= l.value_after %> </td>
+            <td> <%= l.purchase_id %> </td>
+            <td> <%= @prize.name if !l.purchase_id.nil? %> </td>
+            <td> <%= l.created_at %> </td>
+          </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
