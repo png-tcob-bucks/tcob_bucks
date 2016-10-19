@@ -77,6 +77,29 @@ class EmployeesController < ApplicationController
 		end
 	end
 
+	def change_password
+
+	end
+
+	def change_password_finish
+		if params[:old1] == params[:old2] && params[:old1]
+			if params[:new].length >= 6
+				@current_user.update_attribute(:password, params[:new])
+				flash[:title] = 'Success'
+				flash[:notice] = 'Password changed.'
+				redirect_to action: :change_password
+			else
+				flash[:title] = 'Error'
+				flash[:notice] = 'Password must be greater than 6 characters.'
+				redirect_to action: :change_password
+			end
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'Old passwords must match.'
+			redirect_to action: :change_password
+		end
+	end
+
 	def show
 		@employee = Employee.find(params[:id])
 		@purchases = Purchase.where(employee_id: @employee.id).where(returned: false)

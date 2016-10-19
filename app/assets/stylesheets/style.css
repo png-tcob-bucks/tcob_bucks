@@ -1304,6 +1304,19 @@ input:read-only:focus {
     outline: none;
 }
 
+.password {
+  text-security: disc;
+  -webkit-text-security: disc;
+  -mox-text-security: disc;
+    width: 100%;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  padding: 8px;
+  font-size: 15px;
+  outline: none;
+  color: #393939;
+}
+
 #textarea {
     background: #6c4388;
     padding: 5px 10px 5px 10px;

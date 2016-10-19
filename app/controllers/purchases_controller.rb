@@ -144,6 +144,7 @@ class PurchasesController < ApplicationController
 				buck_log_params[:value_after] = spent - prize.cost
 				buck_log_params[:status_after] = 'Partial'
 			else
+				@oldest_buck.update_attribute(:value, 0)
 				@oldest_buck.update_attribute(:status, 'Redeemed')
 				buck_log_params[:status_after] = 'Redeemed'
 				buck_log_params[:value_after] = 0

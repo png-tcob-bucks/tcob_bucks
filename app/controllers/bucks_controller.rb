@@ -78,7 +78,7 @@ class BucksController < ApplicationController
 			if @buck.reason_short == 'Other'
 				Mailer.pending_buck_approval(@current_user, @buck).deliver_now
 			else
-				Mailer.notify_employee(@buck, @current_user).deliver_now
+				Mailer.notify_employee(@buck, @employee).deliver_now
 			end
 
 			buck_log_params = { :buck_id => @buck.id, 

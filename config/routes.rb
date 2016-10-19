@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'employees'                     => 'employees#index'
   get 'employees/team'                => 'employees#team'
   get 'employees/import'              => 'employees#import'
+  get 'employees/change'               => 'employees#change_password'
+  get 'employees/change/complete'      => 'employees#change_password_finish'
+  post 'employees/change/complete'      => 'employees#change_password_finish'
   get 'employees/:id'                 => 'employees#show', as: :employee
   get 'employees/:id/achievements'    => 'employees#achievements'
   get 'employees/analyze/:id'         => 'employees#analyze'
