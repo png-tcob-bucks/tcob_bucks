@@ -15,10 +15,6 @@ header, main, footer {
     }
 }
 
-label {
-    width: 6em;
-}
-
 div#header-box {
     background-color: rgba(96, 56, 123, 0.52);
     width: 50%;
@@ -31,7 +27,7 @@ div#header-box {
 
 div#header-box h1 {
     color: #EEEEEE;
-    font-family: monospace;
+    font-family: 'Questrial', sans-serif;
     font-size: 16px;
     margin: 0px -5px;
     padding-left: 13px;
@@ -40,7 +36,7 @@ div#header-box h1 {
 
 div#header-box p {
     color: #EEEEEE;
-    font-family: Impact, Charcoal, sans-serif;
+    font-family: 'Questrial', sans-serif;
     font-size: 24px;
     padding-right: 16px;
     margin: 0px;
@@ -51,10 +47,11 @@ div#header-box p {
 
 div#header-bar {
     width: 100%;
-    height: 38px;
+    height: 42px;
     display: table;
-    background-color: #6c4388;
-    border: 1px solid #8e5bb1;
+    background-image: url("/images/film.png");
+    background-size: 25%;
+    background-repeat: repeat-x;
 }
 div#header-bar p {
     color: #eeeeee;
@@ -64,7 +61,7 @@ div#header-bar p {
     display: table-cell;
     vertical-align: middle;
     font-size: 24px;
-    font-family: Impact, Charcoal, sans-serif;
+    font-family: 'Baloo Da', cursive;
     text-shadow: 0px 1px 0px #000000;
 }
 
@@ -82,7 +79,7 @@ div#header-bar .p2 {
     border: 1px solid #000000;
     box-shadow: 0px 0px 2px #b48ece;
     border-radius: 5px;
-    font-family: Impact, Charcoal, sans-serif;
+    font-family: 'Baloo Da', cursive;
     text-shadow: 0px 1px 0px #000000;
 }
 
@@ -93,6 +90,8 @@ div#navigation {
     height: 100%;
     width: 200px;
     display: table-cell;
+    font-family: 'Questrial', sans-serif;
+
 }
 div#navigation ul {
     list-style-type: none;
@@ -117,8 +116,9 @@ div#navigation h1 {
     color: #FFF;
     padding: 8px 0px 8px 16px;
     background-color: #6c4388;
-    border: 1px solid #8e5bb1;
-    outline: 1px solid #282828;
+    background-image: url("/images/film.png");
+    background-size: 80%;
+    background-repeat: repeat-x;
     font-weight: normal;
     z-index: 1;
     margin: 0px -5px;
@@ -136,6 +136,25 @@ div#navigation .notification {
     border-radius: 100px;
     -moz-border-radius: 100px;
     -webkit-border-radius: 100px;
+}
+
+.panel{
+    font-family: 'Questrial', sans-serif;
+    border: none;
+}
+
+.panel-heading {
+    border: none;
+    font-family: 'Questrial', sans-serif;
+
+}
+
+.panel-black {
+    background-image: url("/images/scroll-background.png");
+    background-color: #000000;
+    background-size: contain;
+    background-repeat: repeat-x;
+    color: #FFFFFF;
 }
 
 .profile-image {
@@ -157,8 +176,10 @@ div#navigation .notification {
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
     text-align: center;
-    margin-top: 5px;
-    margin-bottom: -15px;
+    margin-top: -2px;
+    margin-bottom: -6px;
+    font-family: 'Baloo Da', cursive;
+
 }
 
 .profile-Bucks-box h1 {
@@ -167,6 +188,8 @@ div#navigation .notification {
     text-shadow: 0px 1px 2px #000000;
     margin-bottom: -4px;
     margin-top: -1px;
+    font-family: 'Baloo Da', cursive;
+
 
 }
 
@@ -175,13 +198,15 @@ div#navigation .notification {
     font-size: 20px;
     text-shadow: 0px 1px 2px #000000;
     padding-bottom: 40px;
+    font-family: 'Baloo Da', cursive;
+
 }
 
 .profile-earned-bucks{
     text-align: center;
-    width: 18%;
+    width: 15%;
     float: left;
-    margin-right: 5px;
+    margin-right: 9px;
 }
 
 .profile-earned-bucks h1{
@@ -194,6 +219,8 @@ div#navigation .notification {
     font-size: 14px;
     margin-top: -12px;
     margin-bottom: -4px;
+    font-family: 'Baloo Da', cursive;
+
 }
 
 
@@ -206,16 +233,10 @@ h3{
     font-size: 14px;
 }
 
-.profile-earned-bucks{
-    text-align: center;
-    width: 15%;
-    float: left;
-    margin-right: 5px;
-}
-
 .panel-default > .panel-heading {
     background-color: #6c4388;
     border: 1px solid #8e5bb1;
+    outline: 1px solid #000000;
     font-size: 18px;
     color: #FFFFFF;
     text-align: center;
@@ -241,6 +262,7 @@ h3{
     display:block;
     width:auto;
     margin-top: 135px;
+    background-color: #5b3475;
 }
 
 
@@ -281,8 +303,8 @@ h3{
     background: url('/images/banner_back.png');
     background-size: 1200px 500px;
     width: 1050px;
-    height: 500px;
-    font-family: Andada;
+    height: 430px;
+    font-family: 'Boogaloo', cursive;
     font-weight: bold;
 
 }
@@ -300,7 +322,7 @@ h3{
     padding-top: 40px;
     color: #FFFFFF;
     font-size: 24px;
-    font-family: Andada;
+    font-family: 'Boogaloo', cursive;
 
 }
 
@@ -310,7 +332,7 @@ h3{
     padding-top: 40px;
     color: #FFFFFF;
     font-size: 24px;
-    font-family: Andada;
+    font-family: 'Boogaloo', cursive;
 
 }
 
@@ -323,23 +345,29 @@ h3{
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
     border-radius: 0px;
-    text-align: left;
     padding-top: 4px;
     padding-bottom: 4px;
+    font-family: 'Caveat', cursive;
+
+}
+
+.buck-container-cursive {
+    font-family: 'Caveat', cursive;
+    font-size: 30px;
 }
 
 .buck-container--other-info {
-    float: left;
-    padding-left: 50px;
+    margin-top: 80px;
+    margin-left: 20px;
     padding-top: 40px;
     color: #FFFFFF;
     font-size: 20px;
-    font-family: Andada;
+    font-family: 'Boogaloo', cursive;
 
 }
 
 .buck-container--info-textarea-other {
-    height: 180px;
+    height: 120px;
     width: 400px;
     overflow: hidden;
     resize: none;
@@ -355,43 +383,38 @@ h3{
 
 .buck-container--other-info p {
     font-size: 18px;
-    font-family: Andada;
+    font-family: 'Boogaloo', cursive;
 
 }
 
+.bucks-container--other-right {
+    float: right;
+}
+
 .buck-container--type-area {
-    float: left;
+    float: right;
     padding-left: 40px;
     padding-top: 40px;
     color: #FFFFFF;
     font-size: 20px;
-    text-align: center;
-    font-family: Andada;
+    font-family: 'Boogaloo', cursive;
+    margin-top: -275px;
+    margin-right: 30px;
 
 }
 
-.buck-container--check-box {
-     float: left;
-     padding-left: 25px;
-     color: #FFFFFF;
-     text-align: center;
-    font-family: Andada;
-
+.buck-container--big-font {
+    font-size: 25px;
 }
 
-.buck-container--check-box p{
-    color: #FFFFFF;
-    font-size: 22px;
-    text-align: center;
-    font-family: Damion;
-}
 
 .buck-container--director {
     float: left;
+    margin-top: -40px;
     padding-top: 30px;
     color: #FFFFFF;
     text-align: left;
-    font-family: Andada;
+    font-family: 'Boogaloo', cursive;
 
 }
 
@@ -436,6 +459,7 @@ ul.grid-view li {
 .featured-wrapper {
     text-align: center;
     margin: -115px auto 64px auto;
+    padding-bottom: 10px;
 }
 
 .featured-wrapper h1 {
@@ -462,8 +486,8 @@ ul.grid-view li {
     vertical-align: top;
 }
 .featured-image {
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: 130px;
     padding-top: 2px;
     background-color: #FFFFFF;
     border-radius: 50%;
@@ -494,7 +518,7 @@ ul.grid-view li {
 }
 
 .prize {
-     width: 215px;
+     width: 225px;
      height: 265px;
      background-size: 220px 260px;
      background-repeat: no-repeat;
@@ -502,21 +526,41 @@ ul.grid-view li {
      float:left;
      position:relative;
      margin-bottom: 20px;
- }
 
+}
 
-.prize-over {
-    width: 215px;
+.prize-store {
+    width: 225px;
     height: 265px;
     background-size: 220px 260px;
     background-repeat: no-repeat;
     padding: 5px;
     float:left;
     position:relative;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
+
 }
+
+.prize-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    text-align:center;
+    font: 0/0 a;
+}
+
+.prize-container:before {
+    content: ' ';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
 .prize-tag {
-    float: right;
+    float: inherit;
     background-color: #6a4186;
     color: #FFFFFF;
     font-size: 14px;
@@ -526,26 +570,41 @@ ul.grid-view li {
     text-align: center;
     width: 50px;
     height: 50px;
+    position: absolute;
+    margin-left: 160px;
+    z-index : 1;
+
 
 }
 
 .prize-photo {
-    width: 200px;
-    height: 240px;
+    width: 90%;
+    height: auto;
+    max-width: 220px;
+    max-height: 265px;
+    vertical-align: middle;
+    display: inline-block;
+
+
 }
 
 .prize-info{
     position:absolute;
     bottom:0px;
     left:0px;
-    width:100%;
+    width:95%;
+    height: 70px;
     background-color:black;
     font-size:15px;
     color:white;
-    opacity:0.8;
-    filter:alpha(opacity=80); /* IE transparency */
+    opacity:0.85;
+    filter:alpha(opacity=85); /* IE transparency */
     text-align: left;
     padding: 5px;
+}
+
+.prize-info a{
+    color: #b47ed8 !important;
 }
 .prize-info p{
     padding:10px;
@@ -568,7 +627,7 @@ ul.grid-view li {
 .prize-info--favorites{
     float: right;
     bottom:0px;
-    color: #ffffff;
+    color: #b47ed8;
 }
 
 .prize-options {
@@ -576,30 +635,75 @@ ul.grid-view li {
     padding: 8px;
 }
 div.prize-detail-container {
-    display: flex;
+    float: left;
+
 }
 .prize-detail-picture {
-    max-height: 300px;
-    max-width: 300px;
-    display: block;
-    margin: auto;
+    width: auto;
+    height: 330px;
+    padding-top: 2px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
 }
 
 .prize-detail-cell-picture {
-    height: 300px;
-    width: 300px;
+    margin: 4px;
+    margin-bottom: -30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    height: 280px;
+    width: 280px;
+    font-size: 12px;
+    background-blend-mode: screen;
+    background-position: center;
+    display: table;
+    border: 1px solid #cccccc;
+    margin-left: 30px;
 }
 .prize-detail-cell-details {
-    width: 600px;
+    width: 500px;
     padding-left: 16px;
+}
+
+.prize-detail-cell-details hr {
+    margin-top: -5px;
+}
+
+
+.prize-detail-cell-picture .header .price {
+    background-color: #6a4186;
+    padding-top: 20px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-top: -10px;
+    box-shadow: 0px 1px 3px #000000;
+    font-size: 28px;
+    float: right;
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    margin-right: -5px;
 }
 
 .prize-detail-cell-details h1 {
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.prize-detail-cell-details h2 {
+    font-size: 16px;
+    margin-top: -5px;
+}
+
+.prize-detail-cell-details h3 {
+    font-size: 16px;
+    margin-top: -5px;
 }
 
 .prize-detail-cell-details p {
-    padding-left: 16px;
+    padding-left: 14px;
+    margin-top: -5px;
 }
 
 .prize-picture {
@@ -610,18 +714,23 @@ div.prize-detail-container {
 
 .featured-home-wrapper{
     width: 100%;
-    overflow-x:scroll;
+    height: 150px;
 
 }
 .featured-home{
-    /*
-    width: 150%;
-    */
-
+    width: 100%;
+    height: 100%;
+    overflow:scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
 }
 
 .left-float{
     float: left;
+}
+
+.right-float{
+    float: right;
 }
 
 .featured-detail-wrapper {
@@ -653,14 +762,144 @@ div.prize-detail-container {
     vertical-align: top;
 }
 
+.featured-store-list{
+    width: 150%;
+}
+
+.featured-store-wrapper{
+    width: 100%;
+    height: 100%;
+    overflow:scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+}
+.featured-store-container {
+    margin: 4px;
+    margin-bottom: -30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    color: #FFFFFF;
+    height: 100px;
+    width: 100px;
+    font-size: 12px;
+    background-blend-mode: screen;
+    background-position: center;
+    display: table;
+    border: 1px solid #cccccc;
+    display: inline-block;
+
+}
+
+.featured-store-container .header {
+    display: table-cell;
+    position: relative;
+}
+
+.featured-store-container .header .name {
+    margin-top: 60px;
+    margin-left: 5px;
+    display: inline-block;
+    text-shadow: 0px 1px 2px #2e2e2e;
+    padding: 8px 24px 0px 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #6c4388;
+    outline-color: #ffffff;
+}
+
+.featured-store-container .header .home-name {
+    margin-top: 90px;
+    margin-left: 20px;
+    display: inline-block;
+    text-shadow: 0px 1px 2px #2e2e2e;
+    padding: 8px 24px 0px 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #6c4388;
+    outline-color: #ffffff;
+}
+
+.featured-store-container .header .price {
+    background-color: #6a4186;
+    padding: 8px;
+    margin-top: -5px;
+    box-shadow: 0px 1px 3px #000000;
+    font-size: 14px;
+    float: right;
+    border-radius: 50%;
+}
+
+.featured-store-container .purchase-detail {
+    font-size: 12px;
+    /* height: 100%; */
+    position: absolute;
+    text-shadow: 0px 1px 3px #000000;
+    padding-left: 8px;
+    margin-top: 90px;
+
+}
+
 .progress{
     margin-top: 262px;
+    margin-left: -3px;
+    width: 210px;
+    background-color: #b1b1b1;
 }
 
 
-   .progress-bar-success{ 
-    color: #9b9b9b; 
-    background-color: #6a4186; } 
+.progress-bar {
+    color: #ffffff;
+    background-color: #6a4186 !important;
+    z-index: 1;
+
+}
+
+.progress-amount{
+    z-index: 3;
+    position: absolute;
+    text-align: center;
+    margin-left: 70px;
+    color: #ffffff;
+
+}
+.purchase-list-container {
+    display: inline-table
+}
+
+.favorites-remove{
+    float: right;
+}
+
+ul.button-shop {
+    margin: 0px 0px 16px 16px;
+    padding: 0px;
+
+}
+
+ul.button-shop li {
+    border: 1px solid #aaaaaa;
+    display: inline-block;
+    border-radius: 5px;
+    background: #6c4388;
+    padding: 10px 30px 10px 30px;
+    font-size: 15px;
+    color: #FFF;
+}
+
+ul.button-shop li:hover {
+    background: #7f5998;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.stock-num {
+    margin-right: 20px;
+}
+
+
+
+
 
 * {
     box-sizing: border-box;
@@ -668,11 +907,11 @@ div.prize-detail-container {
 
 body {
     margin: 0px;
-    font-family: Helvetica, Geneva, Arial, sans-serif;
+    font-family: 'Questrial', sans-serif;
     font-color: #393939;
     background-color: #fbfbfb;
     background-image: none; !important
-background-size: cover
+    background-size: cover
     color: #393939;
     width: 100%;
     height: 100%;
@@ -812,6 +1051,10 @@ ul.button-line li:hover {
     cursor: pointer;
 }
 
+ul.button-line a {
+    color: #FFF !important;
+}
+
 div#buck-holder {
     background-color: #573171;
     color: #FFFFFF;
@@ -884,6 +1127,17 @@ div#profile-table-holder {
     width: 60%;
 }
 
+.purchase-list{
+    width: 150%;
+}
+
+.purchase-list-wrapper{
+    width: 100%;
+    height: 100%;
+    overflow:scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+}
 .purchase-list-container {
     background-color: #2e2e2e;
     margin: 4px;
@@ -896,8 +1150,10 @@ div#profile-table-holder {
     font-size: 12px;
     background-blend-mode: screen;
     background-position: center;
-    display: inline-table;
+    display: table;
     border: 1px solid #cccccc;
+    display: inline-block;
+
 }
 
 .purchase-list-container .header {
@@ -927,11 +1183,11 @@ div#profile-table-holder {
 .purchase-list-container .purchase-detail {
     font-size: 12px;
     /* height: 100%; */
-    bottom: 0;
-    left: 0;
     position: absolute;
     text-shadow: 0px 1px 3px #000000;
     padding-left: 8px;
+    margin-top: 90px;
+
 }
 
 /* Table Styles */
@@ -1239,7 +1495,7 @@ div.sub-container {
     display: table;
 }
 
-div.notice-error {
+.notice-error {
     padding: 16px;
     border: solid 1px #EF9A9A;
     border-radius: 6px;
@@ -1249,7 +1505,7 @@ div.notice-error {
     margin: 0px 16px 16px 16px;
 }
 
-div.notice-warning {
+.notice-warning {
     padding: 16px;
     border: solid 1px #eaef9a;
     border-radius: 6px;
@@ -1259,7 +1515,7 @@ div.notice-warning {
     margin: 0px 16px 16px 16px;
 }
 
-div.notice-warning-hidden {
+.notice-warning-hidden {
     padding: 16px;
     border: solid 1px #eaef9a;
     border-radius: 6px;
@@ -1270,14 +1526,14 @@ div.notice-warning-hidden {
     margin: 0px 16px 16px 16px;
 }
 
-div.notice-success {
+.notice-success {
     padding: 16px;
     border: solid 1px #A5D6A7;
     border-radius: 6px;
     background-color: #C8E6C9;
     color: #4CAF50;
     font-size: 14px;
-    margin: 0px 16px 16px 16px;
+    margin-top: -40px;
 }
 
 /* Form Styles */
@@ -1302,19 +1558,6 @@ input:read-only {
 input:read-only:focus {
     border: 1px solid #eeeeee;
     outline: none;
-}
-
-.password {
-  text-security: disc;
-  -webkit-text-security: disc;
-  -mox-text-security: disc;
-    width: 100%;
-  border-radius: 5px;
-  border: 1px solid #cccccc;
-  padding: 8px;
-  font-size: 15px;
-  outline: none;
-  color: #393939;
 }
 
 #textarea {

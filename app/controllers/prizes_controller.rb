@@ -100,8 +100,8 @@ class PrizesController < ApplicationController
 	def update
 		@prize = Prize.find(params[:id])
 		if(params.key?("cancel"))
-        redirect_to action: :manage
-    else
+        	redirect_to action: :manage
+    	else
 			if @current_user.can_manage_inventory
 				if @prize.update_attributes(prize_params)
 					@prize.update_attributes(image: '/images/no_image.png') if @prize.image.blank?

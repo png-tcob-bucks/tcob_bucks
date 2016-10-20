@@ -5,17 +5,19 @@
         <img src="/images/bucks_shop_logo.png" class = "shop-banner-logo">
       </div>
 
+
+
+      <div class = "featured-wrapper">
+        <h1>Spotlight Prizes</h1>
+        <%= render 'prizes_featured' %>
+
+      </div>
+
       <% if flash[:title] == "Error" %>
           <div class="notice-error"><%= flash[:notice] %></div>
       <% elsif flash[:title] == "Success" %>
           <div class="notice-success"><%= flash[:notice] %></div>
       <% end %>
-
-      <div class = "featured-wrapper">
-        <h1>Spotlight Prizes</h1>
-        <!--<%= render 'prizes_featured' %>-->
-        Coming Soon!
-      </div>
 
       <h1>Available Prizes</h1>
       <div class = "table-wrapper">

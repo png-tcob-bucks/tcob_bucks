@@ -1,67 +1,58 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="panel panel-default panel-body">
-      <a href="/prizes/"> < Back to Store</a><br><br>
       <% if flash[:title] == "Error" %>
         <div class="notice-error"><%= flash[:notice] %></div>
       <% elsif flash[:title] == "Success" %>
         <div class="notice-success"><%= flash[:notice] %></div>
       <% end %>
-      <div class = "prize-detail-container">
-          <div class = "table-wrapper">
-            <div class = "prize-detail-cell-picture">
-              <img src = "<%= @prize.get_first_image %>" class = "prize-detail-picture">
-            </div>
-          </div>
+      <a href="/prizes/"> < Back to Store</a><br><br>
+      <div class="row">
+        <div class="col-sm-4">
+            <div class = "prize-detail-cell-picture" style="background-image: url('<%= @prize.get_first_image %>')"></div>
+        </div>
 
-          <div class = "table-wrapper">
-            <div class = "prize-detail-cell-details">
-              <h1><%= @prize.name %>  (<%= @prize.cost %> Bucks)</h1>
+        <div class = "col-sm-8">
+          <div class = "prize-detail-cell-details">
+            <h1><%= @prize.name %></h1>
+            <h2><%= @prize.cost %> Bucks</h2>
 
-              <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+            <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+                <p><label for = "color">Color:</label>
+                  <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();", id: 'color' %></p>
+
+                <p><label for = "size">Size:</label>
+                  <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();", id: 'size' %></p>
+
+                <% if @brands.size > 1 %>
+                <p><label for = "brand">Brand:</label>
+                <%= select_tag :brand, options_for_select(@brands, params[:brand]), onchange: "this.form.submit()", id: 'brand' %></p>
+              <% end %>
+
               <% if @prize.must_order %>
                 <p><b>Prize must be ordered</b></p>
-              <% else %>
-                <p>Total number in stock <%= @prize.get_total_stock %></p>
               <% end %>
 
-              <p><label for = "size">Size:</label>
-              <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();" %></p>
+            <br><h3>Description</h3>
+            <hr>
+            <p><%= @prize.description %></p>
 
-              <p><label for = "color">Color:</label>
-              <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();", id: 'select_color' %></p>
-
-              <% if @brands.size > 1 %>
-                <p><label for = "brand">Brand:</label>
-                <%= select_tag :brand, options_for_select(@brands, params[:brand]), onchange: "this.form.submit()", id: 'select_brand' %></p>
-              <% end %>
+            <%= form_tag controller: :purchases, action: :complete do %>
+              <p><label for = "quantity">Quantity:</label>
+              <%= text_field 'prize', 'quantity', value: 1 %></p>
+              <%= hidden_field :prize, :id, value: @prize.id %>
+              <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
+              <%= hidden_field :employee, :id, value: @current_user.id %>
 
               <% if !@chosen.nil? %>
-
-                <p id = 'prize_stock' class = "text-green"><%= @chosen.stock %> In Stock</p>
-
+               <p id = 'prize_stock' class = "text-green right-float stock-num"><%= @chosen.stock %> In Stock</p>
               <% else %>
-
-                <p id = 'prize_stock' class = "text-red">Out Of Stock</p>
-
+                <p id = 'prize_stock' class = "text-red right-float stock-num">Out Of Stock</p>
               <% end %>
+            <% end %>
 
-              <p><%= @prize.description %></p>
-
-              <% end %>
-
-              <%= form_tag controller: :purchases, action: :complete do %>
-
-                <p><label for = "quantity">Quantity:</label>
-                <%= text_field 'prize', 'quantity', value: 1 %></p>
-                
-                <%= hidden_field :prize, :id, value: @prize.id %>
-                <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
-                <%= hidden_field :employee, :id, value: @current_user.id %>
-                <%= hidden_field :online, value: true %>
-
-
-              <ul class = 'button-line'>
+              <br>
+              <ul class = 'button-line right-float'>
                 <%= submit_tag 'Purchase' if !@chosen.nil? %>
                 <% if Favorite.find_by(employee_id: @current_user, prize_id: params[:id]).blank? %>
                   <%= link_to controller: :favorites, action: :create, prize_id: @prize.id do %>
@@ -80,7 +71,7 @@
           </div>
 
         </div>
-        <h3>Other Items</h3>
+      <hr><h3>Recommended Items</h3>
         <div class = "featured-detail-wrapper">
           <%= render 'prizes/prizes_featured' %>
         </div>

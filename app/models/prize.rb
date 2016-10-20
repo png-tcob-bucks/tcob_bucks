@@ -17,6 +17,18 @@ class Prize < ActiveRecord::Base
     end
   end
 
+  def self.search_store(id, size, color, brand)
+    if size || color || brand 
+      where('id LIKE ?
+        AND size LIKE ?
+        AND color LIKE ?
+        AND brand LIKE ?', "%#{id}%", "%#{size}%", "%#{color}%", "%#{brand}%")
+      .where(available: available)
+    else
+      Prize.all
+    end
+  end
+
   def self.subsearch(name, size, color)
     if name || size || color 
       where('name LIKE ?
