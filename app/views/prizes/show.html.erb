@@ -19,14 +19,14 @@
 
             <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
                 <p><label for = "color">Color:</label>
-                  <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();", id: 'color' %></p>
+                  <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();" %></p>
 
                 <p><label for = "size">Size:</label>
-                  <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();", id: 'size' %></p>
+                  <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();" %></p>
 
                 <% if @brands.size > 1 %>
                 <p><label for = "brand">Brand:</label>
-                <%= select_tag :brand, options_for_select(@brands, params[:brand]), onchange: "this.form.submit()", id: 'brand' %></p>
+                <%= select_tag :brand, options_for_select(@brands, params[:brand]), onchange: "this.form.submit()" %></p>
               <% end %>
 
               <% if @prize.must_order %>
@@ -44,7 +44,7 @@
               <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
               <%= hidden_field :employee, :id, value: @current_user.id %>
 
-              <% if !@chosen.nil? %>
+              <% if !@chosen.nil? || @chosen.stock <= 0 %>
                <p id = 'prize_stock' class = "text-green right-float stock-num"><%= @chosen.stock %> In Stock</p>
               <% else %>
                 <p id = 'prize_stock' class = "text-red right-float stock-num">Out Of Stock</p>
@@ -53,7 +53,7 @@
 
               <br>
               <ul class = 'button-line right-float'>
-                <%= submit_tag 'Purchase' if !@chosen.nil? %>
+                <%= submit_tag 'Purchase' if (!@chosen.nil? || @chosen.stock <= 0) %>
                 <% if Favorite.find_by(employee_id: @current_user, prize_id: params[:id]).blank? %>
                   <%= link_to controller: :favorites, action: :create, prize_id: @prize.id do %>
                     <li>Add to Favorites</li>
