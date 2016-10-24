@@ -104,7 +104,8 @@ class EmployeesController < ApplicationController
 		@employee = Employee.find(params[:id])
 		@purchases = Purchase.where(employee_id: @employee.id).where(returned: false)
 		if @current_user.can_view_employee(@employee) || @employee.id == @current_user.id
-			@bucks_nonvoid = Buck.where(employee_id: @employee.id).where(status: ['Active','Partial','Redeemed'])		else
+			@bucks_nonvoid = Buck.where(employee_id: @employee.id).where(status: ['Active','Partial','Redeemed'])		
+		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to view that employee.'
 			redirect_to action: :show, id: @current_user.id
