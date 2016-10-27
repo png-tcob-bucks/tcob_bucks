@@ -2312,6 +2312,7 @@ body {
 .row {
   margin-left: 0px;
   margin-right: 0px;
+  background-color: #e8e8e8;
 }
 .row [class^='col-xs-'],
 .row [class^='col-sm-'],
@@ -2378,7 +2379,7 @@ body {
   float: left;
   width: 100%;
   position: relative;
-  background: #f5f5f5 url('../img/bg.png') left top repeat;
+  background: #e8e8e8 url('../img/bg.png') left top repeat;
 }
 .page-container .page-content .content-frame .content-frame-top {
   float: left;
@@ -2420,11 +2421,10 @@ body {
 }
 .page-container .page-content .content-frame .content-frame-right {
   float: right;
-  width: 300px;
+  width: 350px;
   padding: 10px;
   min-height: 100%;
-  background: rgba(0, 0, 0, 0.02);
-  border-left: 1px solid #DDD;
+  background: #e8e8e8;
 }
 .page-container .page-content .content-frame .content-frame-right.padding-0 {
   padding: 0px;
@@ -2433,7 +2433,7 @@ body {
   padding: 10px;
 }
 .page-container .page-content .content-frame .content-frame-right h4 {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 .page-container .page-content .content-frame .content-frame-right .block {
   padding: 0px;
@@ -2443,12 +2443,12 @@ body {
   margin-bottom: 20px;
 }
 .page-container .page-content .content-frame .content-frame-body {
-  padding: 70px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
   margin-left: 300px;
 }
 .page-container .page-content .content-frame .content-frame-body.content-frame-body-left {
   margin-left: 0px;
-  margin-right: 300px;
+  margin-right: 350px;
 }
 .page-container .page-content .content-frame .content-frame-left-toggle,
 .page-container .page-content .content-frame .content-frame-right-toggle {
@@ -2769,6 +2769,7 @@ body.page-container-boxed.wall_10 {
 .x-navigation.x-navigation-horizontal {
   height: 50px;
   background: #393939;
+  padding-right: 10px;
 }
 .x-navigation.x-navigation-horizontal .xn-logo a {
   border-bottom: 0px;
@@ -3625,7 +3626,7 @@ body.page-container-boxed.wall_10 {
   float: left;
   width: 100%;
   background: #e8e8e8;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   padding: 6px 15px 7px;
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
@@ -5112,6 +5113,7 @@ h4,
   margin-bottom: 10px;
   font-size: 16px;
   font-weight: 400;
+  text-align: center;
 }
 h5,
 .h5 {
@@ -5614,13 +5616,13 @@ blockquote.pull-right {
 .table > tfoot > tr > td {
   border-color: transparent;
   padding: 16px 20px;
-  background: #F0F4F9;
+  background: #f5f5f5;
   color: #656C78;
   font-size: 13px;
 }
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-  background: #F8FAFC;
+  background: #fdfbff;
 }
 .table > thead > tr > th {
   background: #FFF;
@@ -5972,6 +5974,16 @@ td.dataTables_empty {
   background: linear-gradient(to bottom, #b64645 0%, #a43f3e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#b64645, endColorstr=#a43f3e, GradientType=0);
 }
+.widget.widget-purple {
+  background: #b64645;
+  background: -moz-linear-gradient(top, #b64645 0%, #a43f3e 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b64645), color-stop(100%, #a43f3e));
+  background: -webkit-linear-gradient(top, #b64645 0%, #a43f3e 100%);
+  background: -o-linear-gradient(top, #b64645 0%, #a43f3e 100%);
+  background: -ms-linear-gradient(top, #b64645 0%, #a43f3e 100%);
+  background: linear-gradient(to bottom, #b64645 0%, #a43f3e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#b64645, endColorstr=#a43f3e, GradientType=0);
+}
 .widget .widget-title,
 .widget .widget-subtitle,
 .widget .widget-int,
@@ -6190,9 +6202,9 @@ td.dataTables_empty {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 20px;
-  min-height: 100px;
+  min-height: 120px;
   position: relative;
   border: 1px solid #D5D5D5;
   text-align: center;
@@ -6220,6 +6232,20 @@ td.dataTables_empty {
 }
 .tile.tile-success:hover {
   background: #90b456;
+}
+.tile.tile-purple-default {
+  background: #6c4388;
+  border-color: #6c4388;
+}
+.tile.tile-purple-default :hover {
+  background: #7a5296;
+}
+.tile.tile-purple-light {
+  background: #9145b6;
+  border-color: #9145b6;
+}
+.tile.tile-purple-light :hover {
+  background: #a562c5;
 }
 .tile.tile-warning {
   background: #fea223;
@@ -11234,4 +11260,45 @@ li.ext_zip {
   .page-container .page-content {
     margin-left: 0px;
   }
+}
+
+/* ADDED STYLES */
+a {
+  color: #6c4388;
+}
+
+.carousel-inner>.item-200 {
+  height: 200px;
+}
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img {
+  line-height: 1;
+  vertical-align: middle;
+  display: inline;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+}
+
+.carousel-indicators {
+  bottom: -20px;
+}
+
+.carousel-indicators li {
+  border: 1px solid #6c4388;
+}
+
+.carousel-indicators .active {
+  background-color: #6c4388;
+}
+
+.profile-image-profile {
+  height: 100px;
+
+}
+
+.profile-image-profile img {
+  border: 1px;
+
 }

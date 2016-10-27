@@ -10,7 +10,7 @@ module EmployeesImportHelper
 	COLUMN_EMAIL = 23
 
 	def import_employees
-		@employees_array = CSV.read("#{Rails.root}/public/TOGV_CABINET.CSV")
+		@employees_array = CSV.read("#{Rails.root}/app/assets/TOGV_CABINET.CSV")
 		@employees_array.shift # Get rid of header contents
 
 		@employees_array.each do |e|

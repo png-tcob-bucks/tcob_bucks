@@ -1,13 +1,34 @@
-<% if flash[:title] == "Error" %>
-    <div class="notice-error"><%= flash[:notice] %></div>
-<% elsif flash[:title] == "Success" %>
-    <div class="notice-success"><%= flash[:notice] %></div>
-<% end %>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="#"><%= @current_user.full_name %></a></li>               
+</ul>
+<!-- END BREADCRUMB -->  
 
-<div class="row">
-  <div class="col-sm-4">
-    <div class="panel panel-default panel-body profile-info">
-      <%= image_tag get_profile_picture(@employee.IDnum), class: "profile-image" %>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+   <div class="page-content-wrap">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= @employee.full_name %></h3>
+            </div>
+            <div class="panel-body">
+            <div class="profile-image-profile">
+              <%= image_tag get_profile_picture(@employee.IDnum) %>
+            </div>
+              
       <h1><%= @employee.first_name + " " + @employee.last_name%></h1>
       <%= "#" + @employee.id.to_s %>
           <br><%= Department.find(@employee.department_id).name %>
@@ -24,73 +45,43 @@
           <p>Bucks</p>
         </div>
         </center>
-    </div>
-  </div>
-  <div class="col-sm-8">
-      <div class="panel-default">
-        <div class="panel-heading">Achievements</div>
-        <div class="panel panel-body">Coming soon!</div>
-      </div>
-      <div class="panel-default">
-          <div class="panel-heading">Bucks Earned</div>
-          <div class="panel panel-body">
-            <center>
-            <div class="profile-earned-bucks">
-              <h1><%= @bucks_nonvoid.where(reason_short: 'Attendance').count %></h1>
-              <p>Attendance <br> Bucks</p>
             </div>
-            <div class="profile-earned-bucks">
-              <h1><%= @bucks_nonvoid.where(reason_short: 'Community Involvement').count %>
-              </h1>
-              <p>Community Involvement Bucks</p>
-            </div>
-            <div class="profile-earned-bucks">
-              <h1><%= @bucks_nonvoid.where(reason_short: 'Customer Service').count %>
-              </h1>
-              <p>Customer Service Bucks</p>
-            </div>
-            <div class="profile-earned-bucks">
-              <h1><%= @bucks_nonvoid.where(reason_short: 'Shift Coverage').count %>
-              </h1>
-              <p>Shift Coverage Bucks</p>
-            </div>
-            <div class="profile-earned-bucks">
-              <h1><%= @bucks_nonvoid.where(reason_short: 'Other').count %>
-              </h1>
-              <p>Other <br>Bucks</p>
-            </div>
-              <div class="profile-earned-bucks">
-                <h1><%= @bucks_nonvoid.where(reason_short: 'A+ Service').count %>
-                </h1>
-                <p>100% Service <br>Bucks</p>
-              </div>
-            </center>
+            <div class="panel-footer">
+                                <%= @employee.get_bucks_balance %>
+                            </div>
           </div>
-      </div>
-      <div class="panel-default">
-        <div class="panel-heading">Prizes Earned</div>
-        <div class="panel panel-body purchase-list-wrapper">
-          <div class="purchase-list">
-            <%= 
-              @bucks = @bucks_nonvoid.where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
-              render 'purchases/purchases_line' 
-            %>
+        </div>
+        <div class="col-md-8">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Panel Title 1</h3>
+            </div>
+            <div class="panel-body"></div>
+          </div>
+          <div class="panel panel-default tabs">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li class="active">
+                <a href="#tab-first-j1" role="tab" data-toggle="tab">First</a>
+              </li>
+              <li>
+                <a href="#tab-second-j1" role="tab" data-toggle="tab">Second</a>
+              </li>
+            </ul>
+            <div class="panel-body tab-content">
+              <div class="tab-pane active" id="tab-first-j1"></div>
+              <div class="tab-pane" id="tab-second-j1"></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">Available to Spend</div>
-      <div class="panel-body">
-            <%= render 'bucks/bucks_route_detail' %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= @bucks = @bucks_nonvoid.where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
+          render 'bucks/bucks_route_detail' %>
+        </div>
       </div>
     </div>
-  </div>
+ 
+    
 </div>
 
