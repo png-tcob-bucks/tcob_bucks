@@ -1,80 +1,101 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-      <% if flash[:title] == "Error" %>
-          <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
-      <% elsif flash[:title] == "Success" %>
-          <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
-      <% end %>
-      <a href="/prizes/"> < Back to Store</a><br><br>
-      <div class="row">
-        <div class="col-sm-4">
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Home</a></li>  
+    <li><a href="#">Store</a></li>
+    <li><a href="#"><%= @prize.name %></a></li>                  
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-shopping-cart"></span> View Prize</h2>
+</div>
+<!-- END TITLE -->
+
+<div class="page-content-wrap">
+    
+    <div class="row">
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-body">
             <div class = "prize-detail-cell-picture" style="background-image: url('<%= @prize.get_first_image %>')"></div>
+          </div>
         </div>
+        <% @images.each do |i| 
+          if !i.blank? %>
+          <img src="<%= i %>" class="img-thumbnail" height="50px" width="50px"/>
+        <% end end %>
+      </div>
+      <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= @prize.name %><span class="label label-primary">$<%= @prize.cost %></span></h3>
+          </div>
+          <div class="panel-body">
+            <div class = "form-group">
+            <h3>Description</h3>
+              <hr>
+              <p><%= @prize.description %></p>
+              <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+                  <p><label for = "color">Color:</label>
+                    <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();", class: "form-control" %></p>
 
-        <div class = "col-sm-8">
-          <div class = "prize-detail-cell-details">
-            <h1><%= @prize.name %></h1>
-            <h2><%= @prize.cost %> Bucks</h2>
+                  <p><label for = "size">Size:</label>
+                    <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();", class: "form-control" %></p>
 
-            <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
-                <p><label for = "color">Color:</label>
-                  <%= select_tag :color, options_for_select(@colors, params[:color]), onchange: "this.form.submit();" %></p>
+                  <% if @brands.size > 1 %>
+                  <p><label for = "brand">Brand:</label>
+                  <%= select_tag :brand, options_for_select(@brands, params[:brand]), onchange: "this.form.submit()", class: "form-control" %></p>
+                  <% end %>
 
-                <p><label for = "size">Size:</label>
-                  <%= select_tag :size, options_for_select(@sizes, params[:size]), onchange: "this.form.submit();" %></p>
+                <% if @prize.must_order %>
+                  <p><b>Prize must be ordered</b></p>
+                <% end %>
+              <% end %>
 
-                <% if @brands.size > 1 %>
-                <p><label for = "brand">Brand:</label>
-                <%= select_tag :brand, options_for_select(@brands, params[:brand]), onchange: "this.form.submit()" %></p>
+              <%= form_tag controller: :purchases, action: :complete do %>
+                <p><label for = "quantity">Quantity:</label>
+                <%= text_field 'prize', 'quantity', value: 1, class: "form-control" %></p>
+                <%= hidden_field :prize, :id, value: @prize.id %>
+                <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
+                <%= hidden_field :employee, :id, value: @current_user.id %>
+
+                <% if !@chosen.nil? && @chosen.stock > 0 %>
+                  <h3><span class="label label-success"><%= @chosen.stock %> In Stock</span></h3>
+                <% else %>
+                  <h3><span class="label label-danger">Out Of Stock</span></h3>
                 <% end %>
 
-              <% if @prize.must_order %>
-                <p><b>Prize must be ordered</b></p>
+                  <%= submit_tag 'Purchase', class: "btn btn-primary" if !@chosen.nil? && @chosen.stock > 0 %>
+                  <% if Favorite.find_by(employee_id: @current_user, prize_id: params[:id]).blank? %>
+                    <%= link_to controller: :favorites, action: :create, prize_id: @prize.id do %>
+                      <div class = "btn btn-primary">Add to Favorites</div>
+                    <% end 
+                  else %>
+                    <%= link_to controller: :favorites, action: :delete, prize_id: @prize.id, source: 'shop' do %>
+                      <div class = "btn btn-primary">Remove from Favorites</div>
+                    <% end 
+                  end %>
+                
               <% end %>
-            <% end %>
 
-            <br><h3>Description</h3>
-            <hr>
-            <p><%= @prize.description %></p>
-
-            <%= form_tag controller: :purchases, action: :complete do %>
-              <p><label for = "quantity">Quantity:</label>
-              <%= text_field 'prize', 'quantity', value: 1 %></p>
-              <%= hidden_field :prize, :id, value: @prize.id %>
-              <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
-              <%= hidden_field :employee, :id, value: @current_user.id %>
-
-              <% if !@chosen.nil? && @chosen.stock > 0 %>
-               <p id = 'prize_stock' class = "text-green right-float stock-num"><%= @chosen.stock %> In Stock</p>
-              <% else %>
-                <p id = 'prize_stock' class = "text-red right-float stock-num">Out Of Stock</p>
-              <% end %>
-              <ul class = 'button-line right-float'>
-                <%= submit_tag 'Purchase' if !@chosen.nil? && @chosen.stock > 0 %>
-                <% if Favorite.find_by(employee_id: @current_user, prize_id: params[:id]).blank? %>
-                  <%= link_to controller: :favorites, action: :create, prize_id: @prize.id do %>
-                    <li>Add to Favorites</li>
-                  <% end 
-                else %>
-                  <%= link_to controller: :favorites, action: :delete, prize_id: @prize.id, source: 'shop' do %>
-                    <li>Remove from Favorites</li>
-                  <% end 
-                end %>
-              </ul>
-              
-            <% end %>
-
-              <br>
+                <br>
+              </div>
             </div>
-            <div class = "clear"></div>
           </div>
-
         </div>
-      <hr><h3>Recommended Items</h3>
-        <div class = "featured-detail-wrapper">
-          <%= render 'prizes/prizes_featured' %>
-        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body"></div>
     </div>
   </div>
 </div>

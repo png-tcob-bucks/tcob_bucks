@@ -1790,13 +1790,13 @@
   float: right;
 }
 .x-dashboard-dark .page-container .page-content .page-content-wrap .x-content .buttons-panel > .btn {
-  background: #415365;
+  background: #6c4388;
   color: #FFF;
   margin-bottom: 15px;
   padding: 9px 20px;
 }
 .x-dashboard-dark .page-container .page-content .page-content-wrap .x-content .buttons-panel .btn-group > .btn.btn-primary {
-  background: #415365;
+  background: #6c4388;
   color: #94ABBA;
 }
 .x-dashboard-dark .page-container .page-content .page-content-wrap .x-content .buttons-panel .btn-group > .btn.btn-primary.active {
@@ -4511,8 +4511,8 @@ ul.panel-controls > li > .dropdown-menu:before {
   border-color: #a7c479;
 }
 .btn-primary {
-  background-color: #393939;
-  border-color: #393939;
+  background-color: #6c4388;
+  border-color: #6c4388;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -4919,27 +4919,29 @@ label.valid {
 .alert {
   float: left;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   line-height: 21px;
+  border: 0px;
+  border-radius: 0px;
 }
 .alert-success {
   background-color: #95b75d;
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.80);
   border-color: #90b456;
 }
 .alert-info {
   background-color: #3fbae4;
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.80);
   border-color: #36b7e3;
 }
 .alert-warning {
   background-color: #fea223;
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.80);
   border-color: #fe9e19;
 }
 .alert-danger {
   background-color: #b64645;
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.80);
   border-color: #af4342;
 }
 /* EOF ALERTS */
@@ -5072,6 +5074,7 @@ label.valid {
   float: left;
   width: 100%;
   padding: 5px 10px;
+  background-color: #e8e8e8;
 }
 .page-title h2 {
   float: left;
@@ -11641,19 +11644,12 @@ div.prize-detail-container {
 }
 
 .prize-detail-cell-picture {
-    margin: 4px;
-    margin-bottom: -30px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    color: #FFFFFF;
-    height: 280px;
-    width: 280px;
-    font-size: 12px;
-    background-blend-mode: screen;
-    background-position: center;
-    display: table;
-    border: 1px solid #cccccc;
-    margin-left: 30px;
+  background-repeat: no-repeat;
+  color: #FFFFFF;
+  height: 280px;
+  /* width: 280px; */
+  background-size: contain;
+  background-position: center;
 }
 .prize-detail-cell-details {
     width: 500px;

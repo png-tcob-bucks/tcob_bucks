@@ -81,6 +81,7 @@ class PrizesController < ApplicationController
 		@prize = Prize.find(params[:id])
 		@featured = Prize.first(5)
 		@prize_subcats = PrizeSubcat.where(prize_id: @prize.id)
+		@images = @prize_subcats.group(:image).map { |p| p.image if p.image != '' }
 		if !@prize_subcats.blank?		
 			@prize_subcats = PrizeSubcat.where(prize_id: @prize.id)
 			@sizes = @prize_subcats.group(:size).map { |p| p.size }
