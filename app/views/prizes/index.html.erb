@@ -1,28 +1,59 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-      <div class = "shop_banner">
-        <img src="/images/bucks_shop_logo.png" class = "shop-banner-logo">
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>    
+    <li><a href="/prizes">Store</a></li>                  
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <div class="content-frame">
+      <div class="content-frame-right" style="height: 578px;">
+        <div class="panel panel-default">
+        </div>
       </div>
 
+      <div class="content-frame-body content-frame-body-left" style="height: 638px;">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default panel-body">
+              <div class = "shop_banner">
+                <img src="/images/bucks_shop_logo.png" class = "shop-banner-logo">
+              </div>
 
 
-      <div class = "featured-wrapper">
-        <h1>Spotlight Prizes</h1>
-        <%= render 'prizes_featured' %>
 
-      </div>
+              <div class = "featured-wrapper">
+                <h1>Spotlight Prizes</h1>
+                <%= render 'prizes_featured' %>
 
-      <% if flash[:title] == "Error" %>
-          <div class="notice-error"><%= flash[:notice] %></div>
-      <% elsif flash[:title] == "Success" %>
-          <div class="notice-success"><%= flash[:notice] %></div>
-      <% end %>
+              </div>
 
-      <h1>Available Prizes</h1>
-      <div class = "table-wrapper">
-        <%= render 'prizes_grid' %>
+              <% if flash[:title] == "Error" %>
+                  <div class="notice-error"><%= flash[:notice] %></div>
+              <% elsif flash[:title] == "Success" %>
+                  <div class="notice-success"><%= flash[:notice] %></div>
+              <% end %>
+
+              <h1>Available Prizes</h1>
+              <div class = "table-wrapper">
+                <%= render 'prizes_grid' %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+    
+</div>          
+
+
