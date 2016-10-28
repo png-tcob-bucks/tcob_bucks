@@ -19,66 +19,109 @@
 
    <div class="page-content-wrap">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><%= @employee.full_name %></h3>
+              <h1 class="panel-title"><span class="fa fa-user"></span> <%= @employee.first_name + " " + @employee.last_name %></h1>
             </div>
             <div class="panel-body">
-            <div class="profile-image-profile">
-              <%= image_tag get_profile_picture(@employee.IDnum) %>
-            </div>
-              
-      <h1><%= @employee.first_name + " " + @employee.last_name%></h1>
-      <%= "#" + @employee.id.to_s %>
-          <br><%= Department.find(@employee.department_id).name %>
-          <br><%= Job.find(@employee.job_id).title %>
-          <% if @current_user.has_admin_access %>
-              <br>Roles:<% Permission.where(job_id: @employee.job_id).each do |p| %>
-                <%= Role.find(p.role_id).title %>
-            <% end %>
-          <% end %>
-        <br><br>
-        <center>
-        <div class="profile-Bucks-box ">
-          <h1><%= @employee.get_bucks_balance %></h1>
-          <p>Bucks</p>
-        </div>
-        </center>
+                <center><p><%= Job.find(@employee.job_id).title %></p></center>
+                <div class="text-center" id="user_image">
+                    <%= image_tag get_profile_picture(@employee.IDnum), class: "img-thumbnail" %>
+                </div>
+                <div class="panel panel-default form-horizontal">
+                    <div class="panel-body form-group-separated">                                    
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">ID#</label>
+                            <div class="col-md-8 col-xs-7 line-height-30"><%= "#" + @employee.id.to_s %></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Department</label>
+                            <div class="col-md-8 col-xs-7 line-height-30"><%= Department.find(@employee.department_id).name %></div>
+                        </div>
+                        <% if @current_user.has_admin_access %>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Roles</label>
+                            <div class="col-md-8 col-xs-7">
+                                <% Permission.where(job_id: @employee.job_id).each do |p| %>
+                                    <%= Role.find(p.role_id).title %><br>
+                                <% end %>
+                            </div>
+                        </div>
+                        <% end %>
+                    </div>
+                </div>
             </div>
             <div class="panel-footer">
-                                <%= @employee.get_bucks_balance %>
-                            </div>
+                <button class="btn btn-default btn-block">Possible Button</button>
+            </div>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel Title 1</h3>
+              <h3 class="panel-title">Achievements (Coming Soon)</h3>
             </div>
             <div class="panel-body"></div>
           </div>
-          <div class="panel panel-default tabs">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-              <li class="active">
-                <a href="#tab-first-j1" role="tab" data-toggle="tab">First</a>
-              </li>
-              <li>
-                <a href="#tab-second-j1" role="tab" data-toggle="tab">Second</a>
-              </li>
-            </ul>
-            <div class="panel-body tab-content">
-              <div class="tab-pane active" id="tab-first-j1"></div>
-              <div class="tab-pane" id="tab-second-j1"></div>
+            <div class="col-md-2">                        
+                <a href="#" class="tile tile-default">
+                    <%= @bucks_nonvoid.where(reason_short: 'Attendance').count %>
+                    <p>Attendance</p>                            
+                </a>                        
             </div>
-          </div>
+            <div class="col-md-2">                        
+                <a href="#" class="tile tile-default">
+                    <%= @bucks_nonvoid.where(reason_short: 'Community Involvement').count %>
+                    <p>Community Involvement</p>                            
+                </a>                        
+            </div>
+            <div class="col-md-2">                        
+                <a href="#" class="tile tile-default">
+                    <%= @bucks_nonvoid.where(reason_short: 'Customer Service').count %>
+                    <p>Customer Service</p>                            
+                </a>                        
+            </div>
+            <div class="col-md-2">                        
+                <a href="#" class="tile tile-default">
+                    <%= @bucks_nonvoid.where(reason_short: 'Shift Coverage').count %>
+                    <p>Shift Coverage</p>                            
+                </a>                        
+            </div>
+            <div class="col-md-2">                        
+                <a href="#" class="tile tile-default">
+                    <%= @bucks_nonvoid.where(reason_short: 'Other').count %>
+                    <p>Other</p>                            
+                </a>                        
+            </div>
+            <div class="col-md-2">                        
+                <a href="#" class="tile tile-default">
+                    <%= @bucks_nonvoid.where(reason_short: 'A+ Service').count %>
+                    <p>100% Shop</p>                            
+                </a>                        
+            </div>
+
+            <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Purchases</h3>
+            </div>
+            <div class="panel-body purchase-list-wrapper">
+                <div class="purchase-list">
+                    <%= render 'purchases/purchases_line' %>
+                </div>
+            </div>
         </div>
+
       </div>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <%= @bucks = @bucks_nonvoid.where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
-          render 'bucks/bucks_route_detail' %>
-        </div>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <%= @bucks = @bucks_nonvoid.where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
+                  render 'bucks/bucks_route_detail' %>
+                </div>
+              </div>
+          </div>
       </div>
     </div>
  
