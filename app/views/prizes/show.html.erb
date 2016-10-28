@@ -2,9 +2,9 @@
   <div class="col-sm-12">
     <div class="panel panel-default panel-body">
       <% if flash[:title] == "Error" %>
-        <div class="notice-error"><%= flash[:notice] %></div>
+          <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
       <% elsif flash[:title] == "Success" %>
-        <div class="notice-success"><%= flash[:notice] %></div>
+          <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
       <% end %>
       <a href="/prizes/"> < Back to Store</a><br><br>
       <div class="row">
@@ -27,11 +27,12 @@
                 <% if @brands.size > 1 %>
                 <p><label for = "brand">Brand:</label>
                 <%= select_tag :brand, options_for_select(@brands, params[:brand]), onchange: "this.form.submit()" %></p>
-              <% end %>
+                <% end %>
 
               <% if @prize.must_order %>
                 <p><b>Prize must be ordered</b></p>
               <% end %>
+            <% end %>
 
             <br><h3>Description</h3>
             <hr>
@@ -44,16 +45,13 @@
               <%= hidden_field :prize, :subcat_id, value: @chosen.id if !@chosen.nil? %>
               <%= hidden_field :employee, :id, value: @current_user.id %>
 
-              <% if !@chosen.nil? || @chosen.stock <= 0 %>
+              <% if !@chosen.nil? && @chosen.stock > 0 %>
                <p id = 'prize_stock' class = "text-green right-float stock-num"><%= @chosen.stock %> In Stock</p>
               <% else %>
                 <p id = 'prize_stock' class = "text-red right-float stock-num">Out Of Stock</p>
               <% end %>
-            <% end %>
-
-              <br>
               <ul class = 'button-line right-float'>
-                <%= submit_tag 'Purchase' if (!@chosen.nil? || @chosen.stock <= 0) %>
+                <%= submit_tag 'Purchase' if !@chosen.nil? && @chosen.stock > 0 %>
                 <% if Favorite.find_by(employee_id: @current_user, prize_id: params[:id]).blank? %>
                   <%= link_to controller: :favorites, action: :create, prize_id: @prize.id do %>
                     <li>Add to Favorites</li>
@@ -64,8 +62,10 @@
                   <% end 
                 end %>
               </ul>
-              <% end %>
+              
+            <% end %>
 
+              <br>
             </div>
             <div class = "clear"></div>
           </div>

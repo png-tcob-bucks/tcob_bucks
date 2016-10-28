@@ -40,18 +40,18 @@ class PurchasesController < ApplicationController
 						end
 						flash[:title] = 'Success'
 						flash[:notice] = 'Item is reserved, but must be ordered by HR.'
-						redirect_to controller: :prizes, action: :index
+						redirect_to controller: :prizes, action: :show, id: @prize.id
 					end
 				end
 			else
 				flash[:title] = 'Error'
 				flash[:notice] = 'Out of stock.'
-				redirect_to controller: :prizes, action: :index
+				redirect_to controller: :prizes, action: :show, id: @prize.id
 			end
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'Not enough bucks to purchase for that quantity'
-			redirect_to controller: :prizes, action: :index
+			redirect_to controller: :prizes, action: :show, id: @prize.id
 		end
 	end
 

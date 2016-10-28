@@ -87,6 +87,7 @@ class PrizesController < ApplicationController
 			@colors = @prize_subcats.group(:color).map { |p| p.color }
 			@brands = @prize_subcats.group(:brand).map { |p| p.brand }
 			@chosen = PrizeSubcat.search(@prize.id, params[:size], params[:color], params[:brand]).first
+			
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'Item is currently out of stock or discontinued.'
