@@ -55,6 +55,7 @@ class PrizesController < ApplicationController
 	def index
 		@prizes = Prize.where(available: true).group(:name)
 		@featured = Prize.where(available: true, featured: true).group(:name)
+		@filters = params.select { |p,k|  p if p == "color" || p == "name" || p == "size" || p == "category" }
 	end
 
 	def logs

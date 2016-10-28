@@ -2424,7 +2424,7 @@ body {
 }
 .page-container .page-content .content-frame .content-frame-right {
   float: right;
-  width: 350px;
+  width: 300px;
   padding: 10px;
   min-height: 100%;
   background: #e8e8e8;
@@ -2451,7 +2451,7 @@ body {
 }
 .page-container .page-content .content-frame .content-frame-body.content-frame-body-left {
   margin-left: 0px;
-  margin-right: 350px;
+  margin-right: 300px;
 }
 .page-container .page-content .content-frame .content-frame-left-toggle,
 .page-container .page-content .content-frame .content-frame-right-toggle {
@@ -3419,7 +3419,8 @@ body.page-container-boxed.wall_10 {
   width: 100%;
   float: left;
   padding: 0px 10px;
-  height: 90px;
+  height: 70px;
+  background: #6c4388;
   vertical-align: middle;
 }
 .profile .profile-image {
@@ -4891,7 +4892,7 @@ label.valid {
 }
 .label-primary,
 .badge-primary {
-  background-color: #393939;
+  background-color: #6c4388;
 }
 .label-success,
 .badge-success {
@@ -4908,6 +4909,10 @@ label.valid {
 .label-danger,
 .badge-danger {
   background-color: #b64645;
+}
+.label-dark,
+.badge-dark {
+  background-color: #393939;
 }
 /* EOF LABELS AND BADGES */
 /* ALERTS */
