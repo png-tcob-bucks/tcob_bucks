@@ -5286,6 +5286,7 @@ blockquote.pull-right {
 /* PROGRESS BARS */
 .progress.progress-small {
   height: 5px;
+  margin-bottom: 0px;
 }
 .progress.progress-small .progress-bar {
   font-size: 0px;

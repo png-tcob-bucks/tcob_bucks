@@ -10,6 +10,11 @@
         <div class="col-md-3">
           <div class="panel panel-default">
             <div class="panel-body">
+            <%= link_to controller: :favorites, action: :delete, prize_id: @prize.id do %>
+                    <div class="favorites-remove">
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </div>
+                <% end %>
               <div class="prize-container" style="background-image: url('<%= @prize.get_first_image %>')">
               </div>
               <div class='prize-info'>
@@ -18,19 +23,10 @@
 
                 <br><%= @prize_subcat.size %>
                 <%= @prize_subcat.color %>
-                <%= link_to controller: :favorites, action: :delete, prize_id: @prize.id do %>
-                    <div class="favorites-remove">
-                      <span class="glyphicon glyphicon-remove"></span>
-                    </div>
-                <% end %>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar"
-                       aria-valuemin="0" aria-valuemax="100" style="width:<%= item_progress(@prize.cost, @balance) %>%;">
-                  </div>
-                  <div class="progress-amount">
-                    <p><%= @balance %> / <%= @prize.cost %> Bucks</p>
-                  </div>
+                <div class="progress progress-small progress-striped active">
+                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: <%= item_progress(@prize.cost, @balance) %>%;"><%= @balance %> / <%= @prize.cost %> Bucks</div>
                 </div>
+                
               </div>
           </div>
         </div>
