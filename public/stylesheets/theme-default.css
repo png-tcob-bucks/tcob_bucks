@@ -4433,6 +4433,11 @@ ul.panel-controls > li > .dropdown-menu:before {
   -o-transition: all 200ms ease;
   transition: all 200ms ease;
 }
+.btn-xxl {
+  width: 100%;
+  height: 100px;
+  font-size: 20px;
+}
 .btn.btn-lg,
 .btn-group-lg > .btn {
   font-size: 14px;
@@ -4519,8 +4524,8 @@ ul.panel-controls > li > .dropdown-menu:before {
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
-  background-color: #29343f;
-  border-color: #29343f;
+  background-color: #8d5ab0;
+  border-color: #8d5ab0;
 }
 .btn-primary[disabled],
 .btn-primary.disabled {
@@ -4724,12 +4729,12 @@ input[type=checkbox] {
 }
 .form-control[disabled],
 .form-control[readonly] {
-  color: #CCC;
+  color: #888;
 }
 .form-control[disabled]:focus,
 .form-control[readonly]:focus {
   background: #EEE;
-  color: #CCC;
+  color: #888;
   border-color: #D5D5D5;
 }
 .input-group-addon {
@@ -5643,6 +5648,13 @@ blockquote.pull-right {
   white-space: nowrap;
   font-weight: 600;
   text-transform: uppercase;
+}
+.tbody-height {
+  overflow-y: scroll;
+  max-height: 500px;
+}
+.table-clickable {
+  cursor: pointer;
 }
 .panel-body.panel-body-table {
   padding: 0px;

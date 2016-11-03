@@ -4,6 +4,7 @@
 
 $(document).ready ->
   setTableRowsClickableEmployees()
+  alert('Success!')
   return
 $(document).ajaxStop ->
   setTableRowsClickableEmployees()
@@ -14,7 +15,7 @@ setTableRowsClickableEmployees = undefined
 setTableRowsClickableEmployees = ->
   j = undefined
   k = undefined
-  k = document.getElementById('table-bucks-employeeslist')
+  k = document.getElementById('table-bucks-employee-list')
   if k != null
     rows = k.rows
     j = 0
