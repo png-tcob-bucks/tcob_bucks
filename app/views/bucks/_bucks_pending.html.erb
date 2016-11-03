@@ -1,34 +1,36 @@
 <% if @bucks.blank? %>
-	<p>None.</p>
+	<p>None</p>
 <% else %>
-	<table class = 'table-list'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list"><%= buck_sortable "number" %></td>
-			<td class = "td-list"><%= buck_sortable "employee_id" %></td>
-			<td class = "td-list">Employee Name</td>
-			<td class = "td-list">Department</td>
-			<td class = "td-list"><%= buck_sortable "value" %></td>
-			<td class = "td-list"><%= buck_sortable "assignedBy" %></td>
-			<td class = "td-list">Department</td>
-			<td class = "td-list"><%= buck_sortable "reason_short" %></td>
-			<td class = "td-list"><%= buck_sortable "status" %></td>
-			<td class = "td-list"><%= buck_sortable "created_at" %></td>
-		</tr>
+	<table class="table table-striped">
+		<thead>
+			<th><%= buck_sortable "number" %></th>
+			<th><%= buck_sortable "employee_id" %></th>
+			<th>Employee Name</th>
+			<th>Department</th>
+			<th><%= buck_sortable "value" %></th>
+			<th><%= buck_sortable "assignedBy" %></th>
+			<th>Department</th>
+			<th><%= buck_sortable "reason_short" %></th>
+			<th><%= buck_sortable "status" %></th>
+			<th><%= buck_sortable "created_at" %></th>
+		</thead>
+		<tbody>
 		<% @bucks.each do |b| 
 			@assignedTo = Employee.find(b.employee_id) 
 			@assignedBy = Employee.find(b.assignedBy) %>
 		<tr class = "tr-list" onclick=" window.document.location = 'pending/<%= b.id %>'; ">
-			<td class = "td-list"> <%= b.number %> </td>
-			<td class = "td-list"> <%= b.employee_id %> </td>
-			<td class = "td-list"> <%= @assignedTo.first_name + " " + @assignedTo.last_name %> </td>
-			<td class = "td-list"> <%= Department.find(b.department_id).name %> </td>
-			<td class = "td-list"> <%= b.value %> </td>
-			<td class = "td-list"> <%= @assignedBy.first_name + " " + @assignedBy.last_name %> </td>
-			<td class = "td-list"> <%= Department.find(@assignedBy.department_id).name %> </td>
-			<td class = "td-list"> <%= b.reason_short %> </td>
-			<td class = "td-list"> <%= b.status %> </td>
-			<td class = "td-list"> <%= l b.created_at.localtime %> </td>
+			<td> <%= b.number %> </td>
+			<td> <%= b.employee_id %> </td>
+			<td> <%= @assignedTo.first_name + " " + @assignedTo.last_name %> </td>
+			<td> <%= Department.find(b.department_id).name %> </td>
+			<td> <%= b.value %> </td>
+			<td> <%= @assignedBy.first_name + " " + @assignedBy.last_name %> </td>
+			<td> <%= Department.find(@assignedBy.department_id).name %> </td>
+			<td> <%= b.reason_short %> </td>
+			<td> <%= b.status %> </td>
+			<td> <%= l b.created_at.localtime %> </td>
 		</tr>
 		<% end %>
+		</tbody>
 	</table>
 <% end %>
