@@ -8,9 +8,9 @@
 
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Profile</a></li>
-    <li><a href="#"><%= @employee.full_name %></a></li>               
+    <li><a href="/">Home</a></li>
+    <li><a href="/employees/<%= @current_user.IDnum %>">Profile</a></li>
+    <li><%= @employee.full_name %></li>               
 </ul>
 <!-- END BREADCRUMB -->  
 
