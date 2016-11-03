@@ -143,23 +143,6 @@ class BucksController < ApplicationController
 		end
 	end
 
-	def issued
-		@department = Department.find(@current_user.department_id)
-		@department_budget = @department.get_budget_overall
-		@budget_per_employee = @department.get_budget_per_employee
-
-		if params[:show] == 'you'
-			@show = 'you'
-			if !Buck.where(assignedBy: @current_user.id).blank?
-				@bucks = Buck.where('extract(month from approved_at) = ?', Time.now.strftime("%m")).where(assignedBy: @current_user.id).order(sort_buck_column + " " + sort_buck_direction)
-			end
-		elsif params[:show] == 'department'
-			@show = 'department'
-			@bucks = Buck.where('extract(month from approved_at) = ?', Time.now.strftime("%m"))
-			@bucks = @bucks.select { |b| Employee.find(b.assignedBy).department_id == @current_user.department_id }
-		end
-	end
-
 	def logs
 		if @current_user.has_admin_access
 			@buck_logs = BuckLog.search(params[:buck_id], params[:performed_id], params[:recieved_id])

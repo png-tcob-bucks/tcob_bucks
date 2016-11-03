@@ -1,82 +1,123 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
+<%= javascript_include_tag "analyze.js" %>
 
-      <% if flash[:title] == "Error" %>
-      <div class="notice-error"><%= flash[:notice] %></div>
-      <% elsif flash[:title] == "Success" %>
-      <div class="notice-success"><%= flash[:notice] %></div>
-      <% end %>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
 
-      <h1>Review Employee Issued</h1>
-      <div class = "table-search-input">
-        <%= form_tag (''), :method => 'get', :id => 'department_filter' do %>
-        <%= select_tag :month, options_for_select(@months), include_blank: "Month" %>
-        <%= select_tag :year, options_for_select(@years), include_blank: "Year" %>
-        <%= submit_tag 'Show', id: 'department_filter_button' %>
-        <%= link_to controller: :bucks, action: :analyze, department: @employee.department_id, month: @month, year: @year  do %>
-          <div class='button-div'>
-            Back
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/employees">Employees</a></li>
+    <li><a href="/employees/analyze/<%= @current_user.IDnum %>">Analyze</a></li> 
+    <li><%= @employee.full_name %></li>               
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-plus-circle"></span> Analyze Employee</h2>
+</div>
+<!-- END TITLE -->
+
+<div class="page-content-wrap">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= form_tag (''), :method => 'get', :id => 'time_filter' do %>
+              <div class="col-md-3">
+                <%= select_tag :month, options_for_select(@months), include_blank: "Month", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= select_tag :year, options_for_select(@years), include_blank: "Year", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= submit_tag 'Show', id: 'time_filter_button', class: 'btn btn-primary' %>
+                <div class='btn btn-primary'>
+                    Back
+                </div>
+              </div> 
+            <% end %>
           </div>
-          <% end %>
-        <% end %>
-
+        </div>
       </div>
+    </div>
+  </div>
 
-      <div class = "table-wrapper">
-        <% if !@month.nil? && !@year.nil? %>
-        <% @month_num = Date::MONTHNAMES.index(@month) %>
-        <h1>Budget Report: <%= @employee.full_name %> (<%= @month %>, <%= @year %>)</h1>
-        
-        <% budget_used = @employee.get_personal_budget_used(@month_num, @year) %>
-        <table>
-          <tr>
-            <td class = "detail-title">Issued: </td>
-            <td class = "detail-content"> <%= @bucks.count %> </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">Personal Budget Used: </td>
-            <td class = "detail-content"> 
-              <p class = <%= p_class_for_budget(budget_used, @budget_per_employee)%>>
-                <%= @employee.get_personal_budget_used_percent(@month_num, @year) %>%
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">Department Budget Used: </td>
-            <td class = "detail-content"> 
-              <p class = <%= p_class_for_budget(budget_used, @budget_per_employee)%>>
-                <%= @employee.get_department_budget_used_percent(@month_num, @year) %>%
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">A+ Service: </td>
-            <td class = "detail-content"> <%= @bucks.where(reason_short: "A+ Service").count %> </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">Attendance: </td>
-            <td class = "detail-content"> <%= @bucks.where(reason_short: "Attendance").count %> </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">Community Involvement: </td>
-            <td class = "detail-content"> <%= @bucks.where(reason_short: "Community Involvement").count %> </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">Customer Service: </td>
-            <td class = "detail-content"> <%= @bucks.where(reason_short: "Customer Service").count %> </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">Shift Coverage: </td>
-            <td class = "detail-content"> <%= @bucks.where(reason_short: "Shift Coverage").count %> </td>
-          </tr>
-          <tr>
-            <td class = "detail-title">Other: </td>
-            <td class = "detail-content"> <%= @bucks.where(reason_short: "Other").count %> </td>
-          </tr>
-        </table>
-        <%= render 'bucks/bucks_route_detail' %>
-        <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% if !@month.nil? && !@year.nil? %>
+          <% @month_num = Date::MONTHNAMES.index(@month) %>
+          <h3>Budget Report: <%= @employee.full_name %> (<%= @month %>, <%= @year %>)</h3>
+          <% budget_used = @employee.get_personal_budget_used(@month_num, @year) %>
+
+          <div class="row">
+            <div class="col-md-4">
+              <table class="table table-condensed">
+            <tr>
+              <td>Issued: </td>
+              <td> <%= @bucks.count %> </td>
+            </tr>
+            <tr>
+              <td>Personal Budget Used: </td>
+              <td> 
+                <p class = <%= p_class_for_budget(budget_used, @budget_per_employee)%>>
+                  <%= @employee.get_personal_budget_used_percent(@month_num, @year) %>%
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>Department Budget Used: </td>
+              <td> 
+                <p class = <%= p_class_for_budget(budget_used, @budget_per_employee)%>>
+                  <%= @employee.get_department_budget_used_percent(@month_num, @year) %>%
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>A+ Service: </td>
+              <td> <%= @bucks.where(reason_short: "A+ Service").count %> </td>
+            </tr>
+            <tr>
+              <td>Attendance: </td>
+              <td> <%= @bucks.where(reason_short: "Attendance").count %> </td>
+            </tr>
+            <tr>
+              <td>Community Involvement: </td>
+              <td> <%= @bucks.where(reason_short: "Community Involvement").count %> </td>
+            </tr>
+            <tr>
+              <td>Customer Service: </td>
+              <td> <%= @bucks.where(reason_short: "Customer Service").count %> </td>
+            </tr>
+            <tr>
+              <td>Shift Coverage: </td>
+              <td> <%= @bucks.where(reason_short: "Shift Coverage").count %> </td>
+            </tr>
+            <tr>
+              <td>Other: </td>
+              <td> <%= @bucks.where(reason_short: "Other").count %> </td>
+            </tr>
+          </table>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+          
+          
+          
+          <%= render 'bucks/bucks_route_detail' %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

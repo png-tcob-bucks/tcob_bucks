@@ -2312,7 +2312,6 @@ body {
 .row {
   margin-left: 0px;
   margin-right: 0px;
-  background-color: #e8e8e8;
 }
 .row .row-white {
   background-color: #FFFFFF;
@@ -2366,7 +2365,7 @@ body {
 .page-container .page-content {
   min-height: 100%;
   margin-left: 250px;
-  background: #f5f5f5 url('../img/bg.png') left top repeat;
+  background: #e8e8e8 url('../img/bg.png') left top repeat;
   position: relative;
   zoom: 1;
 }
