@@ -13,7 +13,7 @@
 			<% @employees.each do |e| 
 			@dept = Department.find(e.department_id) %>
 			<% if e.status == 'Active' %>
-				<a><tr class = "success tr-clickable" onclick = "window.document.location = 'finish/<%= e.id %>'">
+				<tr class = "success tr-clickable" onclick = "window.document.location = 'finish/<%= e.id %>'">
 			<% else %>
 				<tr class = "danger" >
 			<% end %>
@@ -22,7 +22,7 @@
 				<td> <%= e.last_name %> </td>
 				<td> <%= @dept.name %> </td>
 				<td> <%= e.status %> </td>
-			</tr></a>
+			</tr>
 			<% end %>
 		</tbody>
 	</table>

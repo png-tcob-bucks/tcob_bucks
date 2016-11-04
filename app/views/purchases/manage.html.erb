@@ -1,19 +1,41 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-        <% if flash[:title] == "Error" %>
-          <div class="notice-error"><%= flash[:notice] %></div>
-        <% elsif flash[:title] == "Success" %>
-          <div class="notice-success"><%= flash[:notice] %></div>
-        <% end %>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
 
-        <h1>Purchases Made by <%= @employee.full_name %></h1>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/prizes">Purchases</a></li>
+    <li>Manage</li> 
+    <li><%= @employee.full_name %></li>              
+</ul>
+<!-- END BREADCRUMB -->
 
-        <div class = "table-wrapper">
-          <div id = "employees_table">
-            <%= render 'purchases_manage' %>
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-usd"></span> Manage Purchases: <%= @employee.full_name %> #<%= @employee.IDnum %></h2>
+</div>
+<!-- END TITLE -->
+
+<div class="page-content-wrap">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default panel-body">
+          <% if flash[:title] == "Error" %>
+            <div class="notice-error"><%= flash[:notice] %></div>
+          <% elsif flash[:title] == "Success" %>
+            <div class="notice-success"><%= flash[:notice] %></div>
+          <% end %>
+          <div class = "table-wrapper">
+            <div id = "employees_table">
+              <%= render 'purchases_manage' %>
+            </div>
           </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>
