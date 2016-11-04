@@ -91,13 +91,19 @@ class PurchasesController < ApplicationController
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to manage store transactions.'
-			redirect_to action: :orders_personal
+			redirect_to controller: :employee, action: :home
 		end
 	end
 
 	def manage
-		@employee = Employee.find(params[:employee])
-		@purchases = Purchase.where(employee_id: params[:employee])
+		if @current_user.can_manage_inventory
+			@employee = Employee.find(params[:employee])
+			@purchases = Purchase.where(employee_id: params[:employee])
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to manage purchases.'
+			redirect_to controller: :employee, action: :home
+		end
 	end
 
 	def makePurchase(prize, prize_subcat, employee)
@@ -281,7 +287,7 @@ class PurchasesController < ApplicationController
 		else 
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to manage all reserved items.'
-			redirect_to action: :orders_personal
+			redirect_to controller: :employee, action: :home
 		end
 	end
 
@@ -291,12 +297,19 @@ class PurchasesController < ApplicationController
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to manage store transactions.'
-			redirect_to action: :orders_personal
+			redirect_to controller: :employee, action: :home
 		end
 	end
 
 	def start_manage
-		@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
+		if @current_user.can_manage_inventory
+			@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to manage purchases.'
+			redirect_to controller: :employee, action: :home
+		end
+		
 	end
 
 end

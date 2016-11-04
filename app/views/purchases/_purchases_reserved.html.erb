@@ -1,25 +1,26 @@
 <% if @reserved.blank? %>
 	<p>None</p>
 <% else %>
-	<table class = 'table-list'>
-		<tr class = "tr-list-head" >
-			<td>Purchase ID</td>
-			<td>Employee #</td>
-			<td>Employee Name</td>
-			<td>Prize</td>
-			<td>Name</td>
-			<td>Item #</td>
-			<td>Size</td>
-			<td>Color</td>
-			<td>Ordered</td>
-			<td>Action</td>
-		</tr>
+	<table class = 'table table-striped'>
+		<thead>
+			<th>Purchase ID</th>
+			<th>Employee #</th>
+			<th>Employee Name</th>
+			<th>Prize</th>
+			<th>Name</th>
+			<th>Item #</th>
+			<th>Size</th>
+			<th>Color</th>
+			<th>Ordered</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
 		<% @reserved.each do |r|  
 			@employee = Employee.find(r.employee_id)
 			@prize = Prize.find(r.prize_id)
 			@prize_subcat = PrizeSubcat.find(r.prize_subcat_id)
 		%>
-		<tr class = "tr-list">
+		<tr>
 			<td> <%= r.id %> </td>
 			<td> <%= @employee.id %> </td>
 			<td> <%= @employee.first_name + " " + @employee.last_name %> </td>
@@ -29,8 +30,9 @@
 			<td> <%= @prize_subcat.size %> </td>
 			<td> <%= @prize_subcat.color %> </td>
 			<td> <%= r.created_at %> </td>
-			<td> <%= link_to action: :confirm, id: r.id do %><div class="button-green">Complete</div><% end %></td>
+			<td> <%= link_to action: :confirm, id: r.id do %><div class="btn btn-success">Complete</div><% end %></td>
 		</tr>
 		<% end %>
+		</tbody>
 	</table>
 <% end %>
