@@ -69,7 +69,7 @@ class EmployeesController < ApplicationController
 
 	def index
 		if @current_user.has_admin_access
-			@employees = Employee.search(params[:search_id], params[:search_first_name], params[:search_last_name]).where(status: 'Active')
+			@employees = Employee.search(params[:search_id], params[:search_first_name], params[:search_last_name])
 		else
 			flash.now[:title] = 'Error'
 			flash.now[:notice] = 'You do not have permission to view those employees.'
