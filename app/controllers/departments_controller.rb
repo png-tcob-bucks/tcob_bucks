@@ -11,17 +11,28 @@ class DepartmentsController < ApplicationController
 
 	def approver_add
 		@dept = Department.find(params[:dept])
-		if params[:number] == '1'
-			@dept.update_attribute(:approve1, params[:jobcode])
+		if !params[:jobcode].nil?
+			if params[:number] == '1'
+				@dept.update_attribute(:approve1, params[:jobcode])
+			else
+				@dept.update_attribute(:approve2, params[:jobcode])
+			end
+
+			@job = Job.find_by(jobcode: params[:jobcode])
+			flash[:title] = 'Success'
+			flash[:notice] = @job.title + ' has been successfully assigned as an approver #' + params[:number] + ' for ' + @dept.name
+			redirect_to action: :edit
 		else
-			@dept.update_attribute(:approve2, params[:jobcode])
-		end
+			if params[:number] == '1'
+				@dept.update_attribute(:approve1, nil)
+			else
+				@dept.update_attribute(:approve2, nil)
+			end
 
-		@job = Job.find_by(jobcode: params[:jobcode])
-
-		flash[:title] = 'Success'
-		flash[:notice] = @job.title + ' has been successfully assigned as an approver #' + params[:number] + ' for ' + @dept.name
-		redirect_to action: :edit
+			flash[:title] = 'Success'
+			flash[:notice] = 'Approver #' + params[:number] + ' has been reset'
+			redirect_to action: :edit
+		end	
 	end
 
 	def create

@@ -11334,6 +11334,11 @@ a {
   background-color: #6c4388;
 }
 
+.y-max-500 {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
 .profile-image-profile {
   height: 100px;
 
