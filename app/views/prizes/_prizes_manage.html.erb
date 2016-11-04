@@ -1,28 +1,30 @@
 <% if @prizes.blank? %>
 	<p>None</p>
 <% else %>
-	<table class = 'table-list' id = 'table-prizes-small'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list">ID</td>
-			<td class = "td-list">Prize</td>
-			<td class = "td-list">Cost</td>
-			<td class = "td-list">Stock</td>
-			<td class = "td-list">Must Reserve</td>
-			<td class = "td-list">Available</td>
-			<td class = "td-list">Featured</td>
-			<td class = "td-list">Manage</td>
-		</tr>
-		<% @prizes.each do |p|  %>
-		<tr class = "tr-list">
-			<td class = "td-list"> <%= p.id %> </td>
-			<td class = "td-list"> <%= p.name %> </td>
-			<td class = "td-list"> $<%= p.cost %> </td>
-			<td class = "td-list"> <%= p.get_total_stock %> </td>
-			<td class = "td-list"> <%= image_tag 'check16dp.png' if p.must_order %> </td>
-			<td class = "td-list"> <%= image_tag 'check16dp.png' if p.available %> </td>
-			<td class = "td-list"> <%= image_tag 'check16dp.png' if p.featured %> </td>
-			<td class = "td-list"> <%= link_to 'Manage Stock', controller: :prize_subcats, action: :manage, id: p.id %> | <%= link_to 'Edit', { action: :edit, id: p} %> | <%= link_to 'Discontinue', { controller: :prizes, action: :discontinue, id: p.id} %> </td>
-		</tr>
-		<% end %>
+	<table class = 'table table-striped table-condensed' id = 'table-prizes-small'>
+		<thead>
+			<th>ID</th>
+			<th>Prize</th>
+			<th>Cost</th>
+			<th>Stock</th>
+			<th>Must Reserve</th>
+			<th>Available</th>
+			<th>Featured</th>
+			<th>Manage</th>
+		</thead>
+		<tbody>
+			<% @prizes.each do |p|  %>
+			<tr>
+				<td> <%= p.id %> </td>
+				<td> <%= p.name %> </td>
+				<td> $<%= p.cost %> </td>
+				<td> <%= p.get_total_stock %> </td>
+				<td> <%= image_tag 'check16dp.png' if p.must_order %> </td>
+				<td> <%= image_tag 'check16dp.png' if p.available %> </td>
+				<td> <%= image_tag 'check16dp.png' if p.featured %> </td>
+				<td> <%= link_to 'Manage Stock', controller: :prize_subcats, action: :manage, id: p.id %> | <%= link_to 'Edit', { action: :edit, id: p} %> | <%= link_to 'Discontinue', { controller: :prizes, action: :discontinue, id: p.id} %> </td>
+			</tr>
+			<% end %>
+		</tbody>
 	</table>
 <% end %>

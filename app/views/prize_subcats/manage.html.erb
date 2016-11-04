@@ -1,77 +1,99 @@
+<!-- START FLASH -->                     
 <% if flash[:title] == "Error" %>
-    <div class="notice-error"><%= flash[:notice] %></div>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
 <% elsif flash[:title] == "Success" %>
-    <div class="notice-success"><%= flash[:notice] %></div>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
 <% end %>
+<!-- END FLASH -->
 
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-      <h1>Manage Prize Inventory for <%= @prize.name %></h1>
-      <div class = "prize-detail-container">
-        <div class = "table-wrapper">
-          <div class = "prize-detail-cell-picture">
-            <img src = "<%= @prize.get_first_image %>" class = "prize-detail-picture">
-          </div>
-        </div>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>  
+    <li><a href="/prizes">Store</a></li>
+    <li><a href="/prizes/manage">Manage</a></li>
+    <li><%= @prize.name %></li>                
+</ul>
+<!-- END BREADCRUMB -->  
 
-        <div class = "table-wrapper" style = "width: 100%">
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-shopping-cart"></span> Manage <%= @prize.name %> Inventory</h2>
+</div>
+<!-- END TITLE -->
 
-          <% if @current_user.can_manage_inventory %>
+<div class="page-content-wrap">
 
-          <ul class = 'button-line'>
-            <a href="<%= @prize.id %>/new"><li>New Inventory</li></a>
-            <a href="/prizes/manage"><li>Back</li></a>
-            <a href="/prizes/manage/<%= @prize.id %>"><li>Show All</li></a>
-          </ul>
-
-          <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
-          <div class = "table-search-input" id = "table_search_input_buck">
-            <%= select_tag :color, options_for_select([
-              [],
-              ['Black'],
-              ['Blue'],
-              ['Brown'],
-              ['Dark Brown'],
-              ['Gold'],
-              ['Grey'],
-              ['Green'],
-              ['Light Brown'],
-              ['Lime Green'],
-              ['Maroon'],
-              ['Navy'],
-              ['Orange'],
-              ['Pink'],
-              ['Purple'],
-              ['Red'],
-              ['Sky Blue'],
-              ['Teal'],
-              ['White'],
-              ['Yellow']]), include_blank: "Color" %>
-            <%= select_tag :size, options_for_select([
-              [],
-              ['XS'],
-              ['S'],
-              ['M'],
-              ['L'],
-              ['XL'],
-              ['XXL'],
-              ['XXXL']]), include_blank: "Size" %>
-              <%= submit_tag 'Search', id: 'search_prize_button' %>
-              <% end %>
-            </div>
-            <% end %>
-
-            <div class = "table-wrapper">
-              <div id = "prizes_table">
-                <%= render 'prizes_sub_manage' %>
-              </div>
-            </div>
-
-            <div class = "clear"></div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class = "prize-detail-cell-picture" style="background-image: url('<%= @prize.get_first_image %>')"></div>
           </div>
         </div>
       </div>
-  </div>
-</div>
+      <div class="col-md-10">
 
+        <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+        <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-md-2">
+                <%= select_tag :color, options_for_select([
+                [],
+                ['Black'],
+                ['Blue'],
+                ['Brown'],
+                ['Dark Brown'],
+                ['Gold'],
+                ['Grey'],
+                ['Green'],
+                ['Light Brown'],
+                ['Lime Green'],
+                ['Maroon'],
+                ['Navy'],
+                ['Orange'],
+                ['Pink'],
+                ['Purple'],
+                ['Red'],
+                ['Sky Blue'],
+                ['Teal'],
+                ['White'],
+                ['Yellow']]), include_blank: "Color", class: 'form-control' %>
+              </div>
+              <div class="col-md-2">
+                <%= select_tag :size, options_for_select([
+                [],
+                ['XS'],
+                ['S'],
+                ['M'],
+                ['L'],
+                ['XL'],
+                ['XXL'],
+                ['XXXL']]), include_blank: "Size", class: 'form-control' %>
+              </div>
+              <div class="col-md-4">
+                <%= submit_tag 'Search', id: 'search_prize_button', class: 'btn btn-primary' %>
+                <a href="/prizes/manage"><div class="btn btn-primary">
+                  Back
+                </div></a>
+                <a href="<%= @prize.id %>/new"><div class="btn btn-primary">
+                  New Inventory
+                </div></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+        <div class="row">
+          <div class = "panel panel-default">
+            <div class = "panel-body" id = "prizes_table">
+              <%= render 'prizes_sub_manage' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+</div>

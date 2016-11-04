@@ -1,8 +1,9 @@
-<p><label for = "prize_name">Name</label>: <%= @prize.name %><br>
+
+<h2><%= @prize.name %></h2>
 <p><label for = "prize_cost">Cost</label>: <%= @prize.cost %><br>
 
 <p><label for = "prize_stock">Stock</label>:<br>
-<%= text_field 'prize_subcat', 'stock', id: 'prize_subcat_stock', class: 'large-number' %></p>
+<%= text_field 'prize_subcat', 'stock', id: 'prize_subcat_stock', class: 'form-control' %></p>
 
 <% if @prize_subcat.nil? %>
 
@@ -15,7 +16,7 @@
 		['L'], 
 		['XL'],
 		['XXL'],
-		['XXXL']]) %>
+		['XXXL']]), class: 'form-control' %></p>
 
 	<p><label for = "prize_subcat[color]">Color</label>:<br>
 	<%= select_tag 'prize_subcat[color]', options_for_select([
@@ -38,13 +39,13 @@
 		['Sky Blue'],
 		['Teal'],
 		['White'],
-		['Yellow']]) %>
+		['Yellow']]), class: 'form-control' %></p>
 
 	<p><label for = "prize_brand">Brand</label>:<br>
-	<%= text_field 'prize_subcat', 'brand', id: 'prize_subcat_brand' %></p>
+	<%= text_field 'prize_subcat', 'brand', id: 'prize_subcat_brand', class: 'form-control' %></p>
 
 	<p><label for = "prize_image">Image Path (/images/image_path.png)</label>:<br>
-	<%= text_field 'prize_subcat', 'image', id: 'prize_subcat_image' %></p>
+	<%= text_field 'prize_subcat', 'image', id: 'prize_subcat_image', class: 'form-control' %></p>
 
 <% else %>
 
@@ -57,7 +58,7 @@
 	['L'], 
 	['XL'],
 	['XXL'],
-	['XXXL']], @prize_subcat.size) %>
+	['XXXL']], @prize_subcat.size), class: 'form-control' %></p>
 
 	<p><label for = "prize_subcat[color]">Color</label>:<br>
 	<%= select_tag 'prize_subcat[color]', options_for_select([
@@ -80,12 +81,12 @@
 	['Sky Blue'],
 	['Teal'],
 	['White'],
-	['Yellow']], @prize_subcat.color) %>
+	['Yellow']], @prize_subcat.color), class: 'form-control' %></p>
 
 	<p><label for = "prize_brand">Brand</label>:<br>
-	<%= text_field 'prize_subcat', 'brand', id: 'prize_subcat_brand' %></p>
+	<%= text_field 'prize_subcat', 'brand', id: 'prize_subcat_brand', class: 'form-control' %></p>
 
 	<p><label for = "prize_image">Image Path (/images/image_path.png)</label>:<br>
-	<%= text_field 'prize_subcat', 'image', id: 'prize_subcat_image' %></p>
+	<%= text_field 'prize_subcat', 'image', id: 'prize_subcat_image', class: 'form-control' %></p>
 
 <% end %>

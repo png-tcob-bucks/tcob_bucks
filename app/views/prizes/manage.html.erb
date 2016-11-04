@@ -1,38 +1,69 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-        <% if flash[:title] == "Error" %>
-          <div class="notice-error"><%= flash[:notice] %></div>
-        <% elsif flash[:title] == "Success" %>
-          <div class="notice-success"><%= flash[:notice] %></div>
-        <% end %>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
 
-        <h1>Manage Buck Store Prizes</h1>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/prizes">Store</a></li>
+    <li>Manage</li>
+    <li>Prizes</li>              
+</ul>
+<!-- END BREADCRUMB -->  
 
-        <% if @current_user.can_manage_inventory %>
-          <ul class = 'button-line'>
-            <a href="new"><li>New Prize</li></a>
-          </ul>
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-desktop"></span> Manage Bucks Store Prizes</h2>
+</div>
+<!-- END TITLE -->
 
-          <div class = "table-search-input" id = "table_search_input_buck">
-            <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
-              <%= text_field_tag :id, params[:id], placeholder: 'Prize ID' %>
-              <%= text_field_tag :name, params[:name], placeholder: 'Name' %>
-              <%= select_tag :available, options_for_select([
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap"> 
+
+  <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+              <div class="col-md-3">
+                <%= text_field_tag :id, params[:id], placeholder: 'Prize ID', class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= text_field_tag :name, params[:name], placeholder: 'Name', class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= select_tag :available, options_for_select([
                 [],
                 ['Available', 1],
-                ['Discontinued', 0]]) %>
-              <%= submit_tag 'Search', id: 'search_prize_button' %>
-            <% end %>
+                ['Discontinued', 0]]), class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= submit_tag 'Search', id: 'search_prize_button', class: 'btn btn-primary' %>
+                <a href="new"><div class="btn btn-primary">
+                  New Prize
+                </div></a>
+              </div> 
+            
           </div>
-
-        <% end %>
-
-        <div class = "table-wrapper">
-          <div id = "prizes_table">
-            <%= render 'prizes_manage' %>
-            </div>
         </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body" id = "prizes_table">
+          <%= render 'prizes_manage' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

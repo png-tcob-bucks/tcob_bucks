@@ -1,28 +1,32 @@
 <% if @prize_subcats.blank? %>
 	<p>No results to show.</p>
 <% else %>
-	<table class = 'table-list' id = 'table-prizes-small'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list">ID</td>
-			<td class = "td-list">Brand</td>
-			<td class = "td-list">Size</td>
-			<td class = "td-list">Color</td>
-			<td class = "td-list">Stock</td>
-			<td class = "td-list">Image</td>
-			<td class = "td-list">Updated</td>
-			<td class = "td-list">Manage</td>
-		</tr>
-		<% @prize_subcats.each do |p|  %>
-		<tr class = "tr-list">
-			<td class = "td-list"> <%= p.id %> </td>
-			<td class = "td-list"> <%= p.brand %> </td>
-			<td class = "td-list"> <%= p.size %> </td>
-			<td class = "td-list"> <%= p.color %> </td>
-			<td class = "td-list"> <%= p.stock %> </td>
-			<td class = "td-list"> <%= image_tag 'check16dp.png' if !p.image.blank? %> </td>
-			<td class = "td-list"> <%= p.updated_at %> </td>
-			<td class = "td-list"> <%= link_to 'Edit', { action: :edit, id: p.id} %> </td>
-		</tr>
-		<% end %>
+	<div class="table-responsive">
+	<table class = 'table table-striped table-condensed' id = 'table-prizes-small'>
+		<thead>
+			<th>ID</th>
+			<th>Brand</th>
+			<th>Size</th>
+			<th>Color</th>
+			<th>Stock</th>
+			<th>Image</th>
+			<th>Updated</th>
+			<th>Manage</th>
+		</thead>
+		<tbody>
+			<% @prize_subcats.each do |p|  %>
+			<tr>
+				<td> <%= p.id %> </td>
+				<td> <%= p.brand %> </td>
+				<td> <%= p.size %> </td>
+				<td> <%= p.color %> </td>
+				<td> <%= p.stock %> </td>
+				<td> <%= image_tag 'check16dp.png' if !p.image.blank? %> </td>
+				<td> <%= p.updated_at %> </td>
+				<td> <%= link_to 'Edit', { action: :edit, id: p.id} %> </td>
+			</tr>
+			<% end %>
+		</tbody>
 	</table>
+	</div>
 <% end %>
