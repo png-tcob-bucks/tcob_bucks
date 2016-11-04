@@ -5655,6 +5655,9 @@ blockquote.pull-right {
 .table-clickable {
   cursor: pointer;
 }
+.tr-clickable {
+  cursor: pointer;
+}
 .panel-body.panel-body-table {
   padding: 0px;
 }
@@ -11712,4 +11715,10 @@ div.prize-detail-container {
     width: 100px;
     height: 100px;
     float: left;
+}
+
+.balance-holder {
+  font-size: 24px;
+  text-align: center;
+  margin: 0px;
 }

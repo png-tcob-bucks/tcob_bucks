@@ -4,7 +4,6 @@
 
 $(document).ready ->
   setTableRowsClickableEmployees()
-  alert('Success!')
   return
 $(document).ajaxStop ->
   setTableRowsClickableEmployees()

@@ -1,34 +1,3 @@
-window.onload = function() {
-  var j, k, rows;
-  j = void 0;
-  k = void 0;
-  k = document.getElementById('table-bucks-employee-list');
-  if (k !== null) {
-    rows = k.rows;
-    j = 0;
-    while (j < rows.length) {
-      rows[j].onclick = function(event) {
-        var cells, s1, s2, s3;
-        cells = void 0;
-        s1 = void 0;
-        s2 = void 0;
-        s3 = void 0;
-        if (this.parentNode.nodeName === 'THEAD') {
-          return;
-        }
-        cells = this.cells;
-        s1 = document.getElementById('buck_employee_id');
-        s2 = document.getElementById('employee_first_name');
-        s3 = document.getElementById('employee_last_name');
-        s1.value = cells[0].innerHTML;
-        s2.value = cells[1].innerHTML;
-        s3.value = cells[2].innerHTML;
-      };
-      j++;
-    }
-  }
-}
-
 // Code for updating value based on reason for buck rewarded
 function updateBuckValue(earned_for) {
 	var buck_value = document.getElementById('buck_value');
