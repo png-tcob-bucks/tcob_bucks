@@ -1,19 +1,21 @@
-<table class="table table-condensed">
-<% @jobs_all.each do |j|  %>
-	<% if @permitted.exists?(j.id) %>
+<div class="table-responsive">
+	<table class="table table-condensed">
+		<% @jobs_all.each do |j|  %>
+		<% if @permitted.exists?(j.id) %>
 		<tr class = "success">
-	<% else %>
-		<tr class = "danger">
-	<% end %>
-			<td> <%= j.jobcode %> </td>
-			<td> <%= j.title %> </td>
-			<td><%= link_to action: :add_to_role, role: @role.id, job: j.id, remote: true do %>
-				<div class = "btn btn-success"> Assign </div> <% end %>
-			</td>
-			<td><%= link_to action: :remove_from_role, role: @role.id, job_id: j.id, remote: true do %>
-				<div class = "btn btn-danger"> Unassign </div> <% end %>
-			</td>
-	</tr>
-<% end %>
-</tr>
-</table>
+			<% else %>
+			<tr class = "danger">
+				<% end %>
+				<td> <%= j.jobcode %> </td>
+				<td> <%= j.title %> </td>
+				<td><%= link_to action: :add_to_role, role: @role.id, job: j.id, remote: true do %>
+					<div class = "btn btn-success"> Assign </div> <% end %>
+				</td>
+				<td><%= link_to action: :remove_from_role, role: @role.id, job_id: j.id, remote: true do %>
+					<div class = "btn btn-danger"> Unassign </div> <% end %>
+				</td>
+			</tr>
+			<% end %>
+		</tr>
+	</table>
+</div>

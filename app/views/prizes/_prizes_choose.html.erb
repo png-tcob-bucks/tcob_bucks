@@ -1,6 +1,7 @@
 <% if @prizes.blank? %>
 	<p>None</p>
 <% else %>
+<div class="table-responsive">
 	<table class = 'table-list' id = 'table-prizes-choose'>
 		<tr class = "tr-list-head" >
 			<td class = "td-list">Prize</td>
@@ -15,4 +16,5 @@
 		</tr>
 		<% end %>
 	</table>
+</div>
 <% end %>

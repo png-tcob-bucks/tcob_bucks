@@ -1,6 +1,7 @@
 <% if @orders.blank? %>
 	<p>None</p>
 <% else %>
+<div class="table-responsive">
 	<table class = 'table table-striped'>
 		<thead>
 			<th>Purchase ID</th>
@@ -39,4 +40,5 @@
 		<% end %>
 		</tbody>
 	</table>
+</div>
 <% end %>

@@ -1,6 +1,7 @@
 <% if @employees.blank? %>
 	<p>None</p>
 <% else %>
+<div class="table-responsive">
 	<table class = "table">
 		<thead>
 			<th>Employee #</th>
@@ -26,4 +27,5 @@
 			<% end %>
 		</tbody>
 	</table>
+</tr>
 <% end %>

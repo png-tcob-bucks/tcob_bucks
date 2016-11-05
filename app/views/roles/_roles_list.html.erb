@@ -1,6 +1,7 @@
 <% if @roles.blank? %>
 	<p>There are no roles.</p>
 <% else %>
+<div class="table-responsive">
 	<table class = 'table table-striped table-bordered table-condensed'>
 		<thead>
 			<th>Title</th>
@@ -40,4 +41,5 @@
 		<% end %>
 		</tbody>
 	</table>
+</div>
 <% end %>

@@ -2,6 +2,7 @@
 	<p>There is no employee information to show.</p>
 <% else 
   budget_per_employee = @department.get_budget_per_employee %>
+  <div class="table-responsive">
 	<table class = 'table table-striped table-condensed'>
 		<thead>
 			<th>Team Member ID</th>
@@ -26,4 +27,5 @@
 			<% end %>
 		</tbody>
 	</table>
+	</div>
 <% end %>

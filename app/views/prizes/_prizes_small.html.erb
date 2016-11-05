@@ -1,6 +1,7 @@
 <% if @prizes.blank? %>
 	<p>None</p>
 <% else %>
+<div class="table-responsive">
 	<table class = 'table table-condensed table-striped' id = 'table-prizes-small'>
 		<thead>
 			<th>ID</th>
@@ -29,4 +30,5 @@
 		<% end %>
 		</tbody>
 	</table>
+</div>
 <% end %>

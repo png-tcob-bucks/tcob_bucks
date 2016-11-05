@@ -1,6 +1,7 @@
 <div class="row">
 	<div class="col-md-4">
 	<% budget_used = @current_user.get_personal_budget_used(@month_num, @year) %>
+	<div class="table-responsive">
 	<table class="table table-condensed">
 		<tr>
 			<td>Department Budget: </td>
@@ -36,6 +37,7 @@
 			<td> <%= @bucks.where(reason_short: "Other").count %> </td>
 		</tr>
 	</table>
+	</div>
 	</div>
 </div>
 

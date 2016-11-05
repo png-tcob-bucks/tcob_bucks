@@ -1,6 +1,7 @@
 <% if @employees.blank? %>
 	<p>Search for an employee using the given fields.</p>
 <% else %>
+<div class="table-responsive">
 	<table class = 'table table-striped'>
 		<thead>
 			<th>Employee #</th>
@@ -25,4 +26,5 @@
 		<% end %>
 		</tbody>
 	</table>
+</div>
 <% end %>

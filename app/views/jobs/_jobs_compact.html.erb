@@ -1,6 +1,7 @@
 <% if @jobs_unassigned.nil? %>
 	None.
 <% else %>
+<div class="table-responsive">
 	<table class = "table table-condensed">
 		<thead>
 			<th>Job Title</th>
@@ -15,4 +16,5 @@
 			<% end %>
 		</tbody>
 	</table>
+</div>
 <% end %>

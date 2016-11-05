@@ -52,6 +52,7 @@
         <% if @store_logs.blank? %>
           <p>There is no store log information to show. Use the fields given to search for a logged transaction.</p>
         <% else %>
+          <div class="table-responsive">
           <table class = 'table-condensed table-striped table-bordered'>
             <thead>
               <th>Employee</th>
@@ -86,6 +87,7 @@
               <% end %>
             </tbody>
           </table>
+          </div>
         <% end %>
       </div>
     </div>
