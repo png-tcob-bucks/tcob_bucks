@@ -27,7 +27,7 @@
   <%= form_tag :action => 'complete' do %>
 
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-body">
           <h3>Employee (select below)</h3>
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-body">
           <h3>Prize Information</h3>
@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-body">
           <h3>(continued)</h3>
@@ -77,8 +77,8 @@
         </div>
       </div>
     </div>
-    <div class="col-md-2">
-              <h3>Balance:</h3>
+    <div class="col-md-3">
+              <h3><%= @employee.first_name %>'s Balance:</h3>
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="balance-holder" id="balance-holder">
