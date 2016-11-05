@@ -1,29 +1,48 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-        <% if flash[:title] == "Error" %>
-          <div class="notice-error"><%= flash[:notice] %></div>
-        <% elsif flash[:title] == "Success" %>
-          <div class="notice-success"><%= flash[:notice] %></div>
-        <% end %>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
 
-        <h1>Administrator: Manage Roles and Permissions</h1>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>  
+    <li>Admin</li>
+    <li>Roles</li>             
+</ul>
+<!-- END BREADCRUMB -->  
 
-        <a href="roles/new"><div class = "button-div">Add New Role</div></a>
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-check"></span> Administrator: Manage Roles and Permissions</h2>
+</div>
+<!-- END TITLE -->
 
-        <div class = "table-wrapper">
-          <div id = "employees_table">
-            <%= render 'roles_list' %>
-          </div>
-        </div>
+<div class="page-content-wrap">
 
-        <h1>Job Codes Without Assignments</h1>
-
-        <div class = "table-wrapper">
-          <div id = "employees_table">
-            <%= render 'jobs/jobs_compact' %>
-          </div>
+  <div class="row">
+    <div class="col-md-12 push-down-10">
+    <a href="roles/new"><button class = "btn btn-primary">Add New Role</button></a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default panel-body">
+          <%= render 'roles_list' %>
         </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default panel-body">
+          <h3>Job Codes Without Assignments</h3>
+
+          <%= render 'jobs/jobs_compact' %>
+        </div>
+    </div>
+  </div>
+
 </div>

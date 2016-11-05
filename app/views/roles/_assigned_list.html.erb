@@ -1,13 +1,19 @@
+<table class="table table-condensed">
 <% @jobs_all.each do |j|  %>
-
 	<% if @permitted.exists?(j.id) %>
-		<tr class = "tr-green">
+		<tr class = "success">
 	<% else %>
-		<tr class = "tr-red">
+		<tr class = "danger">
 	<% end %>
-			<td class = "td-small"> <%= j.jobcode %> </td>
-			<td class = "td-small"> <%= j.title %> </td>
-			<td class = "td-small"><p class = "button-green"> <%= link_to 'Assign', { action: :add_to_role, role: @role, job: j }, remote: true, style: 'color: white' %></p> </td>
-			<td class = "td-small"><p class = "button-red"> <%= link_to 'Unassign', { action: :remove_from_role, role: @role.id, job_id: j.id }, remote: true, style: 'color: white' %></p> </td>
+			<td> <%= j.jobcode %> </td>
+			<td> <%= j.title %> </td>
+			<td><%= link_to action: :add_to_role, role: @role.id, job: j.id, remote: true do %>
+				<div class = "btn btn-success"> Assign </div> <% end %>
+			</td>
+			<td><%= link_to action: :remove_from_role, role: @role.id, job_id: j.id, remote: true do %>
+				<div class = "btn btn-danger"> Unassign </div> <% end %>
+			</td>
 	</tr>
 <% end %>
+</tr>
+</table>

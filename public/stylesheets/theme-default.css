@@ -11339,6 +11339,10 @@ a {
   overflow-y: scroll;
 }
 
+.center-text {
+  text-align: center;
+}
+
 .profile-image-profile {
   height: 100px;
 

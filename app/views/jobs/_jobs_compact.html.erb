@@ -1,8 +1,18 @@
-<table class = "table-compact">
-<% @jobs_unassigned.each do |j|  %>
-	<tr class = "tr-list">
-			<td class = "td-small"> <%= j.jobcode %> </td>
-			<td class = "td-small"> <%= j.title %> </td>
-	</tr>
-	<% end %>
-</table>
+<% if @jobs_unassigned.nil? %>
+	None.
+<% else %>
+	<table class = "table table-condensed">
+		<thead>
+			<th>Job Title</th>
+			<th>Job Code</th>
+		</thead>
+		<tbody>
+			<% @jobs_unassigned.each do |j|  %>
+				<tr class="warning">
+					<td> <%= j.jobcode %> </td>
+					<td> <%= j.title %> </td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
