@@ -16,7 +16,25 @@ class Mailer < ApplicationMailer
 			end
 		end
 
-		mail(to: @recipients, subject: 'Bucks Feedback')
+		mail(to: @recipients, subject: 'Feedback: #{@from.full_name}')
+	end
+
+	def mail_issue(message, url)
+		@from = @current_user
+		@message = message
+		@url = url
+		@roles = Role.where(feedback: true)
+		@roles = @roles.map { |r| r.id }
+		@jobcodes = Permission.where(role_id: @roles)
+		@jobcodes = @jobcodes.map { |f| f.job_id }
+		@recipients = Array.new
+		@jobcodes.each do |f|
+			Employee.where(job_id: f).where(status: "Active").each do |e|
+				@recipients.push(e.email)
+			end
+		end
+
+		mail(to: @recipients, subject: 'Issue: #{@from.full_name}')
 	end
 
 	def notify_employee(buck, user)
