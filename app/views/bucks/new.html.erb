@@ -43,7 +43,7 @@
                 <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: "Last Name", class: 'form-control' %>
               </div>
               <div class="col-md-3">
-                <%= submit_tag 'Search', id: 'search_employee_button', class: 'btn btn-primary' %>
+                <%= submit_tag 'Search', remote: true, id: 'search_employee_button', class: 'btn btn-primary' %>
               </div> 
             <% end %>
           </div>
