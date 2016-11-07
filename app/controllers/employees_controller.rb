@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
 	end
 
 	def analyze
-	if @current_user.has_admin_access
+	if @current_user.has_admin_access || (@current_user.is_same_department(Employee.find(params[:id])) && @current_user.can_issue_bucks)
 			@employee = Employee.find(params[:id])
 			@months = Buck.group("month(bucks.approved_at)").where(assignedBy: @employee.IDnum).map { |b| b.approved_at.strftime("%B") if !b.approved_at.nil? } 
 			@years = Buck.group("year(bucks.approved_at)").where(assignedBy: @employee.IDnum).map { |b| b.approved_at.strftime("%Y") if !b.approved_at.nil? }
@@ -25,9 +25,9 @@ class EmployeesController < ApplicationController
 			@year = params[:year] if !params[:year].blank?
 
 		else 
-			flash.now[:title] = 'Error'
-			flash.now[:notice] = 'You do not have permission to view analytics of employees.'
-			render 'show'
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to view analytics of that employee. Must be of same department or have administrator access.'
+			redirect_to controller: :employees, action: :show, id: @current_user.IDnum
 		end
 	end
 
@@ -69,7 +69,7 @@ class EmployeesController < ApplicationController
 
 	def index
 		if @current_user.has_admin_access
-			@employees = Employee.search(params[:search_id], params[:search_first_name], params[:search_last_name]).where(status: 'Active')
+			@employees = Employee.search(params[:search_id], params[:search_first_name], params[:search_last_name])
 		else
 			flash.now[:title] = 'Error'
 			flash.now[:notice] = 'You do not have permission to view those employees.'
@@ -104,8 +104,7 @@ class EmployeesController < ApplicationController
 		@employee = Employee.find(params[:id])
 		@purchases = Purchase.where(employee_id: @employee.id).where(returned: false)
 		if @current_user.can_view_employee(@employee) || @employee.id == @current_user.id
-			@bucks = Buck.where(employee_id: @employee.id).where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
-			@bucks_month = @bucks.select { |b| b.this_month? }
+			@bucks_nonvoid = Buck.where(employee_id: @employee.id).where(status: ['Active','Partial','Redeemed'])		
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to view that employee.'

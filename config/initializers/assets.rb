@@ -11,3 +11,4 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( style_login.css )
 Rails.application.config.assets.precompile += %w( bucks_new.js )
+

@@ -1,44 +1,41 @@
 <% if @prizes.blank? %>
 	<p>None</p>
 <% else %>
-	<ul class = "grid-view">
-	<% @prizes.each do |p| %>
-		<li>
-    <div class="prize-store">
-      <div class="prize-tag">
-        <%= p.cost %> Bucks
-      </div>
-      <div class="prize-container">
-        <%= link_to action: :show, id: p.id do%>
-        <img src="<%= p.get_first_image %>" class="prize-photo">
-        <% end %>
-      </div>
-
-        <div class='prize-info'>
-          <%= link_to p.name, action: :show, id: p.id %>
-          <% @prize_subcat = PrizeSubcat.where(prize_id: p.id) %>
-
-          <% if p.must_order %>
-              <br>Prize must be ordered
-          <% else %>
-              <br><%= p.get_total_stock %> In Stock
-          <% end %>
-
-          <br>
-          <% @prize_subcat.group(:color).each do |c|
-            if c.color != '' %>
-                  <div class = "color" style="background-color:<%= get_color_code(c.color) %>""></div>
-              <% end end %>
-
-         <div class="prize-info--favorites">
-        <%= link_to controller: :favorites, action: :create, prize_id: p.id do %><span class="glyphicon glyphicon-heart"></span><% end %>
+	<% @prizes.each_with_index do |p, i| 
+      if i % 4 %>
+        <div class="row row-white">
+      <% end %>
+          <div class="col-md-3">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="prize-container" style="background-image: url('<%= p.get_first_image %>')">
+                  <div class="header">
+                    <div class = "price">$<%= p.cost %></div>
+                  </div>
+                </div>
+                <div class="prize-info">
+                  <%= link_to p.name, action: :show, id: p.id %>
+                      <% @prize_subcat = PrizeSubcat.where(prize_id: p.id) %>
+                  <% if p.must_order %>
+                          <br/>Prize must be ordered
+                      <% else %>
+                          <br/><%= p.get_total_stock %> In Stock
+                  <% end %>
+                  <br/>
+                  <% @prize_subcat.group(:color).each do |c|
+                    if c.color != '' %>
+                      <div class = "color" style="background-color:<%= get_color_code(c.color) %>""></div>
+                    <% end end %>
+                  <div class="prize-info--favorites img-hover">
+                    <a href="/favorites/create?prize_id=<%= p.id %>"><span class="glyphicon glyphicon-heart image-responsive"></span></a>
+                  </div>
+                </div>
+            </div>
           </div>
+      <% if i % 4 %>
         </div>
-
-      </div>
-		</li>
+      <% end %>
 	<% end %>
-	</ul>
 <% end %>
 
 

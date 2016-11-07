@@ -1,39 +1,48 @@
-<% budget_used = @current_user.get_personal_budget_used(@month_num, @year) %>
-<table>
-	<tr>
-		<td class = "detail-title">Department Budget: </td>
-		<td class = "detail-content"> <%= @department_budget %> </td>
-	</tr>
-	<tr>
-		<td class = "detail-title">Department Budget Used: </td>
-		<td class = "detail-content"> <%= @department.get_budget_used(@month_num, @year) %> / <%= @department_budget %> 
-		<p class = <%= p_class_for_budget(budget_used, @department_budget)%>> (<%= @department.get_budget_used_percent(@month_num, @year) %>%)</p></td>
-	</tr>
-	<tr>
-		<td class = "detail-title">A+ Service: </td>
-		<td class = "detail-content"> <%= @bucks.where(reason_short: "A+ Service").count %> </td>
-	</tr>
-	<tr>
-		<td class = "detail-title">Attendance: </td>
-		<td class = "detail-content"> <%= @bucks.where(reason_short: "Attendance").count %> </td>
-	</tr>
-	<tr>
-		<td class = "detail-title">Community Involvement: </td>
-		<td class = "detail-content"> <%= @bucks.where(reason_short: "Community Involvement").count %> </td>
-	</tr>
-	<tr>
-		<td class = "detail-title">Customer Service: </td>
-		<td class = "detail-content"> <%= @bucks.where(reason_short: "Customer Service").count %> </td>
-	</tr>
-	<tr>
-		<td class = "detail-title">Shift Coverage: </td>
-		<td class = "detail-content"> <%= @bucks.where(reason_short: "Shift Coverage").count %> </td>
-	</tr>
-	<tr>
-		<td class = "detail-title">Other: </td>
-		<td class = "detail-content"> <%= @bucks.where(reason_short: "Other").count %> </td>
-	</tr>
-</table>
-<div id = "bucks_table">
-	<%= render 'analyze_budget_list' %>
+<div class="row">
+	<div class="col-md-4">
+	<% budget_used = @current_user.get_personal_budget_used(@month_num, @year) %>
+	<div class="table-responsive">
+	<table class="table table-condensed">
+		<tr>
+			<td>Department Budget: </td>
+			<td> <%= @department_budget %> </td>
+		</tr>
+		<tr>
+			<td>Department Budget Used: </td>
+			<td> <%= @department.get_budget_used(@month_num, @year) %> / <%= @department_budget %> 
+			<p class = <%= p_class_for_budget(budget_used, @department_budget)%>> (<%= @department.get_budget_used_percent(@month_num, @year) %>%)</p></td>
+		</tr>
+		<tr>
+			<td>A+ Service: </td>
+			<td> <%= @bucks.where(reason_short: "A+ Service").count %> </td>
+		</tr>
+		<tr>
+			<td>Attendance: </td>
+			<td> <%= @bucks.where(reason_short: "Attendance").count %> </td>
+		</tr>
+		<tr>
+			<td>Community Involvement: </td>
+			<td> <%= @bucks.where(reason_short: "Community Involvement").count %> </td>
+		</tr>
+		<tr>
+			<td>Customer Service: </td>
+			<td> <%= @bucks.where(reason_short: "Customer Service").count %> </td>
+		</tr>
+		<tr>
+			<td>Shift Coverage: </td>
+			<td> <%= @bucks.where(reason_short: "Shift Coverage").count %> </td>
+		</tr>
+		<tr>
+			<td>Other: </td>
+			<td> <%= @bucks.where(reason_short: "Other").count %> </td>
+		</tr>
+	</table>
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<%= render 'analyze_budget_list' %>
+	</div>
 </div>

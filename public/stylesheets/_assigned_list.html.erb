@@ -1,0 +1,13 @@
+<% @jobs_all.each do |j|  %>
+
+	<% if @permitted.exists?(j.id) %>
+		<tr class = "tr-green">
+	<% else %>
+		<tr class = "tr-red">
+	<% end %>
+			<td class = "td-small"> <%= j.jobcode %> </td>
+			<td class = "td-small"> <%= j.title %> </td>
+			<td class = "td-small"><p class = "button-green"> <%= link_to 'Assign', { action: :add_to_role, role: @role, job: j }, remote: true, style: 'color: white' %></p> </td>
+			<td class = "td-small"><p class = "button-red"> <%= link_to 'Unassign', { action: :remove_from_role, role: @role.id, job_id: j.id }, remote: true, style: 'color: white' %></p> </td>
+	</tr>
+<% end %>

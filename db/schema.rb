@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161015024705) do
+ActiveRecord::Schema.define(version: 20161107055149) do
 
   create_table "buck_logs", force: :cascade do |t|
     t.integer  "buck_id",       limit: 4,   null: false
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20161015024705) do
     t.boolean  "available",                 default: true,                   null: false
     t.string   "image",       limit: 255,   default: "/images/no_image.png"
     t.boolean  "featured",                  default: false
+    t.string   "category",    limit: 255
   end
 
   add_index "prizes", ["id"], name: "index_prizes_on_id_and_itemID", unique: true, using: :btree

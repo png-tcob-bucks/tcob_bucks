@@ -6,6 +6,7 @@
           <div class = "table-wrapper-compact">
           <h2>Assigned to <%= @role.title %></h2>
             <div class = "y-max-500">
+            <div class="table-responsive">
               <table class = "table-compact" id = "tables_toles_added">
               <% @permitted.each do |j|  %>
                 <tr>
@@ -15,6 +16,7 @@
                 </tr>
               <% end %>
               </table>
+            </div>
             </div>
           </div>
         </div>

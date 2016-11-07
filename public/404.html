@@ -56,12 +56,21 @@
 
 <body>
   <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
-    </div>
-    <p>If you are the application owner check the logs for more information.</p>
-  </div>
+  <div class="error-container">
+      <div class="error-code">404</div>
+      <div class="error-text">page not found</div>
+      <div class="error-subtext">Unfortunately we're having trouble loading the page you are looking for. Please wait a moment and try again. Please consider copying the current URL you are trying to access and fill out an Issue Report by following the link below.</div>
+      <div class="error-actions">                                
+          <div class="row">
+              <div class="col-md-6">
+
+                  <button class="btn btn-danger btn-block btn-lg" onClick="document.location.href = '/report';">File Issue Report</button>
+              </div>
+              <div class="col-md-6">
+                  <button class="btn btn-primary btn-block btn-lg" onClick="history.back();">Previous page</button>
+              </div>
+          </div>                                
+      </div>
+  </div>          
 </body>
 </html>

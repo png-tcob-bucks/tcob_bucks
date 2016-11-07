@@ -1,30 +1,34 @@
 <% if @prizes.blank? %>
 	<p>None</p>
 <% else %>
-	<table class = 'table-list' id = 'table-prizes-small'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list">ID</td>
-			<td class = "td-list">Prize</td>
-			<td class = "td-list">Name</td>
-			<td class = "td-list">Brand</td>
-			<td class = "td-list">Stock</td>
-			<td class = "td-list">Cost</td>
-			<td class = "td-list">Size</td>
-			<td class = "td-list">Color</td>
-			<td class = "td-list">Must Reserve</td>
-		</tr>
+<div class="table-responsive">
+	<table class = 'table table-condensed table-striped' id = 'table-prizes-small'>
+		<thead>
+			<th>ID</th>
+			<th>Prize</th>
+			<th>Name</th>
+			<th>Brand</th>
+			<th>Stock</th>
+			<th>Cost</th>
+			<th>Size</th>
+			<th>Color</th>
+			<th>Must Reserve</th>
+		</thead>
+		<tbody>
 		<% @prizes.each do |p|  %>
-			<tr class = "tr-list">
-				<td class = "td-list"> <%= p.id %> </td>
-				<td class = "td-list"> <%= p.prize_id %> </td>
-				<td class = "td-list"> <%= p.name %> </td>
-				<td class = "td-list"> <%= p.brand %> </td>
-				<td class = "td-list"> <%= p.stock %> </td>
-				<td class = "td-list"> $<%= p.cost %> </td>
-				<td class = "td-list"> <%= p.size %> </td>
-				<td class = "td-list"> <%= p.color %> </td>
-				<td class = "td-list"> <%= image_tag 'check16dp.png' if p.must_order %> </td>
+			<tr class="tr-clickable">
+				<td> <%= p.id %> </td>
+				<td> <%= p.prize_id %> </td>
+				<td> <%= p.name %> </td>
+				<td> <%= p.brand %> </td>
+				<td> <%= p.stock %> </td>
+				<td> $<%= p.cost %> </td>
+				<td> <%= p.size %> </td>
+				<td> <%= p.color %> </td>
+				<td> <%= image_tag 'check16dp.png' if p.must_order %> </td>
 			</tr>
 		<% end %>
+		</tbody>
 	</table>
+</div>
 <% end %>

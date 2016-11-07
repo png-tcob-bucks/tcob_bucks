@@ -1,5 +1,6 @@
 class PrizesController < ApplicationController
 	include SessionsHelper
+	include PrizesHelper
 
 	before_filter :authenticate_user_logged_in
 
@@ -53,8 +54,14 @@ class PrizesController < ApplicationController
 	end
 
 	def index
-		@prizes = Prize.where(available: true).group(:name)
+		@categories = get_categories
+		@subcat_search_result = PrizeSubcat.search_store(params[:size], params[:color])
+		@subcat_search_result_ids = Array.new
+		@subcat_search_result.each { |p| @subcat_search_result_ids.push(p.prize_id) }
+		@prizes = Prize.where(id: @subcat_search_result_ids)
+		@prizes = @prizes.search_store(params[:name], params[:category])
 		@featured = Prize.where(available: true, featured: true).group(:name)
+		@filters = params.select { |p,k|  p if p == "color" || p == "name" || p == "size" || p == "category" }
 	end
 
 	def logs
@@ -80,12 +87,14 @@ class PrizesController < ApplicationController
 		@prize = Prize.find(params[:id])
 		@featured = Prize.first(5)
 		@prize_subcats = PrizeSubcat.where(prize_id: @prize.id)
+		@images = @prize_subcats.group(:image).map { |p| p.image if p.image != '' }
 		if !@prize_subcats.blank?		
 			@prize_subcats = PrizeSubcat.where(prize_id: @prize.id)
 			@sizes = @prize_subcats.group(:size).map { |p| p.size }
 			@colors = @prize_subcats.group(:color).map { |p| p.color }
 			@brands = @prize_subcats.group(:brand).map { |p| p.brand }
 			@chosen = PrizeSubcat.search(@prize.id, params[:size], params[:color], params[:brand]).first
+			
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'Item is currently out of stock or discontinued.'
@@ -127,7 +136,7 @@ class PrizesController < ApplicationController
 
 	private 
 		def prize_params
-			params.require(:prize).permit(:id, :name, :cost, :must_order, :available, :image, :description, :featured)
+			params.require(:prize).permit(:id, :name, :cost, :category, :must_order, :available, :image, :description, :featured)
 		end
 
 end

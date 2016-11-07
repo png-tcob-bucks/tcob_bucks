@@ -1,26 +1,27 @@
 <% if @purchases.blank? %>
 	<p>None</p>
-<% else %>
-	<table class = 'table-list'>
-		<tr class = "tr-list-head" >
-			<td>Purchase ID</td>
-			<td>Employee #</td>
-			<td>Employee Name</td>
-			<td>Prize</td>
-			<td>Name</td>
-			<td>Item #</td>
-			<td>Size</td>
-			<td>Color</td>
-			<td>Status</td>
-			<td>Ordered</td>
-			<td>Action</td>
-		</tr>
+<% else %><div class="table-responsive">
+	<table class = 'table table-striped'>
+		<thead>
+			<th>Purchase ID</th>
+			<th>Employee #</th>
+			<th>Employee Name</th>
+			<th>Prize</th>
+			<th>Name</th>
+			<th>Item #</th>
+			<th>Size</th>
+			<th>Color</th>
+			<th>Status</th>
+			<th>Ordered</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
 		<% @purchases.each do |p|  
 			@employee = Employee.find(p.employee_id)
 			@prize = Prize.find(p.prize_id)
 			@prize_subcat = PrizeSubcat.find(p.prize_subcat_id)
 		%>
-		<tr class = "tr-list">
+		<tr class = "clickable">
 			<td> <%= p.id %> </td>
 			<td> <%= @employee.id %> </td>
 			<td> <%= @employee.first_name + " " + @employee.last_name %> </td>
@@ -35,5 +36,7 @@
 				prize_id: p.prize_id, prize_subcat: p.prize_subcat_id } if !p.returned %></td>
 		</tr>
 		<% end %>
+		</tbody>
 	</table>
+	</div>
 <% end %>

@@ -6,52 +6,58 @@ class PurchasesController < ApplicationController
 
 	def complete
 		@employee = Employee.find(params[:employee][:id])
-		@prize = Prize.find(params[:prize][:id])
-		@prize_subcat = PrizeSubcat.find(params[:prize][:subcat_id])
-		quantity = params[:prize][:quantity].to_i
-		cost = @prize.cost
-		cost = cost.to_s.delete('$').to_i
-		 
-		if (@employee.get_bucks_balance >= ( cost * quantity )) && quantity > 0
-			if @prize_subcat.stock > 0 || @prize.must_order
-				if params[:online]
-						quantity.times do
-							purchase = request_order(@prize, @prize_subcat, @employee)
-							perform_bucks_purchase_transaction(@prize, @employee, purchase)
-						end
-						Mailer.order_notify(@prize, @prize_subcat, @employee, quantity).deliver_now
-						flash[:title] = 'Success'
-						flash[:notice] = 'Item is reserved! Once the order has been processed, 
-						you can find the prize in your wardrobe bag or pick it up from wardrobe during open hours. If it is a large item, you will be able to pick it up at security.'
-						redirect_to employee_path(@employee)
-				else
-					if @current_user.can_manage_inventory && !@prize.must_order
-						quantity.times do
-							purchase = makePurchase(@prize, @prize_subcat, @employee)
-							perform_bucks_purchase_transaction(@prize, @employee, purchase)
-						end
-						flash[:title] = 'Success'
-						flash[:notice] = 'Purchase confirmed'
-						redirect_to employee_path(@employee)
+		if params[:prize][:id] != ''
+			@prize = Prize.find(params[:prize][:id])
+			@prize_subcat = PrizeSubcat.find(params[:prize][:subcat_id])
+			quantity = params[:prize][:quantity].to_i
+			cost = @prize.cost
+			cost = cost.to_s.delete('$').to_i
+			 
+			if (@employee.get_bucks_balance >= ( cost * quantity )) && quantity > 0
+				if @prize_subcat.stock > 0 || @prize.must_order
+					if params[:online]
+							quantity.times do
+								purchase = request_order(@prize, @prize_subcat, @employee)
+								perform_bucks_purchase_transaction(@prize, @employee, purchase)
+							end
+							Mailer.order_notify(@prize, @prize_subcat, @employee, quantity).deliver_now
+							flash[:title] = 'Success'
+							flash[:notice] = 'Item is reserved! Once the order has been processed, 
+							you can find the prize in your wardrobe bag or pick it up from wardrobe during open hours. If it is a large item, you will be able to pick it up at security.'
+							redirect_to employee_path(@employee)
 					else
-						quantity.times do
-							purchase = reserve(@prize, @prize_subcat, @employee)
-							perform_bucks_purchase_transaction(@prize, @employee, purchase)
+						if @current_user.can_manage_inventory && !@prize.must_order
+							quantity.times do
+								purchase = makePurchase(@prize, @prize_subcat, @employee)
+								perform_bucks_purchase_transaction(@prize, @employee, purchase)
+							end
+							flash[:title] = 'Success'
+							flash[:notice] = 'Purchase confirmed'
+							redirect_to employee_path(@employee)
+						else
+							quantity.times do
+								purchase = reserve(@prize, @prize_subcat, @employee)
+								perform_bucks_purchase_transaction(@prize, @employee, purchase)
+							end
+							flash[:title] = 'Success'
+							flash[:notice] = 'Item is reserved, but must be ordered by HR.'
+							redirect_to controller: :prizes, action: :show, id: @prize.id
 						end
-						flash[:title] = 'Success'
-						flash[:notice] = 'Item is reserved, but must be ordered by HR.'
-						redirect_to controller: :prizes, action: :index
 					end
+				else
+					flash[:title] = 'Error'
+					flash[:notice] = 'Out of stock.'
+					redirect_to controller: :prizes, action: :show, id: @prize.id
 				end
 			else
 				flash[:title] = 'Error'
-				flash[:notice] = 'Out of stock.'
-				redirect_to controller: :prizes, action: :index
+				flash[:notice] = 'Not enough bucks to purchase for that quantity'
+				redirect_to controller: :prizes, action: :show, id: @prize.id
 			end
 		else
 			flash[:title] = 'Error'
-			flash[:notice] = 'Not enough bucks to purchase for that quantity'
-			redirect_to controller: :prizes, action: :index
+			flash[:notice] = 'You must select a prize'
+			redirect_to action: :finish, id: @employee.IDnum
 		end
 	end
 
@@ -79,13 +85,25 @@ class PurchasesController < ApplicationController
 	end
 
 	def finish
-		@employee = Employee.find(params[:id])
-		@prizes = Prize.select("prizes.*, prize_subcats.*").where(available: true).joins(:prize_subcats).subsearch(params[:name], params[:size], params[:color])
+		if @current_user.can_manage_inventory
+			@employee = Employee.find(params[:id])
+			@prizes = Prize.select("prizes.*, prize_subcats.*").where(available: true).joins(:prize_subcats).subsearch(params[:name], params[:size], params[:color])
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to manage store transactions.'
+			redirect_to controller: :employee, action: :home
+		end
 	end
 
 	def manage
-		@employee = Employee.find(params[:employee])
-		@purchases = Purchase.where(employee_id: params[:employee])
+		if @current_user.can_manage_inventory
+			@employee = Employee.find(params[:employee])
+			@purchases = Purchase.where(employee_id: params[:employee])
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to manage purchases.'
+			redirect_to controller: :employee, action: :home
+		end
 	end
 
 	def makePurchase(prize, prize_subcat, employee)
@@ -269,16 +287,29 @@ class PurchasesController < ApplicationController
 		else 
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to manage all reserved items.'
-			redirect_to action: :orders_personal
+			redirect_to controller: :employee, action: :home
 		end
 	end
 
 	def start_purchase
-		@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
+		if @current_user.can_manage_inventory
+			@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to manage store transactions.'
+			redirect_to controller: :employee, action: :home
+		end
 	end
 
 	def start_manage
-		@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
+		if @current_user.can_manage_inventory
+			@employees = Employee.search_all(params[:search_id], params[:search_first_name], params[:search_last_name])	
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to manage purchases.'
+			redirect_to controller: :employee, action: :home
+		end
+		
 	end
 
 end

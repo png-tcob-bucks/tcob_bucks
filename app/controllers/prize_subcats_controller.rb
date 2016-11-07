@@ -38,7 +38,7 @@ class PrizeSubcatsController < ApplicationController
 
 	def manage
 		@prize = Prize.find(params[:id])
-		@prize_subcats = PrizeSubcat.search_store(@prize.id, params[:size], params[:color], params[:brand])
+		@prize_subcats = PrizeSubcat.search(@prize.id, params[:size], params[:color], params[:brand])
 	end
 
 	def prize
@@ -54,29 +54,31 @@ class PrizeSubcatsController < ApplicationController
 		@prize_subcat = PrizeSubcat.find(params[:id])
 		@prize = Prize.find(@prize_subcat.prize_id)
 		if(params.key?("cancel"))
-        redirect_to action: :manage, id: @prize.id
+        	redirect_to action: :manage, id: @prize.id
+    	end
     else
-			if @current_user.can_manage_inventory
-				if @prize_subcat.update_attributes(prize_subcat_params)
-					@prize_subcat.update_attributes(image: @prize_subcat.image) if !@prize_subcat.image.blank?
-					flash[:title] = 'Success'
-					flash[:notice] = 'Prize type has been updated'
-					StoreLog.new(:employee_id => @current_user.id, 
-						:cashier_id => @current_user.id, 
-						:prize_id => @prize.id,
-						:prize_subcat_id => @prize_subcat.id,
-						:trans => 'Updated').save
-					redirect_to action: :manage, id: @prize.id
-				else
-					flash.now[:title] = 'Error'
-					flash.now[:notice] = @prize_subcat.errors.messages
-					render 'edit'
+		if @current_user.can_manage_inventory
+			if @prize_subcat.update_attributes(prize_subcat_params)
+				if !@prize_subcat.image.blank?
+					@prize_subcat.update_attributes(image: @prize_subcat.image)
 				end
+				flash[:title] = 'Success'
+				flash[:notice] = 'Prize type has been updated'
+				StoreLog.new(:employee_id => @current_user.id, 
+					:cashier_id => @current_user.id, 
+					:prize_id => @prize.id,
+					:prize_subcat_id => @prize_subcat.id,
+					:trans => 'Updated').save
+				redirect_to action: :manage, id: @prize.id
 			else
-				flash[:title] = 'Error'
-				flash[:notice] = 'You do not have permission to edit items'
-				redirect_to action: :manage
+				flash.now[:title] = 'Error'
+				flash.now[:notice] = @prize_subcat.errors.messages
+				render 'edit'
 			end
+		else
+			flash[:title] = 'Error'
+			flash[:notice] = 'You do not have permission to edit items'
+			redirect_to action: :manage
 		end
 	end
 

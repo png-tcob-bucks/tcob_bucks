@@ -1,6 +1,7 @@
 <% if @bucks_month.blank? %>
 	<p>None</p>
 <% else %>
+<div class="table-responsive">
 	<table class = 'table-list'>
 		<tr class = "tr-list-head" >
 			<td class = "td-list"><%= buck_sortable "number" %></td>
@@ -17,4 +18,5 @@
 		</tr>
 		<% end %>
 	</table>
+</div>
 <% end %>

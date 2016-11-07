@@ -1,24 +1,30 @@
 <% if @employees.blank? %>
 	<p>Search for an employee using the given fields.</p>
 <% else %>
-	<table class = 'table-list'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list">Employee #</td>
-			<td class = "td-list">Employee Name</td>
-			<td class = "td-list">Position</td>
-			<td class = "td-list">Balance</td>
-			<td class = "td-list">Earned This Month</td>
-			<td class = "td-list">Earned This Year</td>
-		</tr>
+<div class="table-responsive">
+	<table class = 'table table-striped'>
+		<thead>
+			<th>Employee #</th>
+			<th>Employee Name</th>
+			<th>Position</th>
+			<th>Balance</th>
+			<th>Earned This Month</th>
+			<th>Earned This Year</th>
+			<th>Status</th>
+		</thead>
+		<tbody>
 		<% @employees.sort_by_earned_month.reverse.each do |e|  %>
-			<tr class = "tr-list" onclick=" window.document.location = '<%= employee_path(e) %>'; ">
-			<td class = "td-list"> <%= e.id %> </td>
-			<td class = "td-list"> <%= e.first_name + " " + e.last_name %> </td>
-			<td class = "td-list"> <%= Job.find(e.job_id).title %> </td>
-			<td class = "td-list"> <%= e.get_bucks_balance %> </td>
-			<td class = "td-list"> <%= e.get_bucks_earned_month %> </td>
-			<td class = "td-list"> <%= e.get_bucks_earned_year %> </td>
+			<tr class = "tr-clickable" onclick=" window.document.location = '<%= employee_path(e) %>'; ">
+			<td> <%= e.id %> </td>
+			<td> <%= e.first_name + " " + e.last_name %> </td>
+			<td> <%= Job.find(e.job_id).title %> </td>
+			<td> <%= e.get_bucks_balance %> </td>
+			<td> <%= e.get_bucks_earned_month %> </td>
+			<td> <%= e.get_bucks_earned_year %> </td>
+			<td> <%= e.status %> </td>
 		</tr>
 		<% end %>
+		</tbody>
 	</table>
+</div>
 <% end %>
