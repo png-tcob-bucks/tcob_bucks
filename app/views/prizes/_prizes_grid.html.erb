@@ -26,8 +26,8 @@
                     if c.color != '' %>
                       <div class = "color" style="background-color:<%= get_color_code(c.color) %>""></div>
                     <% end end %>
-                  <div class="prize-info--favorites">
-                    <a href="/favorites/create?prize_id=<%= p.id %>"><span class="glyphicon glyphicon-heart"></span></a>
+                  <div class="prize-info--favorites img-hover">
+                    <a href="/favorites/create?prize_id=<%= p.id %>"><span class="glyphicon glyphicon-heart image-responsive"></span></a>
                   </div>
                 </div>
             </div>

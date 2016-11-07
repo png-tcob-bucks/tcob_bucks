@@ -1,5 +1,6 @@
 class PrizesController < ApplicationController
 	include SessionsHelper
+	include PrizesHelper
 
 	before_filter :authenticate_user_logged_in
 
@@ -53,7 +54,12 @@ class PrizesController < ApplicationController
 	end
 
 	def index
-		@prizes = Prize.where(available: true).group(:name)
+		@categories = get_categories
+		@subcat_search_result = PrizeSubcat.search_store(params[:size], params[:color])
+		@subcat_search_result_ids = Array.new
+		@subcat_search_result.each { |p| @subcat_search_result_ids.push(p.prize_id) }
+		@prizes = Prize.where(id: @subcat_search_result_ids)
+		@prizes = @prizes.search_store(params[:name])
 		@featured = Prize.where(available: true, featured: true).group(:name)
 		@filters = params.select { |p,k|  p if p == "color" || p == "name" || p == "size" || p == "category" }
 	end

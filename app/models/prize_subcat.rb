@@ -13,5 +13,12 @@ class PrizeSubcat < ActiveRecord::Base
 	    end
 	end
 
-
+	def self.search_store(size, color)
+	    if color || size
+	      PrizeSubcat.where('size LIKE ?
+	        AND color LIKE ?', "%#{size}%", "%#{color}%")
+	    else
+	      	PrizeSubcat.all
+	    end
+	end
 end

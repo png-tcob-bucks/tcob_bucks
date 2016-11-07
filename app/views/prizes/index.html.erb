@@ -23,12 +23,13 @@
             <h3 class="panel-title">Filter</h3>
                 <ul class="list-tags">
                   <% @filters.each do |f| %>
-                    <li><a href="#"><span class="fa fa-tag"></span><%= f[1] %></a></li>
+                    <li><a href="#"><span class="fa fa-tag"></span> <%= f[1] %></a></li>
                   <% end %>
                 </ul>
           </div>
           <div class="panel-body">
-            <%= text_field_tag :search_id, params[:search_id], class: 'form-control', placeholder: 'Name' %><br/>
+          <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+            <%= text_field_tag :name, params[:name], class: 'form-control', placeholder: 'Name' %><br/>
             <%= select_tag :color, options_for_select([
               [],
               ['Black'],
@@ -60,12 +61,13 @@
               ['XXL'],
               ['XXXL']]), include_blank: "Size", class: 'form-control' %>
               <br/>
+              <%= submit_tag 'Filter', remote: true, id: 'search_prize_button', class: 'btn btn-primary' %>
+            <% end %>
+              <br/>
               <ul class="list-group border-bottom">
-                <li class="list-group-item">Accessories<span class="badge badge-primary">14</span></li>
-                <li class="list-group-item">Clothes<span class="badge badge-primary">8</span></li>
-                <li class="list-group-item">Electronics<span class="badge badge-primary">7</span></li>
-                <li class="list-group-item">Miscellaneous<span class="badge badge-primary">25</span></li>
-                <li class="list-group-item">Tickets<span class="badge badge-primary">58</span></li>
+              	<% @categories.each do |c| %>
+                <li class="list-group-item"><%= c %><span class="badge badge-primary">14</span></li>
+                <% end %>
             </ul>  
           </div>
         </div>
