@@ -6004,14 +6004,14 @@ td.dataTables_empty {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#b64645, endColorstr=#a43f3e, GradientType=0);
 }
 .widget.widget-purple {
-  background: #b64645;
-  background: -moz-linear-gradient(top, #b64645 0%, #a43f3e 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b64645), color-stop(100%, #a43f3e));
-  background: -webkit-linear-gradient(top, #b64645 0%, #a43f3e 100%);
-  background: -o-linear-gradient(top, #b64645 0%, #a43f3e 100%);
-  background: -ms-linear-gradient(top, #b64645 0%, #a43f3e 100%);
-  background: linear-gradient(to bottom, #b64645 0%, #a43f3e 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#b64645, endColorstr=#a43f3e, GradientType=0);
+  background: #6c4388;
+  background: -moz-linear-gradient(top, #6c4388 0%, #583074 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6c4388), color-stop(100%, #583074));
+  background: -webkit-linear-gradient(top, #6c4388 0%, #583074 100%);
+  background: -o-linear-gradient(top, #6c4388 0%, #583074 100%);
+  background: -ms-linear-gradient(top, #6c4388 0%, #583074 100%);
+  background: linear-gradient(to bottom, #6c4388 0%, #583074 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6c4388, endColorstr=#583074, GradientType=0);
 }
 .widget .widget-title,
 .widget .widget-subtitle,
@@ -6041,10 +6041,45 @@ td.dataTables_empty {
   font-weight: bold;
   font-family: arial;
 }
+.widget .widget-featured-image {
+  margin-left: 10px;
+  float: left;
+  width: 100px;
+  max-height: 100px;
+}
+
+.widget .widget-featured-image img {
+  max-height: 100px;
+}
+.widget .widget-featured-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+.widget .widget-featured-price {
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  line-height: 15px;
+  color: #292929;
+}
+.widget .widget-featured-stock {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: bold;
+  font-family: arial;
+}
 .widget .widget-big-int {
   font-size: 42px;
   line-height: 45px;
   font-weight: 300;
+}
+.widget .widget-huge-int {
+  font-size: 80px;
+  line-height: 40px;
+  font-weight: bold;
+  font-family: arial;
 }
 .widget .widget-item-left {
   margin-left: 10px;
@@ -6085,7 +6120,8 @@ td.dataTables_empty {
   padding-right: 120px;
 }
 .widget.widget-item-icon .widget-data {
-  padding-left: 90px;
+  padding-left: 100px;
+  padding-top: 30px;
 }
 .widget.widget-item-icon .widget-data-left {
   padding-right: 90px;
@@ -6167,7 +6203,7 @@ td.dataTables_empty {
   border-color: #010101;
 }
 .widget.widget-primary .widget-buttons a:hover {
-  color: #000000;
+  color: #ffffff;
 }
 .widget.widget-success .widget-buttons a {
   color: #51672e;
@@ -6209,6 +6245,7 @@ td.dataTables_empty {
 }
 .widget.widget-default {
   color: #434a54;
+  max-height: 100px;
 }
 .widget.widget-default .widget-subtitle {
   color: #434a54;
@@ -9822,6 +9859,10 @@ input.ui-editRangeSlider-inputValue {
 .owl-theme .owl-controls .owl-pagination {
   height: 22px;
   line-height: 22px;
+  position: absolute;
+  top: 90px;
+  left: auto;
+  width: 100%;
 }
 .owl-theme .owl-controls .owl-buttons div {
   color: #FFF;
