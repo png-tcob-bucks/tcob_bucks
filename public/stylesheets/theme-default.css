@@ -3670,11 +3670,10 @@ body.page-container-boxed.wall_10 {
 /* end progress list*/
 /* LIST TAGS */
 .list-tags {
-  float: left;
-  width: 100%;
+  width: 95%;
   list-style: none;
   padding: 0px;
-  margin: 0px;
+  margin: 4px 0px 0px 54px;
 }
 .list-tags li {
   float: left;
@@ -3698,6 +3697,10 @@ body.page-container-boxed.wall_10 {
 .list-tags li a:hover {
   text-decoration: none;
   background: #F0F0F0;
+}
+
+.list-tags li span {
+  margin-right: 4px;
 }
 /* END LIST TAGS */
 /* LIST GROUP */

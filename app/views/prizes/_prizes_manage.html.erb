@@ -6,6 +6,7 @@
 		<thead>
 			<th>ID</th>
 			<th>Prize</th>
+			<th>Category</th>
 			<th>Cost</th>
 			<th>Stock</th>
 			<th>Must Reserve</th>
@@ -18,11 +19,12 @@
 			<tr>
 				<td> <%= p.id %> </td>
 				<td> <%= p.name %> </td>
+				<td> <%= p.category %> </td>
 				<td> $<%= p.cost %> </td>
 				<td> <%= p.get_total_stock %> </td>
-				<td> <%= image_tag 'check16dp.png' if p.must_order %> </td>
-				<td> <%= image_tag 'check16dp.png' if p.available %> </td>
-				<td> <%= image_tag 'check16dp.png' if p.featured %> </td>
+				<td class="centered"> <%= image_tag 'check16dp.png' if p.must_order %> </td>
+				<td class="centered"> <%= image_tag 'check16dp.png' if p.available %> </td>
+				<td class="centered"> <%= image_tag 'check16dp.png' if p.featured %> </td>
 				<td> <%= link_to 'Manage Stock', controller: :prize_subcats, action: :manage, id: p.id %> | <%= link_to 'Edit', { action: :edit, id: p} %> | <%= link_to 'Discontinue', { controller: :prizes, action: :discontinue, id: p.id} %> </td>
 			</tr>
 			<% end %>

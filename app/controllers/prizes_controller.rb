@@ -59,7 +59,7 @@ class PrizesController < ApplicationController
 		@subcat_search_result_ids = Array.new
 		@subcat_search_result.each { |p| @subcat_search_result_ids.push(p.prize_id) }
 		@prizes = Prize.where(id: @subcat_search_result_ids)
-		@prizes = @prizes.search_store(params[:name])
+		@prizes = @prizes.search_store(params[:name], params[:category])
 		@featured = Prize.where(available: true, featured: true).group(:name)
 		@filters = params.select { |p,k|  p if p == "color" || p == "name" || p == "size" || p == "category" }
 	end
@@ -136,7 +136,7 @@ class PrizesController < ApplicationController
 
 	private 
 		def prize_params
-			params.require(:prize).permit(:id, :name, :cost, :must_order, :available, :image, :description, :featured)
+			params.require(:prize).permit(:id, :name, :cost, :category, :must_order, :available, :image, :description, :featured)
 		end
 
 end

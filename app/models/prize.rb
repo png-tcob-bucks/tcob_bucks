@@ -17,12 +17,13 @@ class Prize < ActiveRecord::Base
     end
   end
 
-  def self.search_store(name)
+  def self.search_store(name, category)
     if name
-      where('name LIKE ?', "%#{name}%")
+      where('name LIKE ?
+        AND category LIKE ?', "%#{name}%", "%#{category}%")
       .where(available: true)
     else
-      Prize.all.where(available: true)
+      where(available: true)
     end
   end
 
