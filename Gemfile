@@ -16,7 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
  gem 'therubyracer', platforms: :ruby
 
-gem 'coffee-script-source', '1.10.0'
+gem 'coffee-script-source', '1.8.0'
 gem 'execjs'
 
 # Use jquery as the JavaScript library

@@ -19,6 +19,8 @@
               </div>
           </div>                                                                        
       </li>
+
+
       <li class="xn-title">Navigation</li>
         <li>
             <a href="/"><span class="fa fa-home"></span> <span class="xn-text">Home</span></a>
@@ -44,6 +46,9 @@
                 <li><a href="#"><span class="fa fa-info-circle"></span>About</a></li>
  -->            </ul>
         </li>
+        <li><%= link_to 'Logout', controller: :sessions, action: :destroy %></li>
+
+    <% if @current_user.can_issue_bucks %>
       <li class="xn-title">Manage</li>
         <li>
           <a href="/bucks/new"><span class="fa fa-plus-circle"></span> <span class="xn-text">New Buck</span></a>
@@ -51,15 +56,27 @@
         <li>
           <a href="/employees/analyze/<%= @current_user.IDnum %>"><span class="fa fa-book"></span> <span class="xn-text">Bucks Issued</span></a>
         </li>
+    <% end %>
+    <% if @current_user.can_view_dept %>
         <li>
           <a href="/employees/team"><span class="fa fa-users"></span> <span class="xn-text">Your Department</span></a>
         </li>
+     <% end %>
+    <% if @current_user.can_approve_bucks %>
         <li>
           <a href="/bucks/pending"><span class="fa fa-clock-o"></span> <span class="xn-text">Pending Approval</span></a>
-        </li>                    
+          <% if @current_user.get_pending_bucks.count > 0 %>
+            <div class="informer informer-primary"><%= @current_user.get_pending_bucks.count %></div>
+          <% end %>
+        </li> 
+    <% end %>     
+    <% if @current_user.can_view_all %>              
         <li>
           <a href="/bucks"><span class="fa fa-money"></span> <span class="xn-text">All Bucks</span></a>
         </li>
+    <% end %>
+
+    <% if @current_user.can_manage_inventory %>
       <li class="xn-title">Cashiers</li>
         <li>
           <a href="/purchase/start_purchase"><span class="fa fa-long-arrow-right"></span> <span class="xn-text">Begin Purchase</span></a>
@@ -69,16 +86,26 @@
         </li>
         <li>
           <a href="/purchase/reserved"><span class="fa fa-desktop"></span> <span class="xn-text">Reserved Prizes</span></a>
+          <% if Purchase.where(status: 'Reserved').count > 0 %>
+           <div class="informer informer-primary"><%= Purchase.where(status: 'Reserved').count %></div>
+          <% end %>
         </li>
         <li>
           <a href="/prizes/manage"><span class="fa fa-gift"></span> <span class="xn-text">Manage Prizes</span></a>
         </li>                    
         <li>
           <a href="/admin/orders"><span class="fa fa-truck"></span> <span class="xn-text">Prize Orders</span></a>
+          <% if Purchase.where(status: 'Ordered').count > 0 %>
+            <div class="informer informer-primary"><%= Purchase.where(status: 'Ordered').count %></div>
+          <% end %>
+          
         </li>
         <li>
           <a href="/employees"><span class="fa fa-male"></span> <span class="xn-text">All Employees</span></a>
         </li>
+    <% end %>
+
+     <% if @current_user.has_admin_access %>
       <li class="xn-title">Admin</li>
         <li>
           <a href="/admin/bucks/analyze"><span class="fa fa-tachometer"></span> <span class="xn-text">Review Budgets</span></a>
@@ -95,6 +122,7 @@
         <li>
           <a href="/admin/logs/store"><span class="fa fa-pencil-square-o"></span> <span class="xn-text">Store Logs</span></a>
         </li>
+      <% end %>
   </ul>
   <!-- END X-NAVIGATION -->
 </div>

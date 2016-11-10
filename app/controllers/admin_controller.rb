@@ -28,7 +28,7 @@ class AdminController < ApplicationController
 
 	def feedback_deliver
 		message = params[:feedback_message]
-		Mailer.mail_feedback(message).deliver_now
+		Mailer.mail_feedback(message, @current_user).deliver_now
 		flash.now[:title] = 'Success'
 		flash.now[:notice] = 'Your message has been received. Thank you.'
 		render 'feedback'
@@ -37,10 +37,10 @@ class AdminController < ApplicationController
 	def issue_deliver
 		message = params[:issue_message]
 		url = params[:issue_url]
-		Mailer.mail_issue(message, url).deliver_now
+		Mailer.mail_issue(message, url, @current_user).deliver_now
 		flash.now[:title] = 'Success'
 		flash.now[:notice] = 'Your message has been received. Thank you.'
-		render 'report'
+		render 'issue'
 	end
 	
 end

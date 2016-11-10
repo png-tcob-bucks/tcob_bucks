@@ -55,6 +55,11 @@ class BucksController < ApplicationController
 			valid_buck = false
 		end
 
+		if @buck.employee_id == @current_user.IDnum
+			@buck.errors.add(:reason_short, "You cannot issue bucks to yourself")
+			valid_buck = false
+		end
+
 		if (@buck.reason_short == 'Customer Service' || @buck.reason_short == 'Other') && @buck.reason_long == ''
 			@buck.errors.add(:reason_long, "Must provide a reason for issuing buck if issuing for Customer Service or Other")
 			valid_buck = false
@@ -132,9 +137,9 @@ class BucksController < ApplicationController
 		if @current_user.has_admin_access || @current_user.can_view_all
 			
 			if params[:sort] == 'employeeName'
-				@bucks = Buck.search(params[:search_number], params[:search_recipient_id], params[:search_issuer_id]).sort_by(&:get_employee_name)
+				@bucks = Buck.search(params[:search_id], params[:search_recipient_id], params[:search_issuer_id]).sort_by(&:get_employee_name)
 			else
-				@bucks = Buck.search(params[:search_number], params[:search_recipient_id], params[:search_issuer_id]).order(sort_buck_column + " " + sort_buck_direction)
+				@bucks = Buck.search(params[:search_id], params[:search_recipient_id], params[:search_issuer_id]).order(sort_buck_column + " " + sort_buck_direction)
 			end
 		else
 			flash.now[:title] = 'Error'

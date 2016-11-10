@@ -41,7 +41,7 @@ class PurchasesController < ApplicationController
 							end
 							flash[:title] = 'Success'
 							flash[:notice] = 'Item is reserved, but must be ordered by HR.'
-							redirect_to controller: :prizes, action: :show, id: @prize.id
+							redirect_to controller: :prizes, action: :orders_personal
 						end
 					end
 				else
@@ -87,7 +87,7 @@ class PurchasesController < ApplicationController
 	def finish
 		if @current_user.can_manage_inventory
 			@employee = Employee.find(params[:id])
-			@prizes = Prize.select("prizes.*, prize_subcats.*").where(available: true).joins(:prize_subcats).subsearch(params[:name], params[:size], params[:color])
+			@prizes = Prize.select("prizes.*, prize_subcats.*").where(available: true).joins(:prize_subcats).subsearch(params[:name], params[:size], params[:color], params[:brand])
 		else
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to manage store transactions.'

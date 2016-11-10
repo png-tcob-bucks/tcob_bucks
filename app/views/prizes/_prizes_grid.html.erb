@@ -1,10 +1,7 @@
 <% if @prizes.blank? %>
 	<p>None</p>
 <% else %>
-	<% @prizes.each_with_index do |p, i| 
-      if i % 4 %>
-        <div class="row row-white">
-      <% end %>
+	<% @prizes.each_with_index do |p, i| %>
           <div class="col-md-3">
             <div class="panel panel-default">
               <div class="panel-body">
@@ -32,9 +29,8 @@
                 </div>
             </div>
           </div>
-      <% if i % 4 %>
         </div>
-      <% end %>
+
 	<% end %>
 <% end %>
 

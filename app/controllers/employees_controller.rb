@@ -21,9 +21,16 @@ class EmployeesController < ApplicationController
 			@department = Department.find(@employee.department_id)
 			@department_budget = @department.get_budget_overall
 			@budget_per_employee = @department.get_budget_per_employee
-			@month = params[:month] if !params[:month].blank?
-			@year = params[:year] if !params[:year].blank?
-
+			if params[:month].blank?
+				@month = Time.now.strftime("%B") 
+			else
+				@month = params[:month] 
+			end
+			if params[:year].blank?
+				@year = Time.now.strftime("%Y")
+			else
+				@year = params[:year]
+			end
 		else 
 			flash[:title] = 'Error'
 			flash[:notice] = 'You do not have permission to view analytics of that employee. Must be of same department or have administrator access.'

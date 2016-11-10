@@ -18,18 +18,17 @@ class Prize < ActiveRecord::Base
   end
 
   def self.search_store(name, category)
-    if name
-      where('name LIKE ?
-        AND category LIKE ?', "%#{name}%", "%#{category}%")
-      .where(available: true)
+    if name || category
+      where('name LIKE ?', "%#{name}%")
+      .where(category: category, available: true)
     else
       where(available: true)
     end
   end
 
   def self.subsearch(name, size, color, brand)
-    if name || size || color 
-      .where('name LIKE ?
+    if name || size || color || brand
+      where('name LIKE ?
         AND size LIKE ?
         AND color LIKE ?
         AND brand LIKE ?', "%#{name}%", "%#{size}%", "%#{color}%", "%#{brand}%")

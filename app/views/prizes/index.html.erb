@@ -16,8 +16,28 @@
 <!-- PAGE CONTENT WRAPPER -->
 <div class="page-content-wrap">
 
-  <div class="content-frame">
-    <div class="content-frame-right" style="height: 578px;">
+  <div class="row">
+
+    <div class="col-md-9">
+      <div class="panel panel-default panel-body">
+        <div class = "shop_banner">
+          <img src="/images/bucks_shop_logo.png" class = "shop-banner-logo">
+        </div>
+
+
+
+        <div class = "featured-wrapper">
+          <h1>Spotlight Prizes</h1>
+          <%= render 'prizes_featured' %>
+
+        </div>
+
+        <h1>Available Prizes</h1>
+          <%= render 'prizes_grid' %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Filter</h3><ul class="list-tags">
@@ -31,7 +51,6 @@
         <div class="panel-body">
         <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
           <%= text_field_tag :name, params[:name], class: 'form-control', placeholder: 'Name' %><br/>
-          <%= hidden_field 'prize', 'category' %>
           <%= select_tag :color, options_for_select([
             [],
             ['Black'],
@@ -84,32 +103,10 @@
       </div>
     </div>
 
-    <div class="content-frame-body content-frame-body-left" style="height: 638px;">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="panel panel-default panel-body">
-            <div class = "shop_banner">
-              <img src="/images/bucks_shop_logo.png" class = "shop-banner-logo">
-            </div>
-
-
-
-            <div class = "featured-wrapper">
-              <h1>Spotlight Prizes</h1>
-              <%= render 'prizes_featured' %>
-
-            </div>
-
-            <h1>Available Prizes</h1>
-            <div class = "table-wrapper">
-              <%= render 'prizes_grid' %>
-            </div>
-          </div>
-        </div>
-      </div>
+    
     </div>
   </div>
-    
-</div>          
+</div>
+        
 
 
