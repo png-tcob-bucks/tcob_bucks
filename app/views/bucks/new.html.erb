@@ -1,50 +1,80 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
+<%= javascript_include_tag "bucks_new.js" %>
 
-      <%= javascript_include_tag "bucks_new.js" %>
+<% if flash[:notice] %>
+  <div class="alert alert-danger">
+  <% flash[:notice].each do | k, m |
+    flash[:notice][k].each do | e | %>
+      <%= e %><br>
+    <% end
+  end %>
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+  </div>
+<% end %>
 
-      <h2>Issue Buck</h2>
-      <% if flash[:notice] %>
-        <div class="notice-error">
-        <% flash[:notice].each do | k, m |
-          flash[:notice][k].each do | e | %>
-            <%= e %><br>
-          <% end
-        end %>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>  
+    <li><a href="/bucks">Bucks</a></li>
+    <li>New</li>                  
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-plus-circle"></span> Issue Buck</h2>
+</div>
+<!-- END TITLE -->
+
+<div class="page-content-wrap">
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
+              <div class="col-md-3">
+                <%= text_field_tag :search_id, params[:search_id], placeholder: "ID", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: "First Name", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: "Last Name", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= submit_tag 'Search', class: 'btn btn-primary' %>
+              </div> 
+            <% end %>
+          </div>
         </div>
-      <% end %>
-
-      <div class = "table-search-input" id = "table_search_input_employee">
-        <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
-          <%= text_field_tag :search_id, params[:search_id], placeholder: 'ID' %>
-          <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: 'First Name' %>
-          <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: 'Last Name' %>
-          <%= submit_tag 'Search', id: 'search_employee_button' %>
-        <% end %>
       </div>
+    </div>
+  </div>
 
-      <div class = "sub-container">
-        <div class = "form-container">
+  <%= form_tag :action => 'create' do %>
 
-          <h2>Employee (select below)</h2>
-
-          <%= form_tag :action => 'create' do %>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3>Employee (select below)</h3>
 
           <p><label for = "buck_employee_id">ID Number</label>:
-          <%= text_field 'buck', 'employee_id', :readonly => true %></p>
+          <%= text_field 'buck', 'employee_id', :readonly => true, class: 'form-control' %></p>
 
           <p><label for = "buck_first_name">First Name</label>:
-          <%= text_field 'employee', 'first_name', :readonly => true %></p>
+          <%= text_field 'employee', 'first_name', :readonly => true, class: 'form-control' %></p>
 
           <p><label for = "buck_last_name">Last Name</label>:
-          <%= text_field 'employee', 'last_name', :readonly => true %></p>
-
+          <%= text_field 'employee', 'last_name', :readonly => true, class: 'form-control' %></p>
         </div>
-
-        <div class = "form-container">
-
-          <h2>Buck Information</h2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3>Buck Information</h3>
 
             <% if @current_user.can_issue_gold_bucks %>
               <p><label for = "buck_reason_short">Earned for</label>:
@@ -55,7 +85,7 @@
               ['Community Involvement'],
               ['Customer Service'],
               ['Shift Coverage'],
-              ['Other']]), :onchange => 'updateBuckValue(this)' %></p>
+              ['Other']]), :onchange => 'updateBuckValue(this)', class: 'form-control' %></p>
             <% else %>
               <p><label for = "buck_reason_short">Earned for</label>:
               <%= select_tag 'buck[reason_short]', options_for_select([
@@ -64,49 +94,50 @@
               ['Community Involvement'],
               ['Customer Service'],
               ['Shift Coverage'],
-              ['Other']]), :onchange => 'updateBuckValue(this)' %></p>
+              ['Other']]), :onchange => 'updateBuckValue(this)', class: 'form-control' %></p>
             <% end %>
 
             <p><label for = "buck_value">Buck Value</label>:
-            <%= text_field 'buck', 'value', :readonly => true  %>
+            <%= text_field 'buck', 'value', :readonly => true, class: 'form-control'  %>
 
             </p>
-
         </div>
+      </div>
+    </div>
+    <div class="col-md-3" id='reason_long_holder' style="display: none;">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3 for = "buck_reason_long">Reason Earned</h3>
+          <p><a class = "list-expand" onclick="toggle_reasons();" id = "toggle_reasons">+Common Reasons</a></p>
 
-        <div class = "form-container" id="reason_long_holder">
+          <%= text_area_tag 'buck[reason_long]', nil, size: "32x6", id: 'reason_long', onkeyup: "updateLength()", class: 'form-control' %>
 
-          <h2 for = "buck_reason_long">Reason Earned:  <a class = "list-expand" onclick="toggle_reasons();" id = "toggle_reasons">+Common Reasons</a></h2>
-
-          <%= text_area_tag 'buck[reason_long]', nil, size: "32x6", id: 'reason_long', onkeyup: "updateLength()" %>
-
-          <div class = "form-list" id = 'reason_long_options'>
-            <ul class = "form-list">
-              <li onclick="updateReasonValue(this);">Preventing or identifying a VEP on property</li>
-              <li onclick="updateReasonValue(this);">Notifying proper personnel or taking care of a safety issue</li>
-              <li onclick="updateReasonValue(this);">Detecting theft on property</li>
-              <li onclick="updateReasonValue(this);">Identifying a minor on property</li>
-              <li onclick="updateReasonValue(this);">Identifying a fake ID being used</li>
-              <li onclick="updateReasonValue(this);">Detecting counterfeit money</li>
+          <div id = 'reason_long_options' style="display: none;">
+            <ul class = "list-group border-bottom">
+              <li class="list-group-item" onclick="updateReasonValue(this);">Preventing or identifying a VEP on property</li>
+              <li class="list-group-item" onclick="updateReasonValue(this);">Notifying proper personnel or taking care of a safety issue</li>
+              <li class="list-group-item" onclick="updateReasonValue(this);">Detecting theft on property</li>
+              <li class="list-group-item" onclick="updateReasonValue(this);">Identifying a minor on property</li>
+              <li class="list-group-item" onclick="updateReasonValue(this);">Identifying a fake ID being used</li>
+              <li class="list-group-item" onclick="updateReasonValue(this);">Detecting counterfeit money</li>
             </ul>
           </div>
 
           <p class = "form-note" id = "text_length">0/250 characters max</p>
-
         </div>
-
-        <div class = "form-container">
-          <%= submit_tag 'Submit', :class => 'large' %>
-        </div>
-
-        <% end -%>
       </div>
+    </div>
+    <div class="col-md-3">
+      <%= submit_tag 'Submit', class: 'btn btn-primary btn-xxl' %>
+    </div>
+  </div>
 
-      <div class = "table-wrapper">
-        <div id = "employees_table">
-
+  <% end -%>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body" id='employees_table'>
           <%= render 'employees/employees_small' %>
-
         </div>
       </div>
     </div>

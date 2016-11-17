@@ -1,27 +1,59 @@
+<!-- START FLASH -->                     
 <% if flash[:title] == "Error" %>
-	<div class="notice-error"><%= flash[:notice] %></div>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
 <% elsif flash[:title] == "Success" %>
-	<div class="notice-success"><%= flash[:notice] %></div>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
 <% end %>
+<!-- END FLASH -->
 
-<h1>Administrator: Manage Department Monthly Budget</h1>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>  
+    <li>Departments</li>
+    <li>Manage</li>             
+</ul>
+<!-- END BREADCRUMB -->  
 
-<%= form_tag :action => 'update_dept_budgets' do %>
-	<table class = 'table-list'>
-		<tr class = "tr-list-head" >
-			<td class = "td-list">Department</td>
-			<td class = "td-list">Code</td>
-			<td class = "td-list">Budget</td>
-		</tr>
-		<% @departments.each do |d|  %>
-		<tr class = "tr-list">
-		<%= hidden_field_tag 'deparment_ids[]', d.id %>
-			<td class = "td-list"> <%= d.name %> </td>
-			<td class = "td-list"> <%= d.code %> </td>
-			<td class = "td-list"> <%= text_field_tag 'department_values[]', d.budget, class: 'text-condensed' %></td>
-		</tr>
-		<% end %>
-	</table>
-<% end -%>
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-building"></span> Administrator: Manage Department Monthly Budget</h2>
+</div>
+<!-- END TITLE -->
 
-<%= submit_tag 'Submit' %>
+<div class="page-content-wrap">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default panel-body">
+        	<%= form_tag :action => 'update' do %>
+        	<div class="table-responsive">
+		        <table class = 'table table-striped'>
+		          <thead>
+		            <th>Department</th>
+		            <th>Budget</th>
+		            <th>Approver 1</th>
+		            <th></th>
+		            <th>Approver 2</th>
+		            <th></th>
+		          </thead>
+		          <tbody>
+			          <% @departments.each do |d|  %>
+			          <tr>
+			          <%= hidden_field_tag 'department_ids[]', d.id %>
+			            <td> <%= d.name %> </td>
+			            <td> <%= text_field_tag 'department_values[]', d.budget, class: 'text-condensed' %></td>
+			            <td> <%= Job.find(d.approve1).title if !d.approve1.nil? %> </td>
+			            <td> <%= link_to 'Change', { action: :approvers, number: 1, dept: d.id } %> </td>
+			            <td> <%= Job.find(d.approve2).title if !d.approve2.nil? %> </td>
+			            <td> <%= link_to 'Change', { action: :approvers, number: 2, dept: d.id } %> </td>
+			          </tr>
+		          <% end %>
+		          </tbody>
+		        </table>
+		       </div>
+	      	<%= submit_tag 'Update Budgets', class: "btn btn-primary" %>
+        	<% end -%>
+      	</div>
+    </div>
+  </div>
+</div>

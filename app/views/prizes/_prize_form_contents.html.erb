@@ -1,11 +1,14 @@
 <p><label for = "prize_name">Item Name</label>:<br>
-<%= text_field 'prize', 'name', id: 'prize_name' %></p>
+<%= text_field 'prize', 'name', id: 'prize_name', class: 'form-control' %></p>
 
 <p><label for = "prize_cost">Cost</label>:<br>
-<%= text_field 'prize', 'cost', id: 'prize_cost' %></p>
+<%= text_field 'prize', 'cost', id: 'prize_cost', class: 'form-control' %></p>
+
+<p><label for = "prize_cost">Category</label>:<br>
+<%= select_tag 'prize[category]', options_for_select(get_categories), class: 'form-control' %>
 
 <p><label for = "prize_image">Image Path (/images/image_path.png)</label>:<br>
-<%= text_field 'prize', 'image', id: 'prize_image' %></p>
+<%= text_field 'prize', 'image', id: 'prize_image', class: 'form-control' %></p>
 
 <p><%= label_tag('must_reserve', "Must be reserved and ordered?") %>
 <%= check_box 'prize', 'must_order', {}, 'true', 'false' %></p>
@@ -16,9 +19,9 @@
 <p><label for = "prize_image">Description</label>:<br>
 
 <% if @prize.nil? %>
-	<%= text_area_tag 'prize[description]', nil, size: "32x6" %>
+	<%= text_area_tag 'prize[description]', nil, size: "32x6", class: 'form-control' %>
 <% else %>
-	<%= text_area_tag 'prize[description]', @prize.description, size: "32x6" %>
+	<%= text_area_tag 'prize[description]', @prize.description, size: "32x6", class: 'form-control' %>
 <% end %>
 
 <p class = "form-note">250 characters max</p>	

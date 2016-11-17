@@ -14,10 +14,10 @@
 
       <div class="buck-container--info-right">
               <textarea disabled class="buck-container--info-textarea ">
-                <%= @employee.first_name + " " + @employee.last_name %>
+                <%= @employee.full_name %>
               </textarea>
         <br><textarea disabled class="buck-container--info-textarea ">
-                <%= @assignedBy.first_name + " " + @assignedBy.last_name %>
+                <%= @assignedBy.full_name %>
               </textarea>
         <br><textarea disabled class="buck-container--info-textarea ">
                 <%= Department.find(@buck.department_id).name %>
@@ -26,8 +26,7 @@
                 <%= @buck.approved_at %>
               </textarea>
       </div>
-
-      <br><br><br><br><br><div class="buck-container--other-info">
+      <div class="buck-container--other-info">
       OTHER: CAN BE NO MORE THAN 10 BUCKS
       <br><textarea disabled class="buck-container--info-textarea-other ">
                          <%= @buck.reason_long %>

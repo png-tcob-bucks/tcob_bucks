@@ -49,6 +49,8 @@ config.action_mailer.smtp_settings = {
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
 
+  config.serve_static_assets = false
+
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.

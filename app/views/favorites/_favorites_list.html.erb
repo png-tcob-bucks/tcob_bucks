@@ -1,47 +1,37 @@
-
 <% if @favorites.blank? %>
-    <p>You don't have any favorite items yet! Browse through the store and set some goals!</p>
+  <p>None</p>
 <% else %>
-    <ul class = "grid-view">
-      <% @favorites.each do |f|
-        @prize = Prize.find(f.prize_id)
-        @prize_subcat = PrizeSubcat.find_by(prize_id: f.prize_id) %>
-          <li>
-            <div class="prize">
-              <div class="prize-tag">
-                <%= @prize.cost %> Bucks
-              </div>
-              <div class="prize-container">
-                <%= link_to controller: :prizes, action: :show, id: f.prize_id do%>
-                    <img src="<%= @prize.get_first_image %>" class="prize-photo">
+<% @favorites.each_with_index do |f, i|
+    @prize = Prize.find(f.prize_id)
+    @prize_subcat = PrizeSubcat.find_by(prize_id: f.prize_id) 
+    if i % 4 %>
+      <div class="row row-white">
+    <% end %>
+        <div class="col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-body">
+            <%= link_to controller: :favorites, action: :delete, prize_id: @prize.id do %>
+                    <div class="favorites-remove">
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </div>
                 <% end %>
+              <div class="prize-container" style="background-image: url('<%= @prize.get_first_image %>')">
               </div>
-
               <div class='prize-info'>
                 <%= link_to @prize.name, controller: :prizes, action: :show, id: f.prize_id %>
                 <br><%= @prize_subcat.stock %> In Stock
 
                 <br><%= @prize_subcat.size %>
                 <%= @prize_subcat.color %>
-                <%= link_to controller: :favorites, action: :delete, prize_id: @prize.id do %>
-                    <div class="favorites-remove">
-                      <span class="glyphicon glyphicon-remove"></span>
-                    </div>
-                <% end %>
-              </div>
-
-
-              <div class="progress">
-                <div class="progress-bar" role="progressbar"
-                     aria-valuemin="0" aria-valuemax="100" style="width:<%= item_progress(@prize.cost, @balance) %>%;">
+                <div class="progress progress-small progress-striped active">
+                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: <%= item_progress(@prize.cost, @balance) %>%;"><%= @balance %> / <%= @prize.cost %> Bucks</div>
                 </div>
-                <div class="progress-amount">
-                  <p><%= @balance %> / <%= @prize.cost %> Bucks</p>
-                </div>
+                
               </div>
-            </div>
-
-          </li>
-      <% end %>
-    </ul>
+          </div>
+        </div>
+    <% if i % 4 %>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>

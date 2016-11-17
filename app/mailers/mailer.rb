@@ -1,9 +1,12 @@
 class Mailer < ApplicationMailer
+	include ApplicationHelper
+	include SessionsHelper
+	include EmployeesHelper
 
 	default from: "bucks@hollywoodcasinotoledo.org"
 
-	def mail_feedback(message)
-		@from = @current_user
+	def mail_feedback(message, user)
+		@from = user.full_name
 		@message = message
 		@roles = Role.where(feedback: true)
 		@roles = @roles.map { |r| r.id }
@@ -16,7 +19,25 @@ class Mailer < ApplicationMailer
 			end
 		end
 
-		mail(to: @recipients, subject: 'Bucks Feedback')
+		mail(to: @recipients, subject: 'Feedback: ' + @from)
+	end
+
+	def mail_issue(message, url, user)
+		@from = user.full_name
+		@message = message
+		@url = url
+		@roles = Role.where(feedback: true)
+		@roles = @roles.map { |r| r.id }
+		@jobcodes = Permission.where(role_id: @roles)
+		@jobcodes = @jobcodes.map { |f| f.job_id }
+		@recipients = Array.new
+		@jobcodes.each do |f|
+			Employee.where(job_id: f).where(status: "Active").each do |e|
+				@recipients.push(e.email)
+			end
+		end
+
+		mail(to: @recipients, subject: 'Issue: ' + @from)
 	end
 
 	def notify_employee(buck, user)

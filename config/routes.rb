@@ -3,15 +3,17 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   get '/'                             => 'employees#home'
+  get 'report'                        => 'admin#issue'
+  post 'report_deliver'               => 'admin#issue_deliver'
   get 'feedback'                      => 'admin#feedback'
   post 'feedback_deliver'             => 'admin#feedback_deliver'
 
   get 'employees'                     => 'employees#index'
   get 'employees/team'                => 'employees#team'
   get 'employees/import'              => 'employees#import'
-  get 'employees/change'               => 'employees#change_password'
-  get 'employees/change/complete'      => 'employees#change_password_finish'
-  post 'employees/change/complete'      => 'employees#change_password_finish'
+  get 'employees/change'              => 'employees#change_password'
+  get 'employees/change/complete'     => 'employees#change_password_finish'
+  post 'employees/change/complete'    => 'employees#change_password_finish'
   get 'employees/:id'                 => 'employees#show', as: :employee
   get 'employees/:id/achievements'    => 'employees#achievements'
   get 'employees/analyze/:id'         => 'employees#analyze'
@@ -60,7 +62,7 @@ Rails.application.routes.draw do
 
   get 'login'                         => 'sessions#new'
   post 'login'                        => 'sessions#create'
-  delete 'logout'                     => 'sessions#destroy'
+  get 'logout'                     => 'sessions#destroy'
 
   get 'admin/depts'                   => 'departments#edit'
   post 'admin/depts'                  => 'departments#update'

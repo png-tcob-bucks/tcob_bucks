@@ -1,63 +1,73 @@
+<!-- START FLASH -->                     
+<% if flash[:notice] %>
+  <div class="alert alert-danger">
+  <% flash[:notice].each do | k, m |
+    flash[:notice][k].each do | e | %>
+      <%= e %><br>
+    <% end
+  end %>
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+  </div>
+<% end %>
+<!-- END FLASH -->
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>  
+    <li>Admin</li>
+    <li><a href="/roles">Roles</a></li>
+    <li>Edit</li>
+    <li><%= @role.title %></li>            
+</ul>
+<!-- END BREADCRUMB --> 
+
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-check"></span> Administrator: Edit Role <%= @role.title %></h2>
+</div>
+<!-- END TITLE -->
+
+
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-md-4">
     <div class="panel panel-default panel-body">
-        <% if flash[:notice] %>
-          <div class="notice-error">
-          <% flash[:notice].each do | k, m |
-            flash[:notice][k].each do | e | %>
-              <%= e %><br>
-            <% end
-          end %>
-          </div>
-        <% end %>
+      <%= form_tag :action => 'update' do %>
 
-        <h1>Edit Role: <%= @role.title %></h1>
-
-        <div class = "table-wrapper">
-          <div class = "form-container">
-            <%= form_tag :action => 'update' do %>
-
-              <p><label for = "title">Title</label>:<br>
-              <%= text_field 'role', 'title', value: @role.title %></p>
-                <p><%= label_tag('access', "Overall Access: ") %>
-                  <%= check_box 'role', 'access', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('issue', "Issue Bucks: ") %>
-                  <%= check_box 'role', 'issue', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('recieve', "Earn Bucks: ") %>
-                  <%= check_box 'role', 'recieve', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('approve', "Approve Bucks: ") %>
-                  <%= check_box 'role', 'approve', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('redeem', "Redeem Bucks: ") %>
-                  <%= check_box 'role', 'redeem', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('issue_gold', "Issue Gold 100% Bucks: ") %>
-                  <%= check_box 'role', 'issue_gold', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('inventory', "Manage Inventory: ") %>
-                  <%= check_box 'role', 'inventory', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('feedback', "Receive Feedback: ") %>
-                  <%= check_box 'role', 'feedback', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('view_dept', "View Department: ") %>
-                  <%= check_box 'role', 'view_dept', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('view_all', "View All: ") %>
-                  <%= check_box 'role', 'view_all', {}, 'true', 'false' %><br>
-                </p>
-                <p><%= label_tag('admin', "Administrator: ") %>
-                  <%= check_box 'role', 'admin', {}, 'true', 'false' %><br>
-                </p>
-              <br>
-              <%= submit_tag 'Submit' %>
-            <% end -%>
-          </div>
-        </div>
-        <a href="/roles"><div class = "button-div">Cancel</div></a>
+        <p><label for = "title">Title</label>:<br>
+        <%= text_field 'role', 'title', class: 'form-control' %></p>
+          <p><%= label_tag('access', "Overall Access: ") %>
+            <%= check_box 'role', 'access', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('issue', "Issue Bucks: ") %>
+            <%= check_box 'role', 'issue', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('recieve', "Earn Bucks: ") %>
+            <%= check_box 'role', 'recieve', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('approve', "Approve Bucks: ") %>
+            <%= check_box 'role', 'approve', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('redeem', "Redeem Bucks: ") %>
+            <%= check_box 'role', 'redeem', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('issue_gold', "Issue Gold 100% Bucks: ") %>
+            <%= check_box 'role', 'issue_gold', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('inventory', "Manage Inventory: ") %>
+            <%= check_box 'role', 'inventory', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('view_dept', "View Department: ") %>
+            <%= check_box 'role', 'view_dept', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('view_all', "View All: ") %>
+            <%= check_box 'role', 'view_all', {}, 'true', 'false' %><br>
+          </p>
+          <p><%= label_tag('admin', "Administrator: ") %>
+            <%= check_box 'role', 'admin', {}, 'true', 'false' %><br>
+          </p>
+        <br>
+        <%= submit_tag 'Submit', class: "btn btn-primary" %><a href="/roles"><div class = "btn btn-primary push-left-10">Cancel</div></a>
+      <% end -%>
     </div>
   </div>
 </div>

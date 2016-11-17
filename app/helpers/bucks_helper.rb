@@ -28,11 +28,11 @@ module BucksHelper
 
 	def p_class_for_budget(used, budget)
 		if used <= budget
-			return 'text-green'
+			return 'text-success'
 		elsif used > budget && used < ((budget * 0.15) + budget)
-			return 'text-yellow'
+			return 'text-warning'
 		else
-			return 'text-red'
+			return 'text-danger'
 		end
 	end
 

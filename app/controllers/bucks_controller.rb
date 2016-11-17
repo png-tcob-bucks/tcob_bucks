@@ -55,6 +55,11 @@ class BucksController < ApplicationController
 			valid_buck = false
 		end
 
+		if @buck.employee_id == @current_user.IDnum
+			@buck.errors.add(:reason_short, "You cannot issue bucks to yourself")
+			valid_buck = false
+		end
+
 		if (@buck.reason_short == 'Customer Service' || @buck.reason_short == 'Other') && @buck.reason_long == ''
 			@buck.errors.add(:reason_long, "Must provide a reason for issuing buck if issuing for Customer Service or Other")
 			valid_buck = false
@@ -132,31 +137,14 @@ class BucksController < ApplicationController
 		if @current_user.has_admin_access || @current_user.can_view_all
 			
 			if params[:sort] == 'employeeName'
-				@bucks = Buck.search(params[:search_number], params[:search_recipient_id], params[:search_issuer_id]).sort_by(&:get_employee_name)
+				@bucks = Buck.search(params[:search_id], params[:search_recipient_id], params[:search_issuer_id]).sort_by(&:get_employee_name)
 			else
-				@bucks = Buck.search(params[:search_number], params[:search_recipient_id], params[:search_issuer_id]).order(sort_buck_column + " " + sort_buck_direction)
+				@bucks = Buck.search(params[:search_id], params[:search_recipient_id], params[:search_issuer_id]).order(sort_buck_column + " " + sort_buck_direction)
 			end
 		else
 			flash.now[:title] = 'Error'
 			flash.now[:notice] = 'You do not have permission to view all bucks.'
 			render 'index'
-		end
-	end
-
-	def issued
-		@department = Department.find(@current_user.department_id)
-		@department_budget = @department.get_budget_overall
-		@budget_per_employee = @department.get_budget_per_employee
-
-		if params[:show] == 'you'
-			@show = 'you'
-			if !Buck.where(assignedBy: @current_user.id).blank?
-				@bucks = Buck.where('extract(month from approved_at) = ?', Time.now.strftime("%m")).where(assignedBy: @current_user.id).order(sort_buck_column + " " + sort_buck_direction)
-			end
-		elsif params[:show] == 'department'
-			@show = 'department'
-			@bucks = Buck.where('extract(month from approved_at) = ?', Time.now.strftime("%m"))
-			@bucks = @bucks.select { |b| Employee.find(b.assignedBy).department_id == @current_user.department_id }
 		end
 	end
 

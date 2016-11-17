@@ -1,7 +1,13 @@
-<% @jobs.each do |j|  %>
-<tr class = "tr-small">
-	<td class = "td-small"> <%= j.jobcode %> </td>
-	<td class = "td-small"> <%= j.title %> </td>
-	<td class = "td-small"><%= link_to 'Select', { controller: :departments, action: :approver_add, number: @number, jobcode: j.jobcode, dept: @dept.id }, class: "button-green", style: 'color: white' %> </td>
-	</tr>
-<% end %>
+<div class="table-responsive">
+<table class = 'table table-striped table-condensed'>
+  <tbody>
+    <% @jobs.each do |j|  %>
+    <tr>
+      <td> <%= j.jobcode %> </td>
+      <td> <%= j.title %> </td>
+      <td> <%= link_to 'Select', { controller: :departments, action: :approver_add, number: @number, jobcode: j.jobcode, dept: @dept.id }, class: "btn btn-success" %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>

@@ -1,15 +1,39 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-        <div class = "split_2">
-        <h2>Assign Job Codes to <%= @role.title %></h2>
-          <div class = "table-wrapper-compact">
-              <table class = "table-compact" id = "tables_roles_added">
-                <%= render 'assigned_list' %>
-              </table>
-          </div>
-        </div>
-        <a href="/roles"><div class = "button-div">Finish</div></a>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>  
+    <li>Admin</li>
+    <li><a href="/roles">Roles</a></li> 
+    <li>Assign</li> 
+    <li><%= @role.title %></li>           
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-check"></span> Assign Job Codes to <%= @role.title %></h2>
+</div>
+<!-- END TITLE -->
+
+<div class="page-content-wrap">
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default panel-body y-max-500"  id="tables_roles_added">
+        <%= render 'assigned_list' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+    <a href="/roles"><button class = "btn btn-primary pull-right">Finish</button></a>
     </div>
   </div>
 </div>

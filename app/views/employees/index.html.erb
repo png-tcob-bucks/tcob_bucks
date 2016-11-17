@@ -1,28 +1,58 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-        <% if flash[:title] == "Error" %>
-          <div class="notice-error"><%= flash[:notice] %></div>
-        <% elsif flash[:title] == "Success" %>
-          <div class="notice-success"><%= flash[:notice] %></div>
-        <% end %>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
 
-        <h1>All Employees</h1>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>  
+    <li><a href="/employees">Employees</a></li>             
+</ul>
+<!-- END BREADCRUMB -->  
 
-        <div class = "table-search-input" id = "table_search_input_employee">
-          <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
-            <%= text_field_tag :search_id, params[:search_id], placeholder: 'ID' %>
-            <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: 'First Name' %>
-            <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: 'Last Name' %>
-            <%= submit_tag 'Search', id: 'search_employee_button' %>
-          <% end %>
-        </div>
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-male"></span> All Employees</h2>
+</div>
+<!-- END TITLE -->
 
-        <div class = "table-wrapper">
-          <div id = "employees_table">
-            <%= render 'employees_route_detail' %>
+<div class="page-content-wrap">
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= form_tag (''), :method => 'get', :id => 'employee_search' do %>
+              <div class="col-md-3">
+                <%= text_field_tag :search_id, params[:search_id], placeholder: "ID", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= text_field_tag :search_first_name, params[:search_first_name], placeholder: "First Name", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= text_field_tag :search_last_name, params[:search_last_name], placeholder: "Last Name", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= submit_tag 'Search', id: 'search_employee_button', class: 'btn btn-primary' %>
+              </div> 
+            <% end %>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default panel-body">
+        <div id = "employees_table">
+          <%= render 'employees_route_detail' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

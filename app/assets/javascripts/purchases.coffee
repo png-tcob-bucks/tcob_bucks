@@ -7,12 +7,12 @@ disableConfirm = undefined
 enableConfirm = undefined
 
 disableConfirm = -> 
-  $('#purchase_confirm_button').attr('class', 'large-stop')
+  $('#purchase_confirm_button').attr('class', 'btn btn-danger btn-xxl')
   $('#purchase_confirm_button').attr("disabled", true)
   return
 
 enableConfirm = -> 
-  $('#purchase_confirm_button').attr('class', 'large-go')
+  $('#purchase_confirm_button').attr('class', 'btn btn-success btn-xxl')
   $('#purchase_confirm_button').attr("disabled", false)
   return
 

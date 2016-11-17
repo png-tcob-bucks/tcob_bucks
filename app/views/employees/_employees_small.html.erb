@@ -1,25 +1,28 @@
 <% if @employees.blank? %>
 	<p>Search for an employee using the given fields.</p>
 <% else %>
-	<table class = "table-list">
-		<tr class = "tr-list-head">
-			<td class = "td-list">Employee #</td>
-			<td class = "td-list">First Name</td>
-			<td class = "td-list">Last Name</td>
-			<td class = "td-list">Department</td>
-		</tr>
-	</table>
-	<div class = "content">
-		<table class = "table-list" id = "table-bucks-employeeslist">
-			<% @employees.each do |e| 
-			@dept = Department.find(e.department_id) %>
-			<tr class = "tr-list">
-				<td class = "td-list"> <%= e.id %> </td>
-				<td class = "td-list"> <%= e.first_name %> </td>
-				<td class = "td-list"> <%= e.last_name %> </td>
-				<td class = "td-list"> <%= @dept.name %> </td>
-			</tr>
-			<% end %>
+	<div class="table-responsive">
+		<table class = "table table-striped table-clickable" id='table-bucks-employee-list'>
+			<thead>
+				<tr>
+					<th>Employee #</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Department</th>
+				</tr>
+			</thead>
+			<tbody class="tbody-height">
+				<% @employees.each do |e| 
+				@dept = Department.find(e.department_id) %>
+				<tr>
+					<td> <%= e.id %> </td>
+					<td> <%= e.first_name %> </td>
+					<td> <%= e.last_name %> </td>
+					<td> <%= @dept.name %> </td>
+				</tr>
+				<% end %>
+			</tbody>
 		</table>
+		</div>
 	</div>
 <% end %>

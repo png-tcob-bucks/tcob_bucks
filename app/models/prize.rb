@@ -17,23 +17,22 @@ class Prize < ActiveRecord::Base
     end
   end
 
-  def self.search_store(id, size, color, brand)
-    if size || color || brand 
-      where('id LIKE ?
-        AND size LIKE ?
-        AND color LIKE ?
-        AND brand LIKE ?', "%#{id}%", "%#{size}%", "%#{color}%", "%#{brand}%")
-      .where(available: available)
+  def self.search_store(name, category)
+    if name || category
+      where('name LIKE ?', "%#{name}%")
+      .where(category: category, available: true)
     else
-      Prize.all
+      where(available: true)
     end
   end
 
-  def self.subsearch(name, size, color)
-    if name || size || color 
+  def self.subsearch(name, size, color, brand)
+    if name || size || color || brand
       where('name LIKE ?
         AND size LIKE ?
-        AND color LIKE ?', "%#{name}%", "%#{size}%", "%#{color}%")
+        AND color LIKE ?
+        AND brand LIKE ?', "%#{name}%", "%#{size}%", "%#{color}%", "%#{brand}%")
+      .where(available: true)
     else
       Prize.select("prizes.*, prize_subcats.*").where(available: true).joins(:prize_subcats)
     end

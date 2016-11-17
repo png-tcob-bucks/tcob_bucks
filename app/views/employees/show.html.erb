@@ -1,93 +1,150 @@
+<!-- START FLASH -->                     
 <% if flash[:title] == "Error" %>
-    <div class="notice-error"><%= flash[:notice] %></div>
+<div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
 <% elsif flash[:title] == "Success" %>
-    <div class="notice-success"><%= flash[:notice] %></div>
+<div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
 <% end %>
+<!-- END FLASH -->
 
-<div class="row">
-  <div class="col-sm-4">
-    <div class="panel panel-default panel-body profile-info">
-      <%= image_tag get_profile_picture(@employee.IDnum), class: "profile-image" %>
-      <h1><%= @employee.first_name + " " + @employee.last_name%></h1>
-      <%= "#" + @employee.id.to_s %>
-          <br><%= Department.find(@employee.department_id).name %>
-          <br><%= Job.find(@employee.job_id).title %>
-          <% if @current_user.has_admin_access %>
-              <br>Roles:<% Permission.where(job_id: @employee.job_id).each do |p| %>
-                <%= Role.find(p.role_id).title %>
-            <% end %>
-          <% end %>
-        <br><br>
-        <center>
-        <div class="profile-Bucks-box ">
-          <h1><%= @employee.get_bucks_balance %></h1>
-          <p>Bucks</p>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/employees">Employees</a></li>
+  <li>Profile</li>
+  <li><%= @employee.full_name %></li>               
+</ul>
+<!-- END BREADCRUMB -->  
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+ <div class="page-content-wrap">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title"><span class="fa fa-user"></span> <%= @employee.first_name + " " + @employee.last_name %></h1>
         </div>
-        </center>
-    </div>
-  </div>
-  <div class="col-sm-8">
-      <div class="panel-default">
-        <div class="panel-heading">Achievements</div>
-        <div class="panel panel-body">Coming soon!</div>
-      </div>
-      <div class="panel-default">
-          <div class="panel-heading">Bucks Earned</div>
-          <div class="panel panel-body">
-            <center>
-            <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Attendance').count %></h1>
-              <p>Attendance <br> Bucks</p>
-            </div>
-            <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Community Involvement').count %>
-              </h1>
-              <p>Community Involvement Bucks</p>
-            </div>
-            <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Customer Service').count %>
-              </h1>
-              <p>Customer Service Bucks</p>
-            </div>
-            <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Shift Coverage').count %>
-              </h1>
-              <p>Shift Coverage Bucks</p>
-            </div>
-            <div class="profile-earned-bucks">
-              <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'Other').count %>
-              </h1>
-              <p>Other <br>Bucks</p>
-            </div>
-              <div class="profile-earned-bucks">
-                <h1><%= Buck.where(employee_id: @employee.id).where(reason_short: 'A+ Service').count %>
-                </h1>
-                <p>100% Service <br>Bucks</p>
-              </div>
-            </center>
+        <div class="panel-body">
+          <center><p><%= Job.find(@employee.job_id).title %></p></center>
+          <div class="text-center" id="user_image">
+            <%= image_tag get_profile_picture(@employee.IDnum), class: "img-thumbnail" %>
           </div>
+          <div class="panel panel-default form-horizontal">
+            <div class="panel-body form-group-separated">                                    
+              <div class="form-group">
+                <label class="col-md-4 col-xs-5 control-label">ID#</label>
+                <div class="col-md-8 col-xs-7 line-height-30"><%= "#" + @employee.id.to_s %></div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 col-xs-5 control-label">Department</label>
+                <div class="col-md-8 col-xs-7 line-height-30"><%= Department.find(@employee.department_id).name %></div>
+              </div>
+              <% if @current_user.has_admin_access %>
+              <div class="form-group">
+                <label class="col-md-4 col-xs-5 control-label">Roles</label>
+                <div class="col-md-8 col-xs-7">
+                  <% Permission.where(job_id: @employee.job_id).each do |p| %>
+                  <%= Role.find(p.role_id).title %><br>
+                  <% end %>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <!-- <button class="btn btn-default btn-block">Possible Button</button> -->
+        </div>
       </div>
-      <div class="panel-default">
-        <div class="panel-heading">Prizes Earned</div>
-        <div class="panel panel-body purchase-list-wrapper">
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Achievements (Coming Soon)</h3>
+        </div>
+        <div class="panel-body ">
+          <ul class="achievement-list">
+            <li><img src="/images/trophy-grey.png"/></li>
+            <li><img src="/images/trophy-gold-star.png"/></li>
+            <li><img src="/images/trophy-purple.png"/></li>
+            <li><img src="/images/medal-shop.png"/></li>
+            <li><img src="/images/medal_rafael.png"/></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-2">                        
+        <div class="tile tile-purple-default">
+          <%= @bucks_nonvoid.where(reason_short: 'Attendance').count %>
+          <p>Attendance</p>                            
+        </div>                        
+      </div>
+      <div class="col-md-2">                        
+        <div class="tile tile-purple-default">
+          <%= @bucks_nonvoid.where(reason_short: 'Community Involvement').count %>
+          <p>Community Involvement</p>                            
+        </div>                        
+      </div>
+      <div class="col-md-2">                        
+        <div class="tile tile-purple-default">
+          <%= @bucks_nonvoid.where(reason_short: 'Customer Service').count %>
+          <p>Customer Service</p>                            
+        </div>                        
+      </div>
+      <div class="col-md-2">                        
+        <div class="tile tile-purple-default">
+          <%= @bucks_nonvoid.where(reason_short: 'Shift Coverage').count %>
+          <p>Shift Coverage</p>                            
+        </div>                        
+      </div>
+      <div class="col-md-2">                        
+        <div class="tile tile-purple-default">
+          <%= @bucks_nonvoid.where(reason_short: 'Other').count %>
+          <p>Other</p>                            
+        </div>                        
+      </div>
+      <div class="col-md-2">                        
+        <div class="tile tile-gold">
+        <img src="/images/sparkle.png" class="sparkle" />
+          <%= @bucks_nonvoid.where(reason_short: 'A+ Service').count %>
+          <p>100% Shop</p>                            
+        </div>                        
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Purchases</h3>
+        </div>
+        <div class="panel-body purchase-list-wrapper">
           <div class="purchase-list">
             <%= render 'purchases/purchases_line' %>
           </div>
         </div>
       </div>
-    </div>
 
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">Available to Spend</div>
-      <div class="panel-body">
-            <%= render 'bucks/bucks_route_detail' %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Bucks Available to spend</h3>
+        </div>
+        <div class="panel-body">
+          <%= @bucks = @bucks_nonvoid.where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
+          render 'bucks/bucks_route_detail' %>
+        </div>
       </div>
+
     </div>
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= @bucks = @bucks_nonvoid.where(status: ['Active','Partial']).order(sort_buck_column + " " + sort_buck_direction)
+            render 'bucks/bucks_route_detail' %>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </div>
+
+
 </div>
 

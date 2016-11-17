@@ -1,5 +1,18 @@
 module PrizesHelper
 
+	def get_categories
+		categories = ["Accessories",
+		"Apparel",
+		"Appliances",
+		"Decorative",
+		"Electronics",
+		"Hollywood Perks",
+		"Miscellaneous",
+		"Tickets"]
+
+		return categories
+	end
+
 	def get_color_code(color)
 		case color
 		when "Black"

@@ -1,92 +1,108 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
-        <% if flash[:title] == "Error" %>
-          <div class="notice-error"><%= flash[:notice] %></div>
-        <% elsif flash[:title] == "Success" %>
-          <div class="notice-success"><%= flash[:notice] %></div>
-        <% end %>
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
 
-        <h1>Select Prize and Confirm Purchase</h1>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/prizes">Store</a></li>
+    <li><a href="/purchase/start_purchase">Purchase</a></li> 
+    <li><a href="/employees/<%= @employee.IDnum %>"><%= @employee.full_name %></a></li>
+    <li>Select Item</li>      
+</ul>
+<!-- END BREADCRUMB -->
 
-        <div class = "sub-container">
-          <div class = "form-container">
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-plus-circle"></span> Transaction: Select Item</h2>
+</div>
+<!-- END TITLE -->
 
-            <h2>Employee (select below)</h2>
+<div class="page-content-wrap">
 
-            <%= form_tag :action => 'complete' do %>
+  <%= form_tag :action => 'complete' do %>
 
-            <p><label for = "purchase_id">ID Number:</label>
-            <%= text_field 'employee', 'id', :readonly => true %></p>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3>Employee (select below)</h3>
 
-            <p><label for = "purchase_first_name">First Name:</label>
-            <%= text_field 'employee', 'first_name', :readonly => true %></p>
+          <p><label for = "purchase_id">ID Number</label>:
+          <%= text_field 'employee', 'id', :readonly => true, class: 'form-control' %></p>
 
-            <p><label for = "purchase_last_name">Last Name:</label>
-            <%= text_field 'employee', 'last_name', :readonly => true %></p>
+          <p><label for = "purchase_first_name">First Name</label>:
+          <%= text_field 'employee', 'first_name', :readonly => true, class: 'form-control' %></p>
 
-          </div>
-
-          <div class = "form-container">
-
-            <h2>Prize Information</h2>
-
+          <p><label for = "purchase_last_name">Last Name</label>:
+          <%= text_field 'employee', 'last_name', :readonly => true, class: 'form-control' %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3>Prize Information</h3>
               <%= hidden_field 'prize', 'id' %>
               <%= hidden_field 'prize', 'subcat_id' %>
 
               <p><label for = "purchase_prize_name">Prize:</label>
-              <%= text_field 'prize', 'name', :readonly => true %></p>
+              <%= text_field 'prize', 'name', :readonly => true, class: 'form-control' %></p>
 
               <p><label for = "purchase_prize_cost">Cost:</label>
-              <%= text_field 'prize', 'cost', :readonly => true  %>
+              <%= text_field 'prize', 'cost', :readonly => true, class: 'form-control'  %>
 
               <p><label for = "purchase_prize_quantity">Quantity:</label>
-              <%= text_field 'prize', 'quantity', value: 1 %></p>
+              <%= text_field 'prize', 'quantity', value: 1, class: 'form-control' %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3>(continued)</h3>
 
-          </div>
-
-          <div class = "form-container">
-
-              <h2> </h2>
-
-              <div id = 'purchase_prize_types'>
               <p><label for = "purchase_prize_size">Size:</label>
-              <%= text_field 'prize', 'size', :readonly => true  %></p>
+              <%= text_field 'prize', 'size', :readonly => true, class: 'form-control'  %></p>
 
               <p><label for = "purchase_prize_color">Color:</label>
-              <%= text_field 'prize', 'color', :readonly => true  %></p>
+              <%= text_field 'prize', 'color', :readonly => true, class: 'form-control'  %></p>
 
               <p><label for = "purchase_prize_brand">Brand:</label>
-              <%= text_field 'prize', 'brand', :readonly => true %></p>
-
-              </div>
-
-          </div>
-
-          <div class = "form-container">
-
-            <h2 for = "buck_reason_long"><%= @employee.first_name %>'s Balance</h2>
-
-            <div id = "balance-holder">
-              <%= @employee.get_bucks_balance %>
-            </div>
-
-            <div id = "order_notice" class = "notice-warning-hidden">Item will need ordering.</div>
-
-          </div>
-
-          <div class = "form-container">
-            <%= submit_tag 'Confirm', :id => 'purchase_confirm_button', :class => "large-disabled", :disabled => true %>
-          </div>
-
-          <% end -%>
-
+              <%= text_field 'prize', 'brand', :readonly => true, class: 'form-control' %></p>
         </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+              <h3><%= @employee.first_name %>'s Balance:</h3>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="balance-holder" id="balance-holder">
+            <%= @employee.get_bucks_balance %>
+          </div>
+        </div>
+      </div>
+      <%= submit_tag 'Confirm', class: 'btn btn-primary btn-xxl', id: "purchase_confirm_button" %>
+    </div>
+  </div>
 
-        <div class = "table-search-input" id = "table_search_input_prize">
-          <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
-              <%= text_field_tag :name, params[:name], placeholder: 'Item Name' %>
-              <%= select_tag :color, options_for_select([
+  <%- end %>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= form_tag (''), :method => 'get', :id => 'prize_search' do %>
+              <div class="col-md-3">
+                <%= text_field_tag :name, params[:name], placeholder: 'Item Name', class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= select_tag :color, options_for_select([
                 ['Black'],
                 ['Blue'],
                 ['Brown'],
@@ -105,26 +121,34 @@
                 ['Sky Blue'],
                 ['Teal'],
                 ['White'],
-                ['Yellow']], params[:color]), include_blank: 'Color' %>
-              <%= select_tag :size, options_for_select([
+                ['Yellow']], params[:color]), include_blank: 'Color', class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= select_tag :size, options_for_select([
                 ['XS'],
                 ['S'],
                 ['M'],
                 ['L'],
                 ['XL'],
                 ['XXL'],
-                ['XXXL']], params[:size]), include_blank: 'Size' %>
-              <%= submit_tag 'Search', id: 'search_prize_button' %>
+                ['XXXL']], params[:size]), include_blank: 'Size', class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= submit_tag 'Search', id: 'search_prize_button', class: 'btn btn-primary' %>
+              </div> 
             <% end %>
-        </div>
-
-        <div class = "table-wrapper">
-          <div id = "prizes_table">
-
-            <%= render 'prizes/prizes_small' %>
-
           </div>
         </div>
+      </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default panel-body">
+        <%= render 'prizes/prizes_small' %>
+      </div>
+    </div>
+  </div>
+
 </div>

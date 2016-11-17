@@ -1,29 +1,59 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel panel-default panel-body">
+<!-- START FLASH -->                     
+<% if flash[:title] == "Error" %>
+    <div class="alert alert-danger"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% elsif flash[:title] == "Success" %>
+    <div class="alert alert-success"><%= flash[:notice] %><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button></div>
+<% end %>
+<!-- END FLASH -->
 
-        <% if flash[:title] == "Error" %>
-          <div class="notice-error"><%= flash[:notice] %></div>
-        <% elsif flash[:title] == "Success" %>
-          <div class="notice-success"><%= flash[:notice] %></div>
-        <% end %>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/bucks">Bucks</a></li>
+    <li>All</li>               
+</ul>
+<!-- END BREADCRUMB --> 
 
-        <h1>All Bucks</h1>
+<!-- START TITLE -->
+<div class="page-title">                    
+    <h2><span class="fa fa-money"></span> All Bucks</h2>
+</div>
+<!-- END TITLE -->
 
-        <div class = "table-search-input" id = "table_search_input_buck">
-          <%= form_tag (''), :method => 'get', :id => 'buck_search', :params => params do %>
-            <%= text_field_tag :search_number, params[:search_number], value: params[:search_number], placeholder: 'Ticket #' %>
-            <%= text_field_tag :search_recipient_id, params[:search_recipient_id], value: params[:search_recipient_id], placeholder: 'Recipient ID' %>
-            <%= text_field_tag :search_issuer_id, params[:search_issuer_id], value: params[:search_issuer_id], placeholder: 'Issuer ID' %>
-            <%= submit_tag 'Search', id: 'buck_search_button' %>
-          <% end %>
+<div class="page-content-wrap">
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= form_tag (''), :method => 'get', :id => 'buck_search', :params => params do %>
+              <div class="col-md-3">
+                <%= text_field_tag :search_id, params[:search_id], placeholder: "ID", class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= text_field_tag :search_recipient_id, params[:search_recipient_id], value: params[:search_recipient_id], placeholder: 'Recipient ID', class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= text_field_tag :search_issuer_id, params[:search_issuer_id], value: params[:search_issuer_id], placeholder: 'Issuer ID', class: 'form-control' %>
+              </div>
+              <div class="col-md-3">
+                <%= submit_tag 'Search', id: 'buck_search_button', class: 'btn btn-primary' %>
+              </div> 
+            <% end %>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class = "table-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default panel-body">
           <div id = "bucks_table">
             <%= render 'bucks_route_detail' %>
           </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>
